@@ -15,7 +15,22 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('number', 50)->nullable();
+            $table->string('title', 150)->nullable();
+            $table->string('batch', 50)->nullable();
+            $table->string('load', 50)->nullable();
+            $table->integer('package_number')->nullable();
+            $table->double('weight', 8, 2)->nullable();
+            $table->double('volume', 7, 4)->nullable();
+            $table->string('recipient', 150)->nullable();
+            $table->string('supplier', 150)->nullable();
+            $table->string('comment', 240)->nullable();
+            $table->unsignedBigInteger('order_status_id')->nullable();
+            $table->unsignedBigInteger('shipment_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('order_status_id')->references('id')->on('order_statuses');
+            $table->foreign('shipment_id')->references('id')->on('shipments');
         });
     }
 

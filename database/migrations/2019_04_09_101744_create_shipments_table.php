@@ -15,7 +15,15 @@ class CreateShipmentsTable extends Migration
     {
         Schema::create('shipments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->timestamp('document_reception')->nullable();
+            $table->timestamp('custom_control')->nullable();
+            $table->timestamp('cutoff')->nullable();
+            $table->string('container_number', 50)->nullable();
+            $table->string('comment', 240)->nullable();
+            $table->unsignedBigInteger('customer_id');
             $table->timestamps();
+
+            $table->foreign('customer_id')->references('id')->on('customers');
         });
     }
 

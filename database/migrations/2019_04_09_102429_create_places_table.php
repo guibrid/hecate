@@ -15,6 +15,10 @@ class CreatePlacesTable extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title', 150);
+            $table->string('country', 150);
+            $table->string('type', 10);
+            $table->string('abbreviation', 10)->nullable();
             $table->timestamps();
         });
     }
