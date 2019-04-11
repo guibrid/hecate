@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', 'HomeController@test')->middleware('role:user');
+
+Route::get('/orders/show/{id}', 'OrderController@show')->middleware('role:user');

@@ -8,7 +8,7 @@ class Transshipment extends Model
 {
     public function shipment()
     {
-        return $this->hasOne('App\Shipment');
+        return $this->belongsTo('App\Shipment');
     }
 
     public function origin()
