@@ -26,11 +26,13 @@ class CreateOrdersTable extends Migration
             $table->string('supplier', 150)->nullable();
             $table->string('comment', 240)->nullable();
             $table->unsignedBigInteger('shipment_id')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable();
             $table->unsignedBigInteger('customer_id');
             $table->timestamps();
 
             $table->foreign('shipment_id')->references('id')->on('shipments');
             $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 

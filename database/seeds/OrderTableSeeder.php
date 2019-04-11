@@ -28,8 +28,8 @@ class OrderTableSeeder extends Seeder
         $order->recipient  = 'Lockeed Martin';
         $order->supplier  = 'Airbus';
         $order->customer_id  = $customer_user->id;
+        $order->status_id  = $order_status->id;
         $order->save();
-        $order->statuses()->attach($order_status);
     }
 }
 
