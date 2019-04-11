@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    public function statuses()
+    public function status()
     {
-        return $this->belongsToMany('App\Status');
+        return $this->belongsTo('App\Status');
     }
     
     public function customer()

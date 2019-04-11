@@ -57,7 +57,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::with(['customer','shipment','statuses'])->where('customer.id', 1)
+        $order = Order::with(['customer','shipment','status'])->where('id', 1)
         ->first();
         $transshipments = Transshipment::where('shipment_id', $order->shipment->id)
         ->with(['origin'])
