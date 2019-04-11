@@ -20,14 +20,14 @@ class CreateTransshipmentsTable extends Migration
             $table->timestamp('arrival');
             $table->string('vessel', 50)->nullable();
             $table->string('comment', 240)->nullable();
-            $table->unsignedBigInteger('loading_place');
-            $table->unsignedBigInteger('unloading_place');
+            $table->unsignedBigInteger('origin_place');
+            $table->unsignedBigInteger('destination_place');
             $table->unsignedBigInteger('shipment_id');
             $table->unsignedBigInteger('agent_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('loading_place')->references('id')->on('places');
-            $table->foreign('unloading_place')->references('id')->on('places');
+            $table->foreign('origin_place')->references('id')->on('places');
+            $table->foreign('destination_place')->references('id')->on('places');
             $table->foreign('shipment_id')->references('id')->on('shipments');
             $table->foreign('agent_id')->references('id')->on('agents');
         });

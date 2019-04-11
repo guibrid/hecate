@@ -42,6 +42,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role');
     }
 
+    public function customer()
+    {
+        return $this->hasOne('App\Customer');
+    }
+
     /**
 
     * @param string|array $roles

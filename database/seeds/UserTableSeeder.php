@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
+use App\Customer;
 
 class UserTableSeeder extends Seeder
 {
@@ -19,10 +20,13 @@ class UserTableSeeder extends Seeder
         $role_director = Role::where('name', 'Director')->first();
         $role_admin = Role::where('name', 'Admin')->first();
 
+        $customer_user = Customer::where('name', 'Loockeed Martin')->first();
+
         $user = new User();
         $user->name = 'User Michel';
         $user->email = 'user@hecate.com';
         $user->password = bcrypt('password');
+        $user->customer_id = $customer_user->id;
         $user->save();
         $user->roles()->attach($role_user);
 
