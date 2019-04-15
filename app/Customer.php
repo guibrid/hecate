@@ -16,8 +16,4 @@ class Customer extends Model
         return $this->hasMany('App\User');
     }
 
-    public function shipments()
-    {
-        return $this->hasMany('App\Shipment');
-    }
 }

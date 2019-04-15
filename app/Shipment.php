@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shipment extends Model
 {
-    public function customer()
-    {
-        return $this->hasOne('App\Customer');
-    }
 
     public function orders()
     {
@@ -20,4 +16,5 @@ class Shipment extends Model
     {
         return $this->hasMany('App\Transshipment');
     }
+    
 }
