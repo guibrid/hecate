@@ -30,6 +30,20 @@ class OrderTableSeeder extends Seeder
         $order->customer_id  = $customer_user->id;
         $order->status_id  = $order_status->id;
         $order->save();
+
+        $order = new Order();
+        $order->number = '56748';
+        $order->Title = 'Titre de la commande';
+        $order->batch  = '456';
+        $order->load  = 'FCL';
+        $order->package_number  = '5';
+        $order->weight  = '124';
+        $order->volume  = '1.8';
+        $order->recipient  = 'Lockeed Martin';
+        $order->supplier  = 'Boeing';
+        $order->customer_id  = $customer_user->id;
+        $order->status_id  = 1;
+        $order->save();
     }
 }
 
