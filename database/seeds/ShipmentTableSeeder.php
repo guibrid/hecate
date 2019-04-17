@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Shipment;
-use App\Customer;
 
 class ShipmentTableSeeder extends Seeder
 {
@@ -13,14 +12,13 @@ class ShipmentTableSeeder extends Seeder
      */
     public function run()
     {
-        $customer_user = Customer::where('name', 'Loockeed Martin')->first();
-
         $shipment = new Shipment();
+        $shipment->number = '23G45J';
+        $shipment->title = 'Shipment to AKL';
         $shipment->document_reception = date("Y-m-10 H:i:s");
         $shipment->custom_control  = date("Y-m-11 H:i:s");
         $shipment->cutoff  = date("Y-m-12 H:i:s");
         $shipment->container_number = '12345';
-        $shipment->customer_id = $customer_user->id;
         $shipment->save();
     }
 }
