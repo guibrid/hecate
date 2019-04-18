@@ -6,6 +6,22 @@ use App\Transshipment;
 
 class Helpers
 {
+    /**
+     * Render order status.
+     *
+     * @param  object $shipment
+     * @return string
+     */
+    public static function renderShipmentStatus($shipment = null)
+    {
+        if ($shipment === null){
+            $statusRender = '<span class="label label-default" style="width:120px; display:inline-block">Shipment not registered</span>';
+        } else {
+            $statusRender = '<span class="label label-success" style="width:120px; display:inline-block">Shipment registered</span>';
+        }
+        return $statusRender;
+
+    }
 
     /**
      * Get all transshipment available for a shipment.

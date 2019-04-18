@@ -24,7 +24,7 @@
                     <h4 class="panel-title"><i class="fa fa-caret-down"></i> Order: {{$order->number}} | {{$order->supplier}}</h4>
                   </div>
                   <div class="col-md-6">
-                    <div class="pull-right"><span class="label label-info">In warehouse</span>  <span class="label label-success">Shipment registered</span> </div>
+                    <div class="pull-right"><span class="label label-info" style="width:80px; height:15px; display:inline-block">{{$order->status->title}}</span>  @php echo Helpers::renderShipmentStatus($order->shipment); @endphp </div>
                   </div>
                 </div>
               </a>
