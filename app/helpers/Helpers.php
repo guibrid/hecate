@@ -3,9 +3,23 @@
 namespace App\helpers;
 
 use App\Transshipment;
+use App\Document;
 
 class Helpers
 {
+    /**
+     * Get all documents for an order.
+     *
+     * @param  int $order_id
+     * @return array
+     */
+    public static function getDocuments($order_id = null)
+    {
+        $documents = Document::where('order_id', $order_id)
+        ->get();
+        return $documents->toArray();;
+
+    }
     /**
      * Render order status.
      *
@@ -66,13 +80,31 @@ class Helpers
         }
 
         $div = '<div class="col-md-'.$size.' col-xs-12" style="text-align:center">
-                    <div style="text-align:center"><p><i class="fa fa-ship fa-2x"></i><br />'.strtoupper($transshipment['type']).' FREIGHT</p></div>
-                    <div style="text-align:center"><p><b>ETD '.$transshipment['origin']['title'].'</b><br />'.$transshipment['departure'].'</p></div>
-                    <div style="text-align:center"><p><b>ETA '.$transshipment['destination']['title'].'</b><br />'.$transshipment['arrival'].'</p></div>
+                    <div style="text-align:center"><p>'.Helpers::transshipmentIcon($transshipment['type'], 2).'<br />'.strtoupper($transshipment['type']).' FREIGHT</p></div>
+                    <div style="text-align:center"><p><b>ETD '.$transshipment['origin']['title'].'</b><br />'.date('d-m-Y', strtotime($transshipment['departure'])).'</p></div>
+                    <div style="text-align:center"><p><b>ETA '.$transshipment['destination']['title'].'</b><br />'.date('d-m-Y', strtotime($transshipment['arrival'])).'</p></div>
                     <div style="text-align:center"><p><b>Vessel</b><br />'.$transshipment['vessel'].'</p></div>
                 </div>';
 
         return $div;
 
+    }
+
+    /**
+     * Get transshipment icon
+     *
+     * @param  string $type (air or sea)
+     * @param  int $size (1, 2, 3, 4 or 5)
+     * @return string
+     */
+    public static function transshipmentIcon($type, $size = 1)
+    {
+        if ($type === 'sea') {
+            $icon = 'fa-ship';
+        } else {
+            $icon = 'fa-plane';
+        }
+
+        return '<i class="fa '.$icon.' fa-'.$size.'x"></i>';
     }
 }

@@ -13,7 +13,12 @@
         <div class="x_content">
           <p><small>Click on order to see details</small></p>
 
-          <?php foreach ($orders as $order) { ?>
+          @foreach ($orders as $order)
+          @php 
+            $transshipment_comment = null; 
+            $shipment_comment = null;
+          
+          @endphp
 
           <!-- start accordion -->
           <div class="accordion" id="accordion{{$order->id}}" role="tablist" aria-multiselectable="true">
@@ -79,34 +84,24 @@
                             </div>
                             <div class="x_content">
                             <ul class="list-unstyled msg_list">
+                              @foreach ( Helpers::getDocuments($order->id) as $document)
                                 <li>
-                                  <a href="#" target="_blank">
+                                  <a href="{{ url('documents/download',$document['id']) }}" target="_blank">
                                     <span class="image">
                                       <i class="fa fa-file-pdf-o" ></i>
                                     </span>
                                     <span>
-                                      <span>Bill of lading</span>
+                                      <span>{{$document['title']}}</span>
                                       <span class="time">Download</span>
                                     </span>
                                     <span class="message">
-                                      PDF file | Size: 12mb
+                                      {{strstr($document['type'], '/')}} | Size: {{$document['size']}}mb
                                     </span>
                                   </a>
                                 </li>
-                                <li>
-                                    <a href="#" target="_blank">
-                                      <span class="image">
-                                        <i class="fa fa-file-word-o" ></i>
-                                      </span>
-                                      <span>
-                                        <span>Custom repport</span>
-                                        <span class="time">Download</span>
-                                      </span>
-                                      <span class="message">
-                                        WORD file | Size: 2mb
-                                      </span>
-                                    </a>
-                                  </li>
+                                
+                              @endforeach
+
                               </ul>
                             </div>
                         </div>
@@ -130,15 +125,15 @@
                                         <tbody>
                                             <tr>
                                             <td>Doc reception</td>
-                                            <td class="fs15 fw700 text-right">{{$order->shipment->document_reception}}</td>
+                                            <td class="fs15 fw700 text-right">{{date('d-m-Y', strtotime($order->shipment->document_reception))}}</td>
                                             </tr>
                                             <tr>
                                             <td>Custom control</td>
-                                            <td class="fs15 fw700 text-right">{{$order->shipment->custom_control}}</td>
+                                            <td class="fs15 fw700 text-right">{{date('d-m-Y', strtotime($order->shipment->custom_control))}}</td>
                                             </tr>
                                             <tr>
                                             <td>Cutoff</td>
-                                            <td class="fs15 fw700 text-right">{{$order->shipment->cutoff}}</td>
+                                            <td class="fs15 fw700 text-right">{{date('d-m-Y', strtotime($order->shipment->cutoff))}}</td>
                                             </tr>
                                             <tr>
                                             <td>Container n°</td>
@@ -149,7 +144,6 @@
                                     </div>
                                         @php 
                                             $transshipments = Helpers::getTransshipments($order->shipment->id);
-                                            $transshipment_comment = null;
                                         @endphp
                                         @foreach ($transshipments as $transshipment)
                                             @php  
@@ -207,7 +201,7 @@
 
           </div>
           <!-- end of accordion -->
-          <?php } ?>
+          @endforeach
 
         </div>
       </div>

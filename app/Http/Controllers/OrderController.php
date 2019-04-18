@@ -28,6 +28,7 @@ class OrderController extends Controller
         $orders = Order::with(['customer','shipment','status'])
                         ->where('customer_id', 1)
                         ->get();
+                        
 
         return view('orders/index')->with(['orders'=> $orders]);
     }

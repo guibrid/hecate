@@ -24,3 +24,6 @@ Route::get('/test', 'HomeController@test')->middleware('role:user');
 /* Orders */
 Route::get('/orders/show/{id}', 'OrderController@show')->middleware('role:user');
 Route::get('/orders', 'OrderController@index');
+
+/* Documents */
+Route::get('/documents/download/{id}', 'DocumentController@download')->middleware('role:user');
