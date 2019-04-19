@@ -24,6 +24,10 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
+            
+        });
+
+        Schema::table('users', function($table) {
             $table->foreign('customer_id')->references('id')->on('customers');
         });
     }
