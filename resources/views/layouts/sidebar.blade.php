@@ -12,7 +12,7 @@
 
           @include('layouts.sidebar.menu')
 
-          @include('layouts.sidebar.footerbuttons')
+          {{--@include('layouts.sidebar.footerbuttons')--}}
 
         </div>
       </div>

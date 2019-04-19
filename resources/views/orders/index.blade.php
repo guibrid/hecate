@@ -7,7 +7,7 @@
       <div class="x_panel">
         <div class="x_title">
      
-            <h3>List of your orders</h3>
+            <h3>All orders</h3>
 
         </div>
         <div class="x_content">
@@ -83,26 +83,33 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                            <ul class="list-unstyled msg_list">
-                              @foreach ( Helpers::getDocuments($order->id) as $document)
-                                <li>
-                                  <a href="{{ url('documents/download',$document['id']) }}" target="_blank">
-                                    <span class="image">
-                                      <i class="fa fa-file-pdf-o" ></i>
-                                    </span>
-                                    <span>
-                                      <span>{{$document['title']}}</span>
-                                      <span class="time">Download</span>
-                                    </span>
-                                    <span class="message">
-                                      {{strstr($document['type'], '/')}} | Size: {{$document['size']}}mb
-                                    </span>
-                                  </a>
-                                </li>
-                                
-                              @endforeach
+                                @php
+                                $documents = Helpers::getDocuments($order->id);
+                               @endphp
+                               @if (count($documents) > 0)
+                                  <ul class="list-unstyled msg_list">
+                                    @foreach ($documents as $document)
+                                      <li>
+                                        <a href="{{ url('documents/download',$document['id']) }}" target="_blank">
+                                          <span class="image">
+                                            <i class="fa fa-file-pdf-o" ></i>
+                                          </span>
+                                          <span>
+                                            <span>{{$document['title']}}</span>
+                                            <span class="time">Download</span>
+                                          </span>
+                                          <span class="message">
+                                            {{strstr($document['type'], '/')}} | Size: {{$document['size']}}mb
+                                          </span>
+                                        </a>
+                                      </li>
+                                    @endforeach
+                                  </ul>
+                               @else
+                                <p>No document available for the moment</p>
+                               @endif
 
-                              </ul>
+                              
                             </div>
                         </div>
                     </div>

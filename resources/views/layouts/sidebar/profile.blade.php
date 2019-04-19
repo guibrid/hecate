@@ -4,8 +4,8 @@
         <img src="{{ asset('bower_components/gentelella/production/images/img.jpg') }}" alt="..." class="img-circle profile_img">
     </div>
     <div class="profile_info">
-        <span>Welcome,</span>
-        <h2>John Doe</h2>
+        <span>John Doe</span>
+        <h2>LOOCKEED MARTIN</h2>
     </div>
     <div class="clearfix"></div>
 </div>
