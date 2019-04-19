@@ -15,7 +15,6 @@ class OrderTableSeeder extends Seeder
     public function run()
     {
         $customer_user = Customer::where('name', 'Loockeed Martin')->first();
-        $order_status = Status::where('title', 'Proceeding')->first();
 
         $order = new Order();
         $order->number = 'T657Y';
@@ -28,7 +27,8 @@ class OrderTableSeeder extends Seeder
         $order->recipient  = 'Lockeed Martin';
         $order->supplier  = 'Airbus';
         $order->customer_id  = $customer_user->id;
-        $order->status_id  = $order_status->id;
+        $order->status_id  = 3;
+        $order->shipment_id  = 1;
         $order->save();
 
         $order = new Order();

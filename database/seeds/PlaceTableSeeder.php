@@ -25,5 +25,12 @@ class PlaceTableSeeder extends Seeder
         $place->type = 'sea';
         $place->abbreviation = 'BKK';
         $place->save();
+
+        $place = new Place();
+        $place->title = 'Auckland';
+        $place->country = 'New Zealand';
+        $place->type = 'air';
+        $place->abbreviation = 'AKL';
+        $place->save();
     }
 }

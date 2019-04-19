@@ -27,5 +27,15 @@ class TransshipmentTableSeeder extends Seeder
         $transshipment->destination_place  = $destination_place->id;
         $transshipment->shipment_id  = $shipment->id;
         $transshipment->save();
+
+        $transshipment = new Transshipment();
+        $transshipment->type = 'air';
+        $transshipment->departure  = date("Y-m-17 H:i:s");
+        $transshipment->arrival  = date("Y-m-18 H:i:s");
+        $transshipment->vessel  = 'Air New Zealand NZ456';
+        $transshipment->origin_place  = 2;
+        $transshipment->destination_place  = 3;
+        $transshipment->shipment_id  = $shipment->id;
+        $transshipment->save();
     }
 }
