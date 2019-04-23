@@ -19,11 +19,11 @@
     <!-- NProgress -->
     <link href="{{ asset('bower_components/gentelella/vendors/nprogress/nprogress.css') }}" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="{{ asset('bower_components/gentelella/build/css/custom.min.css') }}" rel="stylesheet">
-
     <!-- CSS import from views -->
     @yield('viewCSS')
+
+    <!-- Custom Theme Style -->
+    <link href="{{ asset('bower_components/gentelella/build/css/custom.min.css') }}" rel="stylesheet">
 
   </head>
 
@@ -66,12 +66,11 @@
     <script src="{{ asset('bower_components/gentelella/vendors/fastclick/lib/fastclick.js') }}"></script>
     <!-- NProgress -->
     <script src="{{ asset('bower_components/gentelella/vendors/nprogress/nprogress.js') }}"></script>
-    
-    <!-- Custom Theme Scripts -->
-    <script src="{{ asset('bower_components/gentelella/build/js/custom.min.js') }}"></script>
 
     <!-- script import from views -->
     @yield('viewScripts')
 
+    <!-- Custom Theme Scripts -->
+    <script src="{{ asset('js/custom.js') }}"></script>
   </body>
 </html>

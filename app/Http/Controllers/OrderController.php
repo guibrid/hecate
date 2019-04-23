@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Transshipment;
+use App\Customer;
+use App\Status;
+use Carbon\Carbon;
+use App\Http\Requests\StoreOrder;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -25,12 +30,21 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with(['customer','shipment','status'])
-                        ->where('customer_id', 1)
-                        ->get();
-                        
+        if (Auth::user()->authorizeDisplay('user')) {
+            $args = ['customer_id', 1];
+            $views = 'orders/index';
+        } else {
+            $args = [];
+            $views = 'admin/orders/index';
+        }
 
-        return view('orders/index')->with(['orders'=> $orders]);
+        $orders = Order::with(['customer','shipment','status'])
+        ->where('customer_id', 1)
+        ->orderBy('id', 'DESC')
+        ->get();
+        
+        return view($views)->with(['orders'=> $orders]);
+
     }
 
     /**
@@ -40,7 +54,9 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::select('id','name')->get()->toJson();
+        $statuses = Status::pluck('title','id');
+        return view('admin/orders/create')->with(['customers'=> $customers, 'statuses' => $statuses]);
     }
 
     /**
@@ -49,9 +65,24 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreOrder $request)
     {
-        //
+        // Save Order
+        $order = new Order;
+        $order->number = $request->input('number');
+        $order->title = $request->input('title');
+        $order->batch = $request->input('batch');
+        $order->load = $request->input('load');
+        $order->package_number = $request->input('package_number');
+        $order->weight = $request->input('weight');
+        $order->volume = $request->input('volume');
+        $order->recipient = $request->input('recipient');
+        $order->supplier = $request->input('supplier');
+        $order->comment = $request->input('comment');
+        $order->status_id = $request->input('status_id');
+        $order->customer_id = $request->input('customer_id');
+        $order->save();
+
     }
 
     /**

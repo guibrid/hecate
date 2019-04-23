@@ -26,12 +26,12 @@ class Helpers
      * @param  object $shipment
      * @return string
      */
-    public static function renderShipmentStatus($shipment = null)
+    public static function renderShipmentStatus($shipment = null, $content = 'Shipment not registered')
     {
         if ($shipment === null){
-            $statusRender = '<span class="label label-default" style="width:120px; display:inline-block">Shipment not registered</span>';
+            $statusRender = '<span class="label label-default" style="width:120px; display:inline-block">'.$content.'</span>';
         } else {
-            $statusRender = '<span class="label label-success" style="width:120px; display:inline-block">Shipment registered</span>';
+            $statusRender = '<span class="label label-success" style="width:120px; display:inline-block">'.$content.'</span>';
         }
         return $statusRender;
 
@@ -106,5 +106,25 @@ class Helpers
         }
 
         return '<i class="fa '.$icon.' fa-'.$size.'x"></i>';
+    }
+
+    /**
+     * Get float/double val from a string
+     *
+     * @param  string $str 
+     * @return float
+     */ 
+    public static function getFloat($str)
+    {
+        if(strstr($str, ",")) {
+            $str = str_replace(".", "", $str); // replace dots (thousand seps) with blancs
+            $str = str_replace(",", ".", $str); // replace ',' with '.'
+          }
+         
+          /*if(preg_match("#([0-9\.]+)#", $str, $match)) { // search for number that may contain '.'
+            return floatval($match[0]);
+          } else {
+            return floatval($str); // take some last chances with floatval
+          } */
     }
 }

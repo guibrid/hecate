@@ -19,9 +19,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', 'HomeController@test')->middleware('role:user');
 
-/* Orders */
+/**********
+ORDERS 
+**********/
+/* Users */
 Route::get('/orders/show/{id}', 'OrderController@show')->middleware('role:user');
 Route::get('/orders', 'OrderController@index');
+
+/* Admin */
+Route::get('/admin/orders', 'OrderController@index')->middleware('role:editor,manager,director,admin');
+Route::get('/admin/orders/create', 'OrderController@create')->middleware('role:editor,manager,director,admin');
+Route::post('/admin/orders/store', 'OrderController@store')->middleware('role:editor,manager,director,admin');
 
 /* Documents */
 Route::get('/documents/download/{id}', 'DocumentController@download')->middleware('role:user');
