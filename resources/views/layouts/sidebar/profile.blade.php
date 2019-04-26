@@ -4,8 +4,12 @@
         <img src="{{ asset('bower_components/gentelella/production/images/img.jpg') }}" alt="..." class="img-circle profile_img">
     </div>
     <div class="profile_info">
-        <span>John Doe</span>
-        <h2>LOOCKEED MARTIN</h2>
+        <span>{{ auth()->user()->name}}</span>
+        <h2>
+            @if (Auth::user()->authorizeDisplay('user'))
+                {{Auth::user()->hasCustomer()->name}}
+            @endif
+        </h2>
     </div>
     <div class="clearfix"></div>
 </div>

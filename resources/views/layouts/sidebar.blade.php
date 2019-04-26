@@ -9,8 +9,12 @@
           @include('layouts.sidebar.profile')
 
           <br />
-
-          @include('layouts.sidebar.menu')
+          @if (auth()->user()->authorizeDisplay(['editor','manager','director','admin']))
+            @include('admin.sidebar.menu') 
+          @else
+            @include('layouts.sidebar.menu') 
+          @endif
+          
 
           {{--@include('layouts.sidebar.footerbuttons')--}}
 

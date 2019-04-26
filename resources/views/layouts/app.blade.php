@@ -41,6 +41,8 @@
         <div class="right_col" role="main">
           <div class="">
 
+            @include('inc.messages')
+
             @yield('content')
 
           </div>

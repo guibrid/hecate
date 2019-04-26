@@ -1,28 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="page-title">
+    <div class="title_left">
+        <h3>Create new order</h3>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+{!! Form::open(['action' => 'OrderController@store', 
+'method' => 'post', 
+'class' => 'form-horizontal form-label-left', 
+'id' => 'demo-form2']) !!}
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
         <div class="x_title">
-            <h2>Create new order</h2>
+            <h2>Order details</h2>
             
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <br />
-
-            {!! Form::open(['action' => 'OrderController@store', 
-                            'method' => 'post', 
-                            'class' => 'form-horizontal form-label-left', 
-                            'id' => 'demo-form2']) !!}
-
+            <p><small>* indicates required field</small></p>
             <div class="form-group">
                 {!! Form::label('customer-autocomplete', 'Customer *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!} 
                
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {!! Form::text('customer', null, ['id'=>'customer-autocomplete', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                    {!! Form::text('customer', null, ['id'=>'customer-autocomplete', 'class'=>'form-control col-md-7 col-xs-12','placeholder' => 'Type customer name...']) !!}
                     @error('customer')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -44,14 +50,14 @@
                 {!! Form::label('supplier', 'Supplier *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {!! Form::text('supplier', null, ['id'=>'supplier', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                    {!! Form::text('supplier', null, ['id'=>'supplier', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder' => 'Ex: Supplier 1, Supplier 2,...']) !!}
                     @error('supplier')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
             <div class="form-group">
-                {!! Form::label('number', 'Order number', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                {!! Form::label('number', 'Order number *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     {!! Form::text('number', null, ['id'=>'number', 'class'=>'form-control col-md-7 col-xs-12']) !!}
@@ -101,10 +107,13 @@
                 </div>
             </div>
             <div class="form-group">
-                {!! Form::label('weight', 'Weight', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                {!! Form::label('weight', 'weight', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {!! Form::text('weight', null, ['id'=>'weight', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                    <div class="input-group">
+                        {!! Form::text('weight', null, ['id'=>'weight', 'class'=>'form-control col-md-7 col-xs-12', 'aria-describedby'=>'weightaddon', 'placeholder' => 'Ex: 235']) !!}
+                        <span class="input-group-addon" id="weightaddon">Kg</span>
+                    </div>
                     @error('weight')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
@@ -114,8 +123,11 @@
                 {!! Form::label('volume', 'Volume', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {!! Form::text('volume', null, ['id'=>'volume', 'class'=>'form-control col-md-7 col-xs-12']) !!}
-                    @error('volume')
+                    <div class="input-group">
+                        {!! Form::text('volume', null, ['id'=>'volume', 'class'=>'form-control col-md-7 col-xs-12', 'aria-describedby'=>'volumeaddon', 'placeholder' => 'Ex: 1.234']) !!}
+                        <span class="input-group-addon" id="volumeaddon">m3</span>
+                    </div>
+                        @error('volume')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
@@ -139,20 +151,75 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-            </div>
-            <div class="ln_solid"></div>
-            <div class="form-group">
-                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                    {!! Form::submit('Save you order', ['class' => 'btn btn-success']) !!}              
-                </div>
-            </div>
-
-            {!! Form::close() !!}
+            </div> 
         </div>
         </div>
     </div>
 </div>
+<!-- Shipment section -->
 
+<!-- Shipment section -->
+<div class="row hidden" id="shipment-section">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+        <div class="x_title">
+            <h2>Assign shipment to this order</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            
+        </div>
+        </div>
+    </div>
+</div>
+<!-- End Shipment section -->
+
+<!-- Document section -->
+<div class="row hidden" id="document-section">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+        <div class="x_title">
+            <h2>Attached documents</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            
+        </div>
+        </div>
+    </div>
+</div>
+<!-- End Document section -->
+<div class="form-group">
+    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3">
+        <p>
+        <button type="button" class="btn btn-success" id="document-button">
+            <i class="fa fa-paperclip" aria-hidden="true"></i>
+            Attached document
+        </button></p>
+        <p>
+    <button type="button" class="btn btn-success" id="shipment-button">
+        <i class="fa fa-ship" aria-hidden="true"></i> 
+        Assign shipment
+    </button>
+        </p>
+    </div>
+</div>
+<div class="ln_solid"></div>
+<div class="form-group">
+        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"> 
+            <p>
+                {!! Form::checkbox('notification', 'send_notification', true, ['class' => 'js-switch']) !!} 
+                Send notification to customer   
+            </p>
+        </div>
+    </div>
+<div class="form-group">
+    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+        {!! Form::submit('Save your order', ['class' => 'btn btn-success']) !!}             
+    </div>
+</div>
+
+{!! Form::close() !!}
 
 @endsection
 
@@ -187,8 +254,8 @@
     <script src="{{ asset('bower_components/gentelella/vendors/google-code-prettify/src/prettify.js')}}"></script> -->
     <!-- jQuery Tags Input
     <script src="{{ asset('bower_components/gentelella/vendors/jquery.tagsinput/src/jquery.tagsinput.js')}}"></script> -->
-    <!-- Switchery
-    <script src="{{ asset('bower_components/gentelella/vendors/switchery/dist/switchery.min.js')}}"></script> -->
+    <!-- Switchery -->
+    <script src="{{ asset('bower_components/gentelella/vendors/switchery/dist/switchery.min.js')}}"></script>
     <!-- Select2 
     <script src="{{ asset('bower_components/gentelella/vendors/select2/dist/js/select2.full.min.js')}}"></script>-->
     <!-- Autosize 
@@ -215,6 +282,16 @@
                     $('#customer_id').val(suggestion.data);
                     $('#recipient').val(suggestion.value);
                 }
+            });
+
+            $('#shipment-button').click(function() {
+                $("#shipment-section").removeClass("hidden");
+                $("#shipment-button").addClass("hidden");
+            });
+
+            $('#document-button').click(function() {
+                $("#document-section").removeClass("hidden");
+                $("#document-button").addClass("hidden");
             });
 
  

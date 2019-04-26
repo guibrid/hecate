@@ -26,19 +26,19 @@ class StoreOrder extends FormRequest
     {
         return [
             'customer' => 'required|string',
-            'number' => 'max:49|string|nullable',
+            'number' => 'required|max:49|string',
             'title' => 'max:149',
             'batch' => 'max:49|string|nullable',
             'load' => 'max:49|string|nullable',
             'package_number' => 'integer|nullable',
             'weight' => 'numeric|nullable',
             'volume' => 'numeric|nullable',
-            'recipient' => 'max:149|string|nullable',
-            'supplier' => 'max:149|string|nullable',
+            'recipient' => 'required|max:149|string',
+            'supplier' => 'required|max:149|string',
             'comment' => 'max:239|string|nullable',
             'shipment_id' => 'interger|nullable',
             'status_id' => 'required|integer',
-            'customer_id' => 'required|integer',
+            'customer_id' => 'integer|nullable',
             
         ];
     }
@@ -50,7 +50,7 @@ class StoreOrder extends FormRequest
      */
     protected function prepareForValidation()
     {
-
+        
         if ($this->has('weight') && !is_null($this->weight)) {
             $this->merge(['weight'=>Helpers::getFloat($this->weight)]);
         }

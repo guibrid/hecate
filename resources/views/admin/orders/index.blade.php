@@ -2,7 +2,9 @@
 
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
-        <button type="button" class="btn btn-primary btn-lg"><i class="fa fa-plus"></i> Create new order</button>
+  <p>
+    <a href="{{ url('admin/orders/create') }}" class="btn btn-primary btn-md"><i class="fa fa-plus"></i> Create new order</a>
+  </p>
 </div>
 <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
@@ -35,9 +37,9 @@
                     <td>{{$order->supplier}}</td>
                     <td>{{$order->load}}</td>
                     <td>{{$order->package_number}}</td>
-                    <td>{{$order->weight}} kg</td>
-                    <td>{{$order->volume}} m3</td>
-                    <td>{{$order->status->title}}</td>
+                    <td>@if ($order->weight) {{$order->weight}} kg @endif</td>
+                    <td>@if ($order->volume) {{$order->volume}} m3 @endif</td>
+                    <td>{{$order->status['title']}}</td>
                     <td>@php echo Helpers::renderShipmentStatus($order->shipment); @endphp</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-xs">edit</button>

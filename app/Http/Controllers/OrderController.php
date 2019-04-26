@@ -31,15 +31,15 @@ class OrderController extends Controller
     public function index()
     {
         if (Auth::user()->authorizeDisplay('user')) {
-            $args = ['customer_id', 1];
+            $args = ['customer_id'=> Auth::user()->customer_id];
             $views = 'orders/index';
         } else {
             $args = [];
             $views = 'admin/orders/index';
-        }
-
+        }  
+        
         $orders = Order::with(['customer','shipment','status'])
-        ->where('customer_id', 1)
+        ->where($args)
         ->orderBy('id', 'DESC')
         ->get();
         
@@ -82,6 +82,8 @@ class OrderController extends Controller
         $order->status_id = $request->input('status_id');
         $order->customer_id = $request->input('customer_id');
         $order->save();
+
+        return redirect('/admin/orders')->with('success', 'New order saved!');
 
     }
 

@@ -6,6 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -44,7 +46,7 @@ class User extends Authenticatable
 
     public function customer()
     {
-        return $this->hasOne('App\Customer');
+        return $this->belongsTo('App\Customer');
     }
 
     /**
@@ -94,7 +96,23 @@ class User extends Authenticatable
 
     {
 
-    return null !== $this->roles()->whereIn('name', $roles)->first();
+        return null !== $this->roles()->whereIn('name', $roles)->first();
+
+    }
+
+    /**
+
+    * Get user customer details
+
+    * @param array $roles
+
+    */
+
+    public function hasCustomer()
+
+    {
+        
+        return $this->customer()->where('id', $this->customer_id)->first();
 
     }
 
