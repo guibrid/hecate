@@ -48,7 +48,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating orders details.
      *
      * @return \Illuminate\Http\Response
      */
@@ -57,6 +57,7 @@ class OrderController extends Controller
         $customers = Customer::select('id','name')->get()->toJson();
         $statuses = Status::pluck('title','id');
         return view('admin/orders/create')->with(['customers'=> $customers, 'statuses' => $statuses]);
+
     }
 
     /**
@@ -67,6 +68,7 @@ class OrderController extends Controller
      */
     public function store(StoreOrder $request)
     {
+
         // Save Order
         $order = new Order;
         $order->number = $request->input('number');
@@ -112,7 +114,9 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        // get the order
+        $order = Order::with(['customer'])->find($id);
+        return view('admin/orders/edit')->with('order', $order);
     }
 
     /**
@@ -122,9 +126,25 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreOrder $request, $id)
     {
-        //
+        $order = Order::find($id);
+
+        $order->number = $request->input('number');
+        $order->title = $request->input('title');
+        $order->batch = $request->input('batch');
+        $order->load = $request->input('load');
+        $order->package_number = $request->input('package_number');
+        $order->weight = $request->input('weight');
+        $order->volume = $request->input('volume');
+        $order->recipient = $request->input('recipient');
+        $order->supplier = $request->input('supplier');
+        $order->comment = $request->input('comment');
+        $order->status_id = $request->input('status_id');
+        $order->save();
+
+        return redirect('/admin/orders')->with('success', 'Order updated');
+
     }
 
     /**
@@ -135,6 +155,9 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        $order->delete();
+
+        return redirect('/admin/orders')->with('success', 'Order has been deleted');
     }
 }

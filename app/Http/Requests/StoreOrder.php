@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Helpers;
+use Illuminate\Http\Request;
 
 class StoreOrder extends FormRequest
 {
@@ -24,8 +25,8 @@ class StoreOrder extends FormRequest
      */
     public function rules()
     {
-        return [
-            'customer' => 'required|string',
+
+        $rules = [
             'number' => 'required|max:49|string',
             'title' => 'max:149',
             'batch' => 'max:49|string|nullable',
@@ -39,8 +40,9 @@ class StoreOrder extends FormRequest
             'shipment_id' => 'interger|nullable',
             'status_id' => 'required|integer',
             'customer_id' => 'integer|nullable',
-            
+            'customer' => 'required|string'
         ];
+        return $rules;
     }
 
     /**

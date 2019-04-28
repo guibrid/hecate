@@ -20,12 +20,13 @@
               <th>Customer</th>
               <th>Recipient</th>
               <th>Supplier</th>
+              <th>Number</th>
+              <th>Status</th>
+              <th>Shipment</th>
               <th>Load</th>
               <th># package</th>
               <th>Weight</th>
               <th>Volume</th>
-              <th>Status</th>
-              <th>Shipment</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -35,16 +36,19 @@
                     <td>{{$order->customer->name}}</td>
                     <td>{{$order->recipient}}</td>
                     <td>{{$order->supplier}}</td>
+                    <td>{{$order->number}}</td>
+                    <td>{{$order->status['title']}}</td>
+                    <td>@php echo Helpers::renderShipmentStatus($order->shipment); @endphp</td>
                     <td>{{$order->load}}</td>
                     <td>{{$order->package_number}}</td>
                     <td>@if ($order->weight) {{$order->weight}} kg @endif</td>
                     <td>@if ($order->volume) {{$order->volume}} m3 @endif</td>
-                    <td>{{$order->status['title']}}</td>
-                    <td>@php echo Helpers::renderShipmentStatus($order->shipment); @endphp</td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-xs">edit</button>
-                        <button type="button" class="btn btn-danger btn-xs">Del</button>
+                        {{ Form::open(['method'=>'DELETE', 'route'=>['order.delete', $order->id]]) }}
+                        <a href="{{ URL::route('order.edit', $order->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
+                        {{ Form::submit('Del', ['class' => 'btn btn-danger btn-xs']) }} {{ Form::close() }}
                     </td>
+
                   </tr>
             @endforeach
 

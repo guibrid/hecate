@@ -3,10 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Storage;
 use App\Document;
+use App\Http\Requests\StoreDocument;
 
 class DocumentController extends Controller
 {
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin/documents/create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreDocument $request)
+    {
+        //$disk = Storage::disk('local');
+        //var_dump($disk);
+        //$exists = Storage::disk('local')->exists('toto.txt');
+        //var_dump($exists);
+        //var_dump($request->file());
+        //var_dump($request->input());
+        $path = $request->file('document')->store('documents/1/1');
+        var_dump($path);
+        die;
+        return redirect('/admin/documents/create');
+    }
     /**
      * Download a document.
      *

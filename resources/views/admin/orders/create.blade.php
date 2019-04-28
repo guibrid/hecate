@@ -12,7 +12,8 @@
 {!! Form::open(['action' => 'OrderController@store', 
 'method' => 'post', 
 'class' => 'form-horizontal form-label-left', 
-'id' => 'demo-form2']) !!}
+'id' => 'demo-form2',
+'files' => true]) !!}
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -156,55 +157,9 @@
         </div>
     </div>
 </div>
-<!-- Shipment section -->
 
-<!-- Shipment section -->
-<div class="row hidden" id="shipment-section">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-        <div class="x_title">
-            <h2>Assign shipment to this order</h2>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            
-        </div>
-        </div>
-    </div>
-</div>
-<!-- End Shipment section -->
-
-<!-- Document section -->
-<div class="row hidden" id="document-section">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-        <div class="x_title">
-            <h2>Attached documents</h2>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            
-        </div>
-        </div>
-    </div>
-</div>
 <!-- End Document section -->
-<div class="form-group">
-    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 col-sm-offset-3">
-        <p>
-        <button type="button" class="btn btn-success" id="document-button">
-            <i class="fa fa-paperclip" aria-hidden="true"></i>
-            Attached document
-        </button></p>
-        <p>
-    <button type="button" class="btn btn-success" id="shipment-button">
-        <i class="fa fa-ship" aria-hidden="true"></i> 
-        Assign shipment
-    </button>
-        </p>
-    </div>
-</div>
-<div class="ln_solid"></div>
+<!-- <div class="ln_solid"></div> -->
 <div class="form-group">
         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"> 
             <p>
@@ -225,45 +180,16 @@
 
 <!-- CSS require for this view -->
 @section('viewCSS')
-      <!-- iCheck -->
-      <link href="{{ asset('bower_components/gentelella/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
-      <!-- bootstrap-wysiwyg -->
-      <link href="{{ asset('bower_components/gentelella/vendors/google-code-prettify/bin/prettify.min.css')}}" rel="stylesheet">
-      <!-- Select2 -->
-      <link href="{{ asset('bower_components/gentelella/vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet">
       <!-- Switchery -->
       <link href="{{ asset('bower_components/gentelella/vendors/switchery/dist/switchery.min.css')}}" rel="stylesheet">
-      <!-- starrr -->
-      <link href="{{ asset('bower_components/gentelella/vendors/starrr/dist/starrr.css')}}" rel="stylesheet">
-      <!-- bootstrap-daterangepicker -->
-      <link href="{{ asset('bower_components/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
 @stop
 
 <!-- Script require for this view -->
 @section('viewScripts')
-    <!-- bootstrap-progressbar -->
-    <script src="{{ asset('bower_components/gentelella/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
-    <!-- iCheck -->
-    <script src="{{ asset('bower_components/gentelella/vendors/iCheck/icheck.min.js')}}"></script>
-    <!-- bootstrap-daterangepicker
-    <script src="{{ asset('bower_components/gentelella/vendors/moment/min/moment.min.js')}}"></script>
-    <script src="{{ asset('bower_components/gentelella/vendors/bootstrap-daterangepicker/daterangepicker.js')}}"></script> -->
-    <!-- bootstrap-wysiwyg
-    <script src="{{ asset('bower_components/gentelella/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js')}}"></script>
-    <script src="{{ asset('bower_components/gentelella/vendors/jquery.hotkeys/jquery.hotkeys.js')}}"></script>
-    <script src="{{ asset('bower_components/gentelella/vendors/google-code-prettify/src/prettify.js')}}"></script> -->
-    <!-- jQuery Tags Input
-    <script src="{{ asset('bower_components/gentelella/vendors/jquery.tagsinput/src/jquery.tagsinput.js')}}"></script> -->
     <!-- Switchery -->
     <script src="{{ asset('bower_components/gentelella/vendors/switchery/dist/switchery.min.js')}}"></script>
-    <!-- Select2 
-    <script src="{{ asset('bower_components/gentelella/vendors/select2/dist/js/select2.full.min.js')}}"></script>-->
-    <!-- Autosize 
-    <script src="{{ asset('bower_components/gentelella/vendors/autosize/dist/autosize.min.js')}}"></script>-->
     <!-- jQuery autocomplete -->
     <script src="{{ asset('bower_components/gentelella/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js')}}"></script>
-    <!-- starrr 
-    <script src="{{ asset('bower_components/gentelella/vendors/starrr/dist/starrr.js')}}"></script>-->
 
     <script>
         $(document).ready(function() {
@@ -282,16 +208,6 @@
                     $('#customer_id').val(suggestion.data);
                     $('#recipient').val(suggestion.value);
                 }
-            });
-
-            $('#shipment-button').click(function() {
-                $("#shipment-section").removeClass("hidden");
-                $("#shipment-button").addClass("hidden");
-            });
-
-            $('#document-button').click(function() {
-                $("#document-section").removeClass("hidden");
-                $("#document-button").addClass("hidden");
             });
 
  
