@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+	
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 class StoreDocument extends FormRequest
 {
     /**
@@ -24,7 +28,25 @@ class StoreDocument extends FormRequest
     public function rules()
     {
         return [
-            'customer' => 'size:100'
+            "filename"    => "array",
+            "filename.*"  => "required",
+            "documents"   => "required",
+            "documents.*" => "required|file|mimes:xlsx,xls,jpg,jpeg,png,gif,pdf,doc,docx"
+
         ];
     }
+
+    protected function prepareForValidation()
+    {
+
+        $this->merge(['filename'=> json_decode($this->filename)]);
+        $this->merge(['documents'=> $this->file()]);
+
+    }
+
+    public function failedValidation(Validator $validator) { 
+        //write your bussiness logic here otherwise it will give same old JSON response
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
+   }
+    
 }

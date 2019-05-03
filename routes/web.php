@@ -25,6 +25,7 @@ ORDERS
 /* Users */
 Route::get('/orders/show/{id}', 'OrderController@show')->middleware('role:user');
 Route::get('/orders', 'OrderController@index');
+Route::post('/getDocuments', 'DocumentController@getDocuments')->middleware('auth'); // Ajax call to get documents by order id
 
 /* Orders */
 Route::get('/admin/orders', 'OrderController@index')->middleware('role:editor,manager,director,admin');
@@ -37,4 +38,5 @@ Route::delete('/admin/orders/destroy/{id}', 'OrderController@destroy')->middlewa
 /* Documents */
 Route::get('/admin/documents/create', 'DocumentController@create')->middleware('role:editor,manager,director,admin');
 Route::post('/admin/documents/store', 'DocumentController@store')->middleware('role:editor,manager,director,admin');
-Route::get('/documents/download/{id}', 'DocumentController@download')->middleware('role:user');
+Route::get('/documents/download/{id}', 'DocumentController@download')->middleware('auth');
+Route::get('/admin/documents/destroy/{id}', 'DocumentController@destroy')->middleware('role:editor,manager,director,admin')->name('document.delete');

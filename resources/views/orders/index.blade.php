@@ -83,33 +83,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                @php
-                                $documents = Helpers::getDocuments($order->id);
-                               @endphp
-                               @if (count($documents) > 0)
-                                  <ul class="list-unstyled msg_list">
-                                    @foreach ($documents as $document)
-                                      <li>
-                                        <a href="{{ url('documents/download',$document['id']) }}" target="_blank">
-                                          <span class="image">
-                                            <i class="fa fa-file-pdf-o" ></i>
-                                          </span>
-                                          <span>
-                                            <span>{{$document['title']}}</span>
-                                            <span class="time">Download</span>
-                                          </span>
-                                          <span class="message">
-                                            {{strstr($document['type'], '/')}} | Size: {{$document['size']}}mb
-                                          </span>
-                                        </a>
-                                      </li>
-                                    @endforeach
-                                  </ul>
-                               @else
-                                <p>No document available for the moment</p>
-                               @endif
-
-                              
+                                <div id="showDocuments{{$order->id}}"></div>
                             </div>
                         </div>
                     </div>
@@ -225,4 +199,26 @@
 <!-- Script require for this view -->
 @section('viewScripts')
 
+
+
+<script>
+  function ajaxCall(order_id){
+
+  $.ajaxSetup({
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+  });
+
+  $.ajax({
+      type: 'post',
+      url: "{{ url('/getDocuments') }}",
+      data: {order_id:order_id},
+      success:function(data){
+          $("#showDocuments"+order_id).html(data);
+      }
+  });
+  }
+</script>
+@foreach ($orders as $order)
+  <script>ajaxCall("{{ $order->id}}");</script>
+@endforeach
 @stop

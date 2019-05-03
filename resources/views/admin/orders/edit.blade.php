@@ -139,11 +139,8 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="x_content">
-                                    
-                                    <p>No document available for the moment</p>
-                                
-    
-                                  
+                                    <div id="showDocuments"></div>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-paperclip"></i> Add document</button>
                                 </div>
                             </div>
                         </div>
@@ -156,14 +153,9 @@
                               </div>
                               <div class="x_content">
                                 <div class="row">
-    
-                                    
-                                        <div class="col-md-12">
-                                            <p>No shipment has been registered yet for this order.</p>
-                                        </div>
-    
-                                    
-    
+                                    <div class="col-md-12">
+                                        <p>No shipment has been registered yet for this order.</p>
+                                    </div>
                                 </div>
                             </div>                                            
                                   
@@ -217,6 +209,8 @@
 
 {!! Form::close() !!}
 
+@include('admin.orders.modal.document')
+
 @endsection
 
 <!-- CSS require for this view -->
@@ -229,5 +223,145 @@
 @section('viewScripts')
     <!-- Switchery -->
     <script src="{{ asset('bower_components/gentelella/vendors/switchery/dist/switchery.min.js')}}"></script>
+    <script type="text/javascript">
+        
+        
+        $(document).ready(function() {
+
+            getDocuments("{{ $order->id}}") // Ajax call to get documents displayed
+
+            // Add document fields form
+            $("#addDocument").click(function(){ 
+                var html = $(".clone").html();
+                $(".increment").append(html);
+            });
+
+            $("body").on("click",".remove-fields",function(){ 
+                $(this).parents(".filegroup").remove();
+            });
+
+            $("#submitDocuments").click(function(e){ 
+                e.preventDefault()
+                if (checkEmptyInputs() == false)
+                    storeDocuments()
+            });
+
+        });
+
+        function getDocuments(order_id){
+
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+
+            $.ajax({
+                type: 'post',
+                url: "{{ url('/getDocuments') }}",
+                data: {order_id:order_id},
+                success:function(data){
+                    $("#showDocuments").html(data);
+                }
+            });
+        }
+
+        function storeDocuments(order_id){
+
+            var data = new FormData();
+            var filename = [];
+            var fileInputs = $("input[name='documents[]']").slice(0, -1) // Delete the last empty element
+            var filenameInputs = $("input[name='filenames[]']").slice(0, -1) // Delete the last empty element
+            // Initializing array with Checkbox checked values
+            fileInputs.each(function( index, value ){
+
+                data.append(index, this.files[0]);
+                filename[index] =  filenameInputs[index].value;
+
+            });
+
+            data.append('filename', JSON.stringify(filename));
+            data.append('order_id', "{{ $order->id }}");
+            data.append('customer_id', "{{ $order->customer_id }}");
+
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+
+            $.ajax({
+                type: 'post',
+                url: "{{ url('/admin/documents/store') }}",
+                processData: false,
+                contentType: false,
+                data: data,
+                success:function(response){
+
+                    $("#loading").removeClass('hide');
+                    $("#loading").html(response);
+
+                    if($.isEmptyObject(response.error)){
+
+                        //alert(response.success);
+                        $('#documentModal').modal('toggle'); // Close document modal
+                        getDocuments("{{ $order->id}}") // Reload Ajax call to get new documents displayed
+                    
+                    }else{
+
+                        alert(response.error);
+
+                    }
+                }
+            });
+        }
+        
+
+        function ValidateFile(file) {
+            
+            var FileSize = file.files[0].size / 1024 / 1024; // in MB
+            var MineType = [
+                'image/jpeg',
+                'image/gif',
+                'image/png',
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            ];
+            $(file).parent('.fileInput').next('div.alert').remove();
+            if (FileSize > 2) {
+                $(file).parent('.fileInput').after( '<div class="alert alert-danger"><p>File size max 2Mo</p></div>' );
+            }
+            if ($.inArray( file.files[0].type,MineType) < 0) {
+                $(file).parent('.fileInput').after( '<div class="alert alert-danger"><p>File type not authorize</p></div>' );
+            }
+        }
+
+        function checkEmptyInputs() {
+
+            var empty = false;     // Initiate empty to false
+
+            $("#loading").next( 'div.alert' ).remove(); // Reset le danger alert
+
+            // Loop all documents fields to find empty ones
+            $("input[name='documents[]']").slice(0, -1).each(function( index, value ){
+                if(this.files[0]  == null) 
+                    empty = true;
+            });
+
+            // Loop all documents fields to find empty ones
+            $("input[name='filenames[]']").slice(0, -1).each(function( index, value ){
+                if(this.value  == '') 
+                    empty = true;
+                
+            });
+
+            // Display alert if one field is empty
+            if (empty == true)
+                $("#loading").after( '<div class="alert alert-danger"><p>All Field required</p></div>' );
+
+            return empty;
+  
+        }
+
+    </script>
 
 @stop
