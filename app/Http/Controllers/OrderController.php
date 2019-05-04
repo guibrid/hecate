@@ -148,6 +148,23 @@ class OrderController extends Controller
     }
 
     /**
+     * Update the shipment id in order.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateShipment(Request $request)
+    {
+        $order = Order::find($request->order_id);
+        $order->shipment_id = $request->shipment_id;
+        $order->save();
+
+        return response()->json(['success'=>'Shipment updated']);
+    }
+
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

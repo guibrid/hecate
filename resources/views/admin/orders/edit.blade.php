@@ -140,23 +140,21 @@
                                 </div>
                                 <div class="x_content">
                                     <div id="showDocuments"></div>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-paperclip"></i> Add document</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#documentModal"><i class="fa fa-paperclip"></i> Add document</button>
                                 </div>
                             </div>
                         </div>
                         <div class="hidden-small"><br /><br /></div>
                         <div class="row">
-                          <div class="col-md-12">
+                          <div class="col-md-12 col-xs-12">
                               <div class="x_title">
                                 <h2>Shipping details</h2>
                                 <div class="clearfix"></div>
                               </div>
                               <div class="x_content">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <p>No shipment has been registered yet for this order.</p>
-                                    </div>
-                                </div>
+                                <div id="showShipment"></div>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#shipmentModal" id="listShipmentButton"><i class="fa fa-ship"></i> Assign shipment</button>
+                                <div id="assignShipment"></div>
                             </div>                                            
                                   
                               
@@ -210,6 +208,7 @@
 {!! Form::close() !!}
 
 @include('admin.orders.modal.document')
+@include('admin.orders.modal.shipment')
 
 @endsection
 
@@ -217,7 +216,7 @@
 @section('viewCSS')
     <!-- Switchery -->
     <link href="{{ asset('bower_components/gentelella/vendors/switchery/dist/switchery.min.css')}}" rel="stylesheet">
-@stop
+    @stop
 
 <!-- Script require for this view -->
 @section('viewScripts')
@@ -229,6 +228,7 @@
         $(document).ready(function() {
 
             getDocuments("{{ $order->id}}") // Ajax call to get documents displayed
+            getShipments("{{ $order->id}}")
 
             // Add document fields form
             $("#addDocument").click(function(){ 
@@ -246,6 +246,16 @@
                     storeDocuments()
             });
 
+            $('#listShipmentButton').click(function(e){ 
+                e.preventDefault()
+                getShipments()
+            });
+
+            $("#registerShipment").click(function(e){ 
+                e.preventDefault()
+                updateShipment("{{ $order->id}}")
+            });
+
         });
 
         function getDocuments(order_id){
@@ -260,6 +270,27 @@
                 data: {order_id:order_id},
                 success:function(data){
                     $("#showDocuments").html(data);
+                }
+            });
+        }
+
+        function getShipments(order_id = null){
+
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+
+            $.ajax({
+                type: 'get',
+                url: "{{ url('/listShipments') }}",
+                data: {order_id:order_id},
+                success:function(response){
+                    
+                    if (order_id == null){
+                        $("#listShipments").html(response);
+                    } else {
+                        $("#showShipment").html(response);
+                    }
                 }
             });
         }
@@ -294,12 +325,10 @@
                 data: data,
                 success:function(response){
 
-                    $("#loading").removeClass('hide');
-                    $("#loading").html(response);
+                    //$("#loading").html(response);
 
                     if($.isEmptyObject(response.error)){
 
-                        //alert(response.success);
                         $('#documentModal').modal('toggle'); // Close document modal
                         getDocuments("{{ $order->id}}") // Reload Ajax call to get new documents displayed
                     
@@ -308,6 +337,25 @@
                         alert(response.error);
 
                     }
+                }
+            });
+        }
+
+        function updateShipment(order_id){
+            var shipment_id = $('input[name=shipment_id]:checked').val();
+            
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+
+            $.ajax({
+                type: 'post',
+                url: "{{ url('/updateShipment') }}",
+                data: {order_id:order_id,shipment_id:shipment_id},
+                success:function(response){
+                    //$("#loading").html(response);
+                    $('#shipmentModal').modal('toggle'); // Close document modal
+                    getShipments("{{ $order->id}}")
                 }
             });
         }
