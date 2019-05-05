@@ -7,7 +7,6 @@ use App\Order;
 use App\Transshipment;
 use App\Customer;
 use App\Status;
-use Carbon\Carbon;
 use App\Http\Requests\StoreOrder;
 use Auth;
 

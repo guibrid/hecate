@@ -4,6 +4,8 @@ namespace App;
 
 use App\Transshipment;
 use App\Document;
+use App\Place;
+use Illuminate\Http\Request;
 
 class Helpers
 {
@@ -34,6 +36,20 @@ class Helpers
             $statusRender = '<span class="label label-success" style="width:120px; display:inline-block">'.$content.'</span>';
         }
         return $statusRender;
+
+    }
+
+    /**
+     * Get origin list by type (air or sea).
+     *
+     * @return array
+     */
+    public static function getPlacesList($type = null)
+    {
+        
+        $places = Place::where('type', $type)->select('id', 'title')->orderby('title', 'asc')->get();
+
+        return $places->toArray();
 
     }
 

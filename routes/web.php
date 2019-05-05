@@ -43,4 +43,15 @@ Route::get('/documents/download/{id}', 'DocumentController@download')->middlewar
 Route::get('/admin/documents/destroy/{id}', 'DocumentController@destroy')->middleware('role:editor,manager,director,admin')->name('document.delete');
 
 /* Shipments */
+Route::get('/admin/shipments', 'ShipmentController@index')->middleware('role:editor,manager,director,admin');
+Route::get('/admin/shipments/create', 'ShipmentController@create')->middleware('role:editor,manager,director,admin');
+Route::post('/admin/shipments/store', 'ShipmentController@store')->middleware('role:editor,manager,director,admin');
+Route::get('/admin/shipments/edit/{id}', 'ShipmentController@edit')->middleware('role:editor,manager,director,admin')->name('shipment.edit');
+Route::patch('/admin/shipments/update/{id}', 'ShipmentController@update')->middleware('role:editor,manager,director,admin');
+Route::delete('/admin/shipments/destroy/{id}', 'ShipmentController@destroy')->middleware('role:editor,manager,director,admin')->name('shipment.delete');
 Route::get('/listShipments', 'ShipmentController@listShipments')->middleware('role:editor,manager,director,admin');
+
+/* Places */
+Route::get('/getPlacesList/{type?}', function ($type = null) {
+    return Helpers::getPlacesList($type);
+});
