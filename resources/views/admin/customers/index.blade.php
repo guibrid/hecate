@@ -3,59 +3,44 @@
 @section('content')
 <div class="col-md-12 col-sm-12 col-xs-12">
     <p>
-      <a href="{{ url('admin/shipments/create') }}" class="btn btn-primary btn-md"><i class="fa fa-plus"></i> Create new shipment</a>
+      <a href="{{ url('admin/customers/create') }}" class="btn btn-primary btn-md"><i class="fa fa-plus"></i> Create new customer</a>
     </p>
   </div>
   <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Shipments</h2>
+          <h2>Customers</h2>
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
 
-          <table id="shipments-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+          <table id="customers-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Title</th>
-                  <th>Doc reception</th>
-                  <th>Custom control</th>
-                  <th>Cutoff</th>
-                  <th>Container #</th>
-                  <th>Transshipments</th>
+                  <th>Company</th>
+                  <th>Address</th>
+                  <th>City</th>
+                  <th>CP</th>
+                  <th>Country</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-               
-                @foreach ($shipments as $shipment)
+                @foreach ($customers as $customer)
                 <tr>
-                  <td>{{$shipment->number}}</td>
-                  <td>{{$shipment->title}}</td>
-                  <td>@if ($shipment->document_reception) {{\Carbon\Carbon::parse($shipment->document_reception)->format('d/m/Y')}} @endif</td>
-                  <td>@if ($shipment->custom_control) {{\Carbon\Carbon::parse($shipment->custom_control)->format('d/m/Y')}} @endif</td>
-                  <td>@if ($shipment->cutoff) {{\Carbon\Carbon::parse($shipment->cutoff)->format('d/m/Y')}} @endif</td>
-                  <td>{{$shipment->container_number}}</td>
-                  <td>
-                    @foreach(Helpers::getTransshipments($shipment->id) as $transshipment)
-                      {!! Helpers::transshipmentIcon($transshipment['type'])!!} 
-                      {{ $transshipment['origin']['abbreviation']}}-
-                      {{ \Carbon\Carbon::parse($transshipment['departure'])->format('d/m/Y')}}
-                      <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                      {{ $transshipment['destination']['abbreviation']}}-
-                      {{ \Carbon\Carbon::parse($transshipment['arrival'])->format('d/m/Y')}}<br />
-                    @endforeach 
-                  </td>
-                  <td>
-                    {{ Form::open(['method'=>'DELETE', 'route'=>['shipment.delete', $shipment->id]]) }}
-                      <a href="{{ URL::route('shipment.edit', $shipment->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
-                      <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this shipment?');" type="submit" value="Del"> 
-                    {{ Form::close() }}
-                  </td>
-                </tr>
+                    <td>{{$customer->name}}</td>
+                    <td>{{$customer->address}}</td>
+                    <td>{{$customer->city}}</td>
+                    <td>{{$customer->cp}}</td>
+                    <td>{{$customer->country}}</td>
+                    <td>
+                      {{ Form::open(['method'=>'DELETE', 'route'=>['customer.delete', $customer->id]]) }}
+                        <a href="{{ URL::route('customer.edit', $customer->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
+                        <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this customer?');" type="submit" value="Del">
+                      {{ Form::close() }}
+                    </td>
+                  </tr>
                 @endforeach
-                
               </tbody>
             </table>
 
@@ -98,7 +83,7 @@
 
     <script>
       $(document).ready(function() {
-        $('#shipments-responsive').DataTable();
+        $('#customers-responsive').DataTable();
       });
     </script>
 

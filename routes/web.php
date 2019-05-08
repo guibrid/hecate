@@ -55,3 +55,11 @@ Route::get('/listShipments', 'ShipmentController@listShipments')->middleware('ro
 Route::get('/getPlacesList/{type?}', function ($type = null) {
     return Helpers::getPlacesList($type);
 });
+
+/* Customers */
+Route::get('/admin/customers', 'CustomerController@index')->middleware('role:editor,manager,director,admin');
+Route::get('/admin/customers/create', 'CustomerController@create')->middleware('role:editor,manager,director,admin');
+Route::post('/admin/customers/store', 'CustomerController@store')->middleware('role:editor,manager,director,admin');
+Route::get('/admin/customers/edit/{id}', 'CustomerController@edit')->middleware('role:editor,manager,director,admin')->name('customer.edit');
+Route::patch('/admin/customers/update/{id}', 'CustomerController@update')->middleware('role:editor,manager,director,admin');
+Route::delete('/admin/customers/destroy/{id}', 'CustomerController@destroy')->middleware('role:editor,manager,director,admin')->name('customer.delete');
