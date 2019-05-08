@@ -63,3 +63,11 @@ Route::post('/admin/customers/store', 'CustomerController@store')->middleware('r
 Route::get('/admin/customers/edit/{id}', 'CustomerController@edit')->middleware('role:editor,manager,director,admin')->name('customer.edit');
 Route::patch('/admin/customers/update/{id}', 'CustomerController@update')->middleware('role:editor,manager,director,admin');
 Route::delete('/admin/customers/destroy/{id}', 'CustomerController@destroy')->middleware('role:editor,manager,director,admin')->name('customer.delete');
+
+/* Places */
+Route::get('/admin/places', 'PlaceController@index')->middleware('role:editor,manager,director,admin');
+Route::get('/admin/places/create', 'PlaceController@create')->middleware('role:editor,manager,director,admin');
+Route::post('/admin/places/store', 'PlaceController@store')->middleware('role:editor,manager,director,admin');
+Route::get('/admin/places/edit/{id}', 'PlaceController@edit')->middleware('role:editor,manager,director,admin')->name('place.edit');
+Route::patch('/admin/places/update/{id}', 'PlaceController@update')->middleware('role:editor,manager,director,admin');
+Route::delete('/admin/places/destroy/{id}', 'PlaceController@destroy')->middleware('role:editor,manager,director,admin')->name('place.delete');
