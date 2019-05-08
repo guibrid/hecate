@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Shipment;
 use App\Order;
 use App\Transshipment;
+use App\Http\Requests\StoreShipment;
+use Carbon\Carbon;
 
 class ShipmentController extends Controller
 {
@@ -51,10 +53,40 @@ class ShipmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreShipment $request)
     {
-        var_dump($request->input());
-        die;
+
+        // Save Shipment
+        $shipment = new Shipment;
+        $shipment->number = $request->number;
+        $shipment->title = $request->title;
+        $shipment->container_number = $request->container_number;
+        $shipment->document_reception = $request->document_reception;
+        $shipment->custom_control = $request->custom_control;
+        $shipment->cutoff = $request->cutoff;
+        $shipment->comment = $request->comment;
+        $shipment->save();
+
+        $transshipments = json_decode ($request->transshipments, true); // Decode the JSOn Stringify
+        // Loop Transshipments
+        foreach($transshipments as $key => $transshipmentInputs){
+            //TODO add validation on transshipment fields
+            $transshipmentInputs = call_user_func_array('array_merge', $transshipmentInputs); // Convert 2 dimension array to 1 dimension array
+            // Save Shipment
+            $transshipment = new Transshipment;
+            $transshipment->type = $transshipmentInputs['type'];
+            $transshipment->departure = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['departure'])->format('Y-m-d');
+            $transshipment->arrival = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['arrival'])->format('Y-m-d');
+            $transshipment->vessel = $transshipmentInputs['vessel'];
+            $transshipment->comment = $transshipmentInputs['comment-transshipment'];
+            $transshipment->origin_place = $transshipmentInputs['origin_place'];
+            $transshipment->destination_place = $transshipmentInputs['destination_place'];
+            $transshipment->shipment_id = $shipment->id;
+            $transshipment->save();
+        }
+
+        return redirect('/admin/shipments')->with('success', 'New shipment saved!');
+        
     }
 
     /**

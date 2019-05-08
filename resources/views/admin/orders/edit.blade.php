@@ -383,6 +383,7 @@
             }
         }
 
+        //TODO Utiliser la fonction checkEmptyInputs de la view Shipments>create.blade.php
         function checkEmptyInputs() {
 
             var empty = false;     // Initiate empty to false

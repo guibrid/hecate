@@ -22,6 +22,7 @@ class Helpers
         return $documents->toArray();;
 
     }
+
     /**
      * Render order status.
      *

@@ -33,9 +33,9 @@
                 <tr>
                   <td>{{$shipment->number}}</td>
                   <td>{{$shipment->title}}</td>
-                  <td>{{\Carbon\Carbon::parse($shipment->document_reception)->format('d/m/Y')}}</td>
-                  <td>{{\Carbon\Carbon::parse($shipment->custom_control)->format('d/m/Y')}}</td>
-                  <td>{{\Carbon\Carbon::parse($shipment->cutoff)->format('d/m/Y')}}</td>
+                  <td>@if ($shipment->document_reception) {{\Carbon\Carbon::parse($shipment->document_reception)->format('d/m/Y')}} @endif</td>
+                  <td>@if ($shipment->custom_control) {{\Carbon\Carbon::parse($shipment->custom_control)->format('d/m/Y')}} @endif</td>
+                  <td>@if ($shipment->cutoff) {{\Carbon\Carbon::parse($shipment->cutoff)->format('d/m/Y')}} @endif</td>
                   <td>{{$shipment->container_number}}</td>
                   <td>
                     @foreach(Helpers::getTransshipments($shipment->id) as $transshipment)

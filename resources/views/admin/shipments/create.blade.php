@@ -23,6 +23,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
+                    <p><small>* indicates required field</small></p>
                 <div class="form-group">
                     {!! Form::label('title', 'Title*', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
     
@@ -172,13 +173,17 @@
 
             $("#registerTransshipment").on("click", function(e){
                 e.preventDefault()
-                showTransshipment()
+                if( checkEmptyInputs($("#transshipmentModal :input[required]:visible")) == false)
+                    registerTransshipment()
             });
 
             $("select#type").on("change", function(){ 
                 $('#origin_place, #destination_place').empty()
                 getPlacesList($(this).val()) 
             });
+
+            $('#showTransshipments').append('<p>No transshipment registered.</p>');// Append le array des transshipment à la view
+
         });
 
         function getPlacesList(type){
@@ -214,26 +219,61 @@
 
         var transshipments = new Array()
 
-        function showTransshipment(){
+        function registerTransshipment(){
             $('#transshipmentModal').modal('toggle'); // Close transshipment modal
             // Add transshipment details to array
-            transshipments.push([$('#type').val(), 
-                                 $('#origin_place').val(), 
-                                 $('#departure').val(),
-                                 $('#destination_place').val(),
-                                 $('#arrival').val(),
-                                 $('#vessel').val(),
-                                 $('#comment-transshipment').val(),])
-            $('#showTransshipments').empty(); // Reset la view des transshipments ajouté
-            $('#showTransshipments').append(transshipments);// Append le array des transshipment à la view
+            transshipments.push([
+                                 {"type": $('#type').val() },
+                                 {"origin_name": $("#origin_place option:selected").text() },
+                                 {"departure": $('#departure').val() },
+                                 {"destination_name": $("#destination_place option:selected").text() },
+                                 {"arrival": $('#arrival').val() },
+                                 {"vessel": $('#vessel').val() },
+                                 {"comment-transshipment": $('#comment-transshipment').val()},
+                                 {"origin_place": $('#origin_place').val() },
+                                 {"destination_place": $('#destination_place').val() },
+                                ])
+            
             // Reset all the transshipment input in modal
             $('#type, #origin_place, #departure, #destination_place, #arrival, #vessel, #comment-transshipment').val('')
             //Reset Origin & destination to disable
             $('#origin_place, #destination_place').prop("disabled", true);
             // Ajouter à l'imput transshipment le array serialize de tous les transshipments
             $("input[name='transshipments']").val(JSON.stringify(transshipments));
-            console.log($("input[name='transshipments']").val())
+            // Show transshipment table
+            showTransshipments(transshipments)
         }
+
+        function showTransshipments(transshipmentsArray){
+            $('#showTransshipments').empty(); // Reset la view des transshipments ajouté
+            // Create table to dispay
+            var transshipmentTable = '<table id="transshipments-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">';
+            transshipmentTable += '<thead><tr><th>Type</th><th>Origin</th><th>Departure</th><th>Destination</th><th>Arrival</th><th>Vessel</th></tr></thead><tbody>';
+            $.each(transshipmentsArray, function( index, transshipment ) {
+                transshipmentTable += '<tr>'
+                $.each(transshipment, function( index, value ) {
+                    if(index < 6) {
+                        transshipmentTable += '<td>'+value[Object.keys(value)[0]]+'</td>'
+                    }
+                });
+                transshipmentTable += '</tr>'
+            });
+            transshipmentTable += '</tbody></table>'
+            $('#showTransshipments').append(transshipmentTable);// Append le table des transshipment à la view
+        }
+
+        function checkEmptyInputs(inputFields) {
+            var empty = false;
+            $(".alert").remove() // Reset all alert
+            $.each(inputFields, function( index, input ) {
+                if (input.value == ''){
+                    $(this).closest('div.col-md-6').append('<div class="alert alert-danger">This field is required</div>')
+                    empty = true; 
+                }
+            })
+            return empty;
+        }
+        
     </script>
 
 
