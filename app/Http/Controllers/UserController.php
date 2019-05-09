@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Place;
-use App\Http\Requests\StorePlace;
+use App\User;
 
-class PlaceController extends Controller
+class UserController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,9 +25,9 @@ class PlaceController extends Controller
     public function index()
     {
         
-        $places = Place::orderBy('id', 'DESC')->get();
+        $users = User::with(['customer', 'roles'])->orderBy('id', 'DESC')->get();
         
-        return view('admin/places/index')->with(['places'=> $places]);
+        return view('admin/users/index')->with(['users'=> $users]);
 
     }
 
@@ -39,7 +38,7 @@ class PlaceController extends Controller
      */
     public function create()
     {
-        return view('admin/places/create');
+        return view('admin/users/create');
     }
 
     /**
@@ -48,17 +47,17 @@ class PlaceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePlace $request)
+    public function store(StoreUser $request)
     {
 
-        $place = new Place;
+        /*$place = new Place;
         $place->title = $request->title;
         $place->country = $request->country;
         $place->type = $request->type;
         $place->abbreviation = $request->abbreviation;
-        $place->save();
+        $place->save();*/
 
-        return redirect('/admin/places')->with('success', 'New place saved!');
+        return redirect('/admin/users')->with('success', 'New user saved!');
         
     }
 
@@ -70,9 +69,9 @@ class PlaceController extends Controller
      */
     public function edit($id)
     {
-        // get the customer
-        $place = Place::find($id);
-        return view('admin/places/edit')->with('place', $place);
+ 
+        $user = User::find($id);
+        return view('admin/users/edit')->with('user', $user);
     }
 
     /**
@@ -82,16 +81,18 @@ class PlaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StorePlace $request, $id)
+    public function update(StoreUser $request, $id)
     {
-        $place = Place::find($id);
-        $place->title = $request->title;
-        $place->country = $request->country;
-        $place->type = $request->type;
-        $place->abbreviation = $request->abbreviation;
-        $customer->save();
+        $user = User::find($id);
 
-        return redirect('/admin/places')->with('success', 'Place updated');
+        /*$customer->name = $request->name;
+        $customer->address = $request->address;
+        $customer->city = $request->city;
+        $customer->cp = $request->cp;
+        $customer->country = $request->country;
+        $customer->save();*/
+
+        return redirect('/admin/users')->with('success', 'User updated');
     }
 
     /**
@@ -102,9 +103,9 @@ class PlaceController extends Controller
      */
     public function destroy($id)
     {
-        $place = Place::find($id);
-        $place->delete();
+        $user = User::find($id);
+        $user->delete();
 
-        return redirect('/admin/places')->with('success', 'Place has been deleted');
+        return redirect('/admin/users')->with('success', 'User has been deleted');
     }
 }
