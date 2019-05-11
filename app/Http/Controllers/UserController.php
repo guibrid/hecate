@@ -106,6 +106,6 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return redirect('/admin/users')->with('success', 'User has been deleted');
+        return redirect('/admin/customers')->with('success', 'User has been deleted');
     }
 }

@@ -26,6 +26,8 @@ ORDERS
 Route::get('/orders/show/{id}', 'OrderController@show')->middleware('role:user');
 Route::get('/orders', 'OrderController@index');
 Route::post('/getDocuments', 'DocumentController@getDocuments')->middleware('auth'); // Ajax call to get documents by order id
+Route::get('/admin/users/destroy/{id}', 'UserController@destroy')->middleware('role:editor,manager,director,admin')->name('user.delete');
+
 
 /* Orders */
 Route::get('/admin/orders', 'OrderController@index')->middleware('role:editor,manager,director,admin');

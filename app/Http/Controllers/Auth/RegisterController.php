@@ -68,7 +68,13 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'customer_id' => ['required', 'integer'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 
+                           'string', 
+                           'min:8', 
+                           'regex:/[a-z]/',      // must contain at least one lowercase letter
+                           'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                           'regex:/[0-9]/',      // must contain at least one digit
+                           'confirmed'],
         ]);
     }
 
@@ -106,6 +112,6 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
         $this->create($request->all());
-        return redirect('/admin/customers')->with('success', 'New user added!');
+        return redirect('/admin/customers/edit/'.$request->customer_id)->with('success', 'New user added!');
     }
 }

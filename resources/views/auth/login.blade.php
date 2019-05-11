@@ -49,9 +49,9 @@
 
             <div class="separator">
                     @if (Route::has('password.request'))
-                    <p class="change_link"> <a class="to_register" href="{{ route('password.request') }}">
+                    <!--<p class="change_link"> <a class="to_register" href="{{ route('password.request') }}">
                         {{ __('Lost your password?') }}
-                    </a></p>
+                    </a></p>-->
                 @endif
 
                 <div class="clearfix"></div>

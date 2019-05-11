@@ -52,7 +52,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Hecate Tracking
+            {{ config('app.name') }}
           </div>
           <div class="clearfix"></div>
         </footer>
