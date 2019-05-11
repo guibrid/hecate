@@ -19,10 +19,10 @@
                 <br />
                 @foreach(Helpers::getTransshipments($shipment->id) as $transshipment)
                   {!! Helpers::transshipmentIcon($transshipment['type'])!!} 
-                  {{ $transshipment['origin']['abbreviation']}}-
+                  {{ $transshipment['origin']['title']}} -
                   {{ \Carbon\Carbon::parse($transshipment['departure'])->format('d/m/Y')}}
                   <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                  {{ $transshipment['destination']['abbreviation']}}-
+                  {{ $transshipment['destination']['title']}} -
                   {{ \Carbon\Carbon::parse($transshipment['arrival'])->format('d/m/Y')}}<br />
                 @endforeach 
               </td>
