@@ -115,7 +115,8 @@ class OrderController extends Controller
     {
         // get the order
         $order = Order::with(['customer'])->find($id);
-        return view('admin/orders/edit')->with('order', $order);
+        $statuses = Status::pluck('title','id');
+        return view('admin/orders/edit')->with(['order' => $order, 'statuses' => $statuses]);
     }
 
     /**

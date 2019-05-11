@@ -36,7 +36,7 @@
                                     <tr>
                                         <td>Status *</td>
                                         <td>
-                                            {!! Form::text('status_id', $order->status_id, ['id'=>'status_id', 'class'=>'form-control']) !!}
+                                            {!! Form::select('status_id', $statuses, $order->status_id, ['id'=>'status_id', 'class'=>'form-control']) !!}
                                             @error('number')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
