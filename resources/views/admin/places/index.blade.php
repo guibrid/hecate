@@ -32,10 +32,12 @@
                     <td align="center">{!!Helpers::transshipmentIcon($place->type, 2)!!}</td>
                     <td>{{$place->country}}</td>
                     <td>
+                      <a href="{{ URL::route('place.edit', $place->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
+                      @if (auth()->user()->authorizeDisplay(['admin']))
                       {{ Form::open(['method'=>'DELETE', 'route'=>['place.delete', $place->id]]) }}
-                        <a href="{{ URL::route('place.edit', $place->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
                         <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this place?');" type="submit" value="Del">
                       {{ Form::close() }}
+                      @endif
                     </td>
                   </tr>
                 @endforeach

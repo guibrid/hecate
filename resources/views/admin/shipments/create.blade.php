@@ -14,6 +14,7 @@
 'class' => 'form-horizontal form-label-left', 
 'id' => 'demo-form2']) !!}
 {!! Form::hidden('transshipments') !!}
+{!! Form::hidden('shipment-id',null, ['id'=>'shipment-id']) !!}
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -103,7 +104,7 @@
                     {!! Form::label('comment', 'Comment', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
     
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        {!! Form::textarea('comment', null, ['class' => 'resizable_textarea form-control', 'rows' => 3, 'id' => 'comment']) !!}
+                        {!! Form::textarea('comment-transshipment', null, ['class' => 'resizable_textarea form-control', 'rows' => 3, 'id' => 'comment']) !!}
                         @error('comment')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -222,17 +223,18 @@
         function registerTransshipment(){
             $('#transshipmentModal').modal('toggle'); // Close transshipment modal
             // Add transshipment details to array
-            transshipments.push([
-                                 {"type": $('#type').val() },
-                                 {"origin_name": $("#origin_place option:selected").text() },
-                                 {"departure": $('#departure').val() },
-                                 {"destination_name": $("#destination_place option:selected").text() },
-                                 {"arrival": $('#arrival').val() },
-                                 {"vessel": $('#vessel').val() },
-                                 {"comment-transshipment": $('#comment-transshipment').val()},
-                                 {"origin_place": $('#origin_place').val() },
-                                 {"destination_place": $('#destination_place').val() },
-                                ])
+            transshipments.push({
+                                 "type": $('#type').val() ,
+                                 "origin": {"title": $("#origin_place option:selected").text() },
+                                 "departure": $('#departure').val() ,
+                                 "destination": {"title":$("#destination_place option:selected").text()} ,
+                                 "arrival": $('#arrival').val() ,
+                                 "vessel": $('#vessel').val() ,
+                                 "comment-transshipment": $('#comment-transshipment').val(),
+                                 "origin_place": $('#origin_place').val() ,
+                                 "destination_place": $('#destination_place').val() ,
+                                 "shipment_id": $('#shipment-id').val(),
+                                })
             
             // Reset all the transshipment input in modal
             $('#type, #origin_place, #departure, #destination_place, #arrival, #vessel, #comment-transshipment').val('')
@@ -251,11 +253,12 @@
             transshipmentTable += '<thead><tr><th>Type</th><th>Origin</th><th>Departure</th><th>Destination</th><th>Arrival</th><th>Vessel</th></tr></thead><tbody>';
             $.each(transshipmentsArray, function( index, transshipment ) {
                 transshipmentTable += '<tr>'
-                $.each(transshipment, function( index, value ) {
-                    if(index < 6) {
-                        transshipmentTable += '<td>'+value[Object.keys(value)[0]]+'</td>'
-                    }
-                });
+                transshipmentTable += '<td>'+transshipment.type+'</td>'
+                transshipmentTable += '<td>'+transshipment.origin.title+'</td>'
+                transshipmentTable += '<td>'+transshipment.departure+'</td>'
+                transshipmentTable += '<td>'+transshipment.destination.title+'</td>'
+                transshipmentTable += '<td>'+transshipment.arrival+'</td>'
+                transshipmentTable += '<td>'+transshipment.vessel+'</td>'
                 transshipmentTable += '</tr>'
             });
             transshipmentTable += '</tbody></table>'

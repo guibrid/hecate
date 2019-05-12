@@ -44,10 +44,12 @@
                     <td>@if ($order->weight) {{$order->weight}} kg @endif</td>
                     <td>@if ($order->volume) {{$order->volume}} m3 @endif</td>
                     <td>
-                        {{ Form::open(['method'=>'DELETE', 'route'=>['order.delete', $order->id]]) }}
                         <a href="{{ URL::route('order.edit', $order->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
-                        <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this order?');" type="submit" value="Del"> 
-                        {{ Form::close() }}
+                        @if (auth()->user()->authorizeDisplay(['admin']))
+                          {{ Form::open(['method'=>'DELETE', 'route'=>['order.delete', $order->id]]) }}
+                            <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this order?');" type="submit" value="Del"> 
+                          {{ Form::close() }}
+                        @endif
                     </td>
 
                   </tr>

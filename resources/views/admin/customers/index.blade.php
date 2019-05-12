@@ -34,11 +34,13 @@
                     <td>{{$customer->cp}}</td>
                     <td>{{$customer->country}}</td>
                     <td>
+                      <a href="{{ URL::route('customer.edit', [$customer->id, 'user'=>'add']) }}" type="button" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Add user</a>
+                      <a href="{{ URL::route('customer.edit', $customer->id) }}" type="button" class="btn btn-primary btn-xs">edit</a>
+                      @if (auth()->user()->authorizeDisplay(['admin']))
                       {{ Form::open(['method'=>'DELETE', 'route'=>['customer.delete', $customer->id]]) }}
-                        <a href="{{ URL::route('customer.edit', [$customer->id, 'user'=>'add']) }}" type="button" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Add user</a>
-                        <a href="{{ URL::route('customer.edit', $customer->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
                         <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this customer?');" type="submit" value="Del">
                       {{ Form::close() }}
+                      @endif
                     </td>
                   </tr>
                 @endforeach

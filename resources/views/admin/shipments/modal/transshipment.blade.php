@@ -90,7 +90,7 @@
                                 {!! Form::label('comment', 'Comment', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                 
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    {!! Form::textarea('comment', null, ['class' => 'resizable_textarea form-control', 'rows' => 3, 'id' => 'comment-transshipment']) !!}
+                                    {!! Form::textarea('comment-transshipment', null, ['class' => 'resizable_textarea form-control', 'rows' => 3, 'id' => 'comment-transshipment']) !!}
                                 </div>
                             </div> 
                         </div>

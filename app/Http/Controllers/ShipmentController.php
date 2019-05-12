@@ -68,10 +68,10 @@ class ShipmentController extends Controller
         $shipment->save();
 
         $transshipments = json_decode ($request->transshipments, true); // Decode the JSOn Stringify
+
         // Loop Transshipments
         foreach($transshipments as $key => $transshipmentInputs){
             //TODO add validation on transshipment fields
-            $transshipmentInputs = call_user_func_array('array_merge', $transshipmentInputs); // Convert 2 dimension array to 1 dimension array
             // Save Shipment
             $transshipment = new Transshipment;
             $transshipment->type = $transshipmentInputs['type'];
@@ -97,7 +97,10 @@ class ShipmentController extends Controller
      */
     public function edit($id)
     {
-        return view('admin/shipments/edit');
+        $shipment = Shipment::find($id);
+        $transshipments = Transshipment::with(['origin', 'destination'])->where('shipment_id', $id)->get();
+
+        return view('admin/shipments/edit')->with(['shipment' => $shipment, 'transshipments' => $transshipments->toJson()]);
     }
 
     /**
@@ -107,8 +110,51 @@ class ShipmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreShipment $request, $id)
     {
+        //Update shimpents details
+        $shipment = Shipment::find($id);
+        $shipment->number = $request->number;
+        $shipment->title = $request->title;
+        $shipment->container_number = $request->container_number;
+        $shipment->document_reception = $request->document_reception;
+        $shipment->custom_control = $request->custom_control;
+        $shipment->cutoff = $request->cutoff;
+        $shipment->comment = $request->comment;
+        $shipment->save();
+        
+        $transshipments = json_decode ($request->transshipments, true); // Decode the JSOn Stringify
+
+        foreach($transshipments as $transshipmentInputs){
+
+            if(isset($transshipmentInputs['id'])){  //if has id UPDATE
+                /*$transshipment = Transshipment::find($id);
+                $transshipment->type = $transshipmentInputs['type'];
+                $transshipment->departure = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['departure'])->format('Y-m-d');
+                $transshipment->arrival = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['arrival'])->format('Y-m-d');
+                $transshipment->vessel = $transshipmentInputs['vessel'];
+                $transshipment->comment = $transshipmentInputs['comment-transshipment'];
+                $transshipment->origin_place = $transshipmentInputs['origin_place'];
+                $transshipment->destination_place = $transshipmentInputs['destination_place'];
+                $transshipment->shipment_id = $transshipmentInputs['shipment_id'];
+                $transshipment->save();*/
+            } else {    // Insert TransShipment
+                $transshipment = new Transshipment;
+                $transshipment->type = $transshipmentInputs['type'];
+                $transshipment->departure = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['departure'])->format('Y-m-d');
+                $transshipment->arrival = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['arrival'])->format('Y-m-d');
+                $transshipment->vessel = $transshipmentInputs['vessel'];
+                $transshipment->comment = $transshipmentInputs['comment-transshipment'];
+                $transshipment->origin_place = $transshipmentInputs['origin_place'];
+                $transshipment->destination_place = $transshipmentInputs['destination_place'];
+                $transshipment->shipment_id = $shipment->id;
+                $transshipment->save();
+            }
+
+
+        }
+
+        return redirect('/admin/shipments')->with('success', 'Shipment updated');
 
     }
 
