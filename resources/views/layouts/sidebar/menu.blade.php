@@ -6,10 +6,10 @@
                 <li><a><i class="fa fa-clone"></i> Orders <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="{{ url('orders') }}">All orders</a></li>
-                    <li><a>Proceeding</a></li>
+                    <!--<li><a>Proceeding</a></li>
                     <li><a>In wharehouse</a></li>
                     <li><a>Loaded</a></li>
-                    <li><a>Delivered</a></li>
+                    <li><a>Delivered</a></li>-->
                   </ul>
                 </li>
               </ul>
