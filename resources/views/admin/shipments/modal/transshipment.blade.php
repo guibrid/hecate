@@ -9,7 +9,8 @@
                 <div class="modal-body form-horizontal form-label-left">
                     <div class="row">
                         <div class="col-md-12 col-xs-12">
-                                <p><small>* indicates required field</small></p>
+                            <p><small>* indicates required field</small></p>
+                            {!! Form::hidden('index', null, ['id'=>'transshipment_index']) !!}
                             <div class="form-group">
                                 {!! Form::label('type', 'Type*', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                                 
@@ -90,7 +91,7 @@
                                 {!! Form::label('comment', 'Comment', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                 
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    {!! Form::textarea('comment-transshipment', null, ['class' => 'resizable_textarea form-control', 'rows' => 3, 'id' => 'comment-transshipment']) !!}
+                                    {!! Form::textarea('comment', null, ['class' => 'resizable_textarea form-control', 'rows' => 3, 'id' => 'comment_transshipment']) !!}
                                 </div>
                             </div> 
                         </div>

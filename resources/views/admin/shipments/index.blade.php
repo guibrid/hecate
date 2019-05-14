@@ -17,7 +17,7 @@
           <table id="shipments-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th>Consol #</th>
                   <th>Title</th>
                   <th>Doc reception</th>
                   <th>Custom control</th>
@@ -48,12 +48,12 @@
                     @endforeach 
                   </td>
                   <td>
-                    <a href="{{ URL::route('shipment.edit', $shipment->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
-                    @if (auth()->user()->authorizeDisplay(['admin']))
                       {{ Form::open(['method'=>'DELETE', 'route'=>['shipment.delete', $shipment->id]]) }}
+                        <a href="{{ URL::route('shipment.edit', $shipment->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
+                        @if (auth()->user()->authorizeDisplay(['admin']))
                         <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this shipment?');" type="submit" value="Del"> 
+                        @endif
                       {{ Form::close() }}
-                    @endif
                   </td>
                 </tr>
                 @endforeach

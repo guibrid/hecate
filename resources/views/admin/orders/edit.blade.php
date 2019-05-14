@@ -43,7 +43,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Order number *</td>
+                                        <td>Booking n° *</td>
                                         <td>
                                             {!! Form::text('number', $order->number, ['id'=>'number', 'class'=>'form-control', 'placeholder' => 'Ex: Title for you order...']) !!}
                                             @error('number')

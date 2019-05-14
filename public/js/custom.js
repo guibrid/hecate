@@ -5062,6 +5062,87 @@ $(document).ready(function() {
 	init_autosize();
 	//init_autocomplete();
 			
-});	
+});
+
+
+
+/*********************************************
+ * Hecate Custom
+ ********************************************/
+
+
+/*********************************************
+ * convertDate()
+ * Convertir date au format dd/mm/YYYY
+ * var inputFormat = date 
+ * return string formated date dd/mm/YYYY
+ ********************************************/
+function convertDate(inputFormat) {
+
+	// Regex for date format dd/mm/YYYY
+	var reg = /^(((0[1-9]|[12]\d|3[01])\/(0[13578]|1[02])\/((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\/(0[13456789]|1[012])\/((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\/((19|[2-9]\d)\d{2}))|(29\/02\/((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/g;
+	if(!(reg.test(inputFormat))) // Si le format de la date n'est pas bon on convertit
+	{
+		function pad(s) { return (s < 10) ? '0' + s : s; }
+		var d = new Date(inputFormat);
+		return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+	} else { // Si le format est bon on retourne la date
+		return inputFormat;
+	}
+	
+}
+
+/*********************************************
+ * checkEmptyInputs()
+ * Display alert message if input field is empty
+ * var inputFields array
+ * return true or false and alerts
+ ********************************************/
+function checkEmptyInputs(inputFields) {
+	var empty = false;
+	$(".alert").remove() // Reset all alert
+	$.each(inputFields, function( index, input ) {
+		if (input.value == ''){
+			$(this).closest('div.col-md-6').append('<div class="alert alert-danger">This field is required</div>')
+			empty = true; 
+		}
+	})
+	return empty;
+}
+
+
+/*********************************************
+ * SHIMPENTS & TRANSSHIPMENTS SECTION
+ ********************************************/
+
+
+/*********************************************
+ * showTransshipments()
+ * Display table of transshipments
+ * var transshipmentsArray array
+ * return append table to div#showTransshipments
+ ********************************************/
+function showTransshipments(transshipmentsArray){
+
+	$('#showTransshipments').empty(); // Reset la view
+
+	var transshipmentTable = '<table id="transshipments-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">';
+	transshipmentTable += '<thead><tr><th>Type</th><th>Origin</th><th>Departure</th><th>Destination</th><th>Arrival</th><th>Vessel</th><th>Action</th></tr></thead><tbody>';
+	$.each(transshipmentsArray, function( index, transshipment ) {
+		transshipmentTable += '<tr>'
+		transshipmentTable += '<td>'+transshipment.type+'</td>'
+		transshipmentTable += '<td>'+transshipment.origin.title+'</td>'
+		transshipmentTable += '<td>'+transshipment.departure+'</td>'
+		transshipmentTable += '<td>'+transshipment.destination.title+'</td>'
+		transshipmentTable += '<td>'+transshipment.arrival+'</td>'
+		transshipmentTable += '<td>'+transshipment.vessel+'</td>'
+		transshipmentTable += '<td><a onclick="getTransshipment('+index+')" type="button" class="btn btn-primary btn-xs">edit</a> </td>'
+		transshipmentTable += '</tr>'
+	});
+	transshipmentTable += '</tbody></table>'
+	$('#showTransshipments').append(transshipmentTable);
+
+}
+
 
 

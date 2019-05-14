@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {!! Form::label('number', 'Shipment number', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                    {!! Form::label('number', 'Consol number', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
     
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         {!! Form::text('number', null, ['id'=>'number', 'class'=>'form-control col-md-7 col-xs-12']) !!}
@@ -104,7 +104,7 @@
                     {!! Form::label('comment', 'Comment', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
     
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        {!! Form::textarea('comment-transshipment', null, ['class' => 'resizable_textarea form-control', 'rows' => 3, 'id' => 'comment']) !!}
+                        {!! Form::textarea('comment', null, ['class' => 'resizable_textarea form-control', 'rows' => 3, 'id' => 'comment']) !!}
                         @error('comment')
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -217,7 +217,6 @@
             });
         }
 
-
         var transshipments = new Array()
 
         function registerTransshipment(){
@@ -230,14 +229,14 @@
                                  "destination": {"title":$("#destination_place option:selected").text()} ,
                                  "arrival": $('#arrival').val() ,
                                  "vessel": $('#vessel').val() ,
-                                 "comment-transshipment": $('#comment-transshipment').val(),
+                                 "comment": $('#comment_transshipment').val(),
                                  "origin_place": $('#origin_place').val() ,
                                  "destination_place": $('#destination_place').val() ,
                                  "shipment_id": $('#shipment-id').val(),
                                 })
             
             // Reset all the transshipment input in modal
-            $('#type, #origin_place, #departure, #destination_place, #arrival, #vessel, #comment-transshipment').val('')
+            $('#type, #origin_place, #departure, #destination_place, #arrival, #vessel, #comment_transshipment').val('')
             //Reset Origin & destination to disable
             $('#origin_place, #destination_place').prop("disabled", true);
             // Ajouter à l'imput transshipment le array serialize de tous les transshipments
@@ -246,37 +245,6 @@
             showTransshipments(transshipments)
         }
 
-        function showTransshipments(transshipmentsArray){
-            $('#showTransshipments').empty(); // Reset la view des transshipments ajouté
-            // Create table to dispay
-            var transshipmentTable = '<table id="transshipments-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">';
-            transshipmentTable += '<thead><tr><th>Type</th><th>Origin</th><th>Departure</th><th>Destination</th><th>Arrival</th><th>Vessel</th></tr></thead><tbody>';
-            $.each(transshipmentsArray, function( index, transshipment ) {
-                transshipmentTable += '<tr>'
-                transshipmentTable += '<td>'+transshipment.type+'</td>'
-                transshipmentTable += '<td>'+transshipment.origin.title+'</td>'
-                transshipmentTable += '<td>'+transshipment.departure+'</td>'
-                transshipmentTable += '<td>'+transshipment.destination.title+'</td>'
-                transshipmentTable += '<td>'+transshipment.arrival+'</td>'
-                transshipmentTable += '<td>'+transshipment.vessel+'</td>'
-                transshipmentTable += '</tr>'
-            });
-            transshipmentTable += '</tbody></table>'
-            $('#showTransshipments').append(transshipmentTable);// Append le table des transshipment à la view
-        }
-
-        function checkEmptyInputs(inputFields) {
-            var empty = false;
-            $(".alert").remove() // Reset all alert
-            $.each(inputFields, function( index, input ) {
-                if (input.value == ''){
-                    $(this).closest('div.col-md-6').append('<div class="alert alert-danger">This field is required</div>')
-                    empty = true; 
-                }
-            })
-            return empty;
-        }
-        
     </script>
 
 

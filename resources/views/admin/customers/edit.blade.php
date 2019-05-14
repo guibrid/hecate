@@ -110,7 +110,11 @@
                                         <tr>
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
-                                            <td><a href="{{ URL::route('user.delete', $user->id) }}" type="submit" class="btn btn-danger btn-xs">Del</button></td>
+                                            <td>
+                                                @if (auth()->user()->authorizeDisplay(['admin']))    
+                                                    <a href="{{ URL::route('user.delete', $user->id) }}" type="submit" class="btn btn-danger btn-xs">Del</button>
+                                                @endif
+                                            </td>
                                           </tr>
                                         @endforeach
                                     </tbody>

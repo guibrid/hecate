@@ -29,12 +29,12 @@ class Helpers
      * @param  object $shipment
      * @return string
      */
-    public static function renderShipmentStatus($shipment = null, $content = 'Shipment not registered')
+    public static function renderShipmentStatus($shipment = null)
     {
         if ($shipment === null){
-            $statusRender = '<span class="label label-default" style="width:120px; display:inline-block">'.$content.'</span>';
+            $statusRender = '<span class="label label-default" style="width:120px; display:inline-block">Shipment not registered</span>';
         } else {
-            $statusRender = '<span class="label label-success" style="width:120px; display:inline-block">'.$content.'</span>';
+            $statusRender = '<span class="label label-success" style="width:120px; display:inline-block">Shipment registered</span>';
         }
         return $statusRender;
 

@@ -13,7 +13,7 @@
               @endif
               <td>
                 @if ($shipment->cutoff) {{$shipment->title}}<br /> @endif
-                @if ($shipment->number) <b>#</b>: {{$shipment->number}} - @endif
+                @if ($shipment->number) <b>Consol #</b>: {{$shipment->number}} - @endif
                 @if ($shipment->cutoff) <b>Cutoff</b>: {{\Carbon\Carbon::parse($shipment->cutoff)->format('d/m/Y')}} - @endif
                 @if ($shipment->container_number ) <b>Container</b>: {{$shipment->container_number }} @endif
                 <br />

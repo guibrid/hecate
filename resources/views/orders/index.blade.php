@@ -26,7 +26,7 @@
               <a class="panel-heading collapsed" role="tab" id="heading{{$order->id}}" data-toggle="collapse" data-parent="#accordion{{$order->id}}" href="#collapse{{$order->id}}" aria-expanded="false" aria-controls="collapse{{$order->id}}">
                 <div class="row">
                   <div class="col-md-6">
-                    <h4 class="panel-title"><i class="fa fa-caret-down"></i> Order: {{$order->number}} | {{$order->supplier}}</h4>
+                    <h4 class="panel-title"><i class="fa fa-caret-down"></i> Booking n°: {{$order->number}} | {{$order->supplier}}</h4>
                   </div>
                   <div class="col-md-6">
                     <div class="pull-right"><span class="label label-info" style="width:80px; height:15px; display:inline-block">{{$order->status['title']}}</span>  @php echo Helpers::renderShipmentStatus($order->shipment); @endphp </div>
@@ -103,7 +103,11 @@
                                     @endphp
                                     <div class="col-md-6">
                                         <table class="table">
-                                        <tbody>
+                                        <tbody>Shipment/booking number
+                                            <tr>
+                                              <td>Consol n°</td>
+                                              <td class="fs15 fw700 text-right">{{date('d-m-Y', strtotime($order->shipment->document_reception))}}</td>
+                                            </tr>
                                             <tr>
                                             <td>Doc reception</td>
                                             <td class="fs15 fw700 text-right">{{date('d-m-Y', strtotime($order->shipment->document_reception))}}</td>
