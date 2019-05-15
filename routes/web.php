@@ -73,3 +73,6 @@ Route::post('/admin/places/store', 'PlaceController@store')->middleware('role:ed
 Route::get('/admin/places/edit/{id}', 'PlaceController@edit')->middleware('role:editor,manager,director,admin')->name('place.edit');
 Route::patch('/admin/places/update/{id}', 'PlaceController@update')->middleware('role:editor,manager,director,admin');
 Route::delete('/admin/places/destroy/{id}', 'PlaceController@destroy')->middleware('role:editor,manager,director,admin')->name('place.delete');
+
+/* Email */
+Route::get('emailTest','EmailController@sendEMail');
