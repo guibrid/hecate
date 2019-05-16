@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Mail;
 use App\Mail\OrderSaved;
+use App\Helpers;
 
 class Notifications
 {
@@ -11,15 +12,22 @@ class Notifications
     public static function orderSaved($order)
     {
         // Get customer user email list
-        $myEmail = ['guillaume.briard@gmail.com','guillaume@web-axis.biz'];
-        Mail::to($myEmail)->send(new OrderSaved($order));
+        $usersList = Helpers::getCustomerUserList($order->customer_id);
+        foreach ($usersList as $user){
+            $emails[] = $user->email;
+        }
+        
+        // Send notification
+        Mail::to($emails)->send(new OrderSaved($order));
     
         if (Mail::failures()) {
+
             return 'Notification not send.';
-        }
-        else
-        {
+        
+        }else{
+
             return 'Notification send.';
+
         }
 
     }
