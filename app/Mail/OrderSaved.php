@@ -36,7 +36,7 @@ class OrderSaved extends Mailable
      */
     public function build()
     {
-        return $this->from( env('MAIL_NOREPLY') )
+        return $this->from( env('MAIL_NOREPLY'), env('APP_NAME') )
                     ->view('emails.orders.saved')
                     ->with([
                         'orderId'        => $this->order->id,

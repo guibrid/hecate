@@ -14,11 +14,11 @@ class Notifications
         // Get customer user email list
         $usersList = Helpers::getCustomerUserList($order->customer_id);
         foreach ($usersList as $user){
-            $emails[] = $user->email;
+            $to[] = [ 'email'=> $user->email, 'name' => $user->name];
         }
         
         // Send notification
-        Mail::to($emails)->send(new OrderSaved($order));
+        Mail::to($to)->send(new OrderSaved($order));
     
         if (Mail::failures()) {
 
