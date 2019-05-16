@@ -18,7 +18,7 @@ class Notifications
         }
         
         // Send notification
-        Mail::to($to)->send(new OrderSaved($order));
+        Mail::to('guillaume@web-axis.biz')->cc($to)->send(new OrderSaved($order));
     
         if (Mail::failures()) {
 
