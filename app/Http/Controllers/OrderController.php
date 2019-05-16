@@ -9,6 +9,7 @@ use App\Customer;
 use App\Status;
 use App\Http\Requests\StoreOrder;
 use Auth;
+use App\Jobs\Notifications;
 
 class OrderController extends Controller
 {
@@ -83,6 +84,8 @@ class OrderController extends Controller
         $order->status_id = $request->input('status_id');
         $order->customer_id = $request->input('customer_id');
         $order->save();
+
+        Notifications::orderSaved($order);
 
         return redirect('/admin/orders')->with('success', 'New order saved!');
 

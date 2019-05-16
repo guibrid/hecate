@@ -5,7 +5,7 @@
 </head>
 <body>
 
- <h1>This is test mail from Tutsmake.com</h1>
+ <h1>This is test mail from Tutsmake.com{{ $orderId }}</h1>
 
 </body>
 </html> 
