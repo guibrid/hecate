@@ -11,15 +11,15 @@ class Notifications
     public static function orderSaved($order)
     {
         // Get customer user email list
-        $myEmail = 'guillaume.briard@gmail.com';
+        $myEmail = ['guillaume.briard@gmail.com','guillaume@web-axis.biz'];
         Mail::to($myEmail)->send(new OrderSaved($order));
     
         if (Mail::failures()) {
-            return 'Sorry! Please try again later';
+            return 'Notification not send.';
         }
         else
         {
-            return 'Great! Successfully send in your mail';
+            return 'Notification send.';
         }
 
     }

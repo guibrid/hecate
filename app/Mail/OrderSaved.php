@@ -38,6 +38,18 @@ class OrderSaved extends Mailable
     {
         return $this->from('example@example.com')
                     ->view('emails.orders.saved')
-                    ->with(['orderId' => $this->order->id]);
+                    ->with([
+                        'orderId'        => $this->order->id,
+                        'booking'        => $this->order->number,
+                        'title'          => $this->order->title,
+                        'batch'          => $this->order->batch,
+                        'load'           => $this->order->load,
+                        'package_number' => $this->order->package_number,
+                        'weight'         => $this->order->weight,
+                        'volume'         => $this->order->volume,
+                        'recipient'      => $this->order->recipient,
+                        'supplier'       => $this->order->supplier,
+                        'comment'        => $this->order->comment ,
+                        ]);
     }
 }

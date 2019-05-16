@@ -4,6 +4,7 @@ namespace App;
 
 use App\Transshipment;
 use App\Document;
+use App\User;
 use App\Place;
 use Illuminate\Http\Request;
 
@@ -142,6 +143,19 @@ class Helpers
             }
         }
         return $str;
+
+    }
+
+    /**
+     * Get list or user belong to a customer id
+     *
+     * @param  int $customer_id 
+     * @return array
+     */ 
+    public static function getCustomerUserList($customer_id)
+    {
+        $users = User::where('customer_id', $customer_id)->get();
+        return $users->toArray();;
 
     }
 }

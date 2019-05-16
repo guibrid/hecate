@@ -85,8 +85,11 @@ class OrderController extends Controller
         $order->customer_id = $request->input('customer_id');
         $order->save();
 
-        Notifications::orderSaved($order);
-
+        // Send Notification
+        if($request->input('notification')){
+            Notifications::orderSaved($order);
+        }
+        
         return redirect('/admin/orders')->with('success', 'New order saved!');
 
     }

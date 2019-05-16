@@ -163,7 +163,7 @@
 <div class="form-group">
         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"> 
             <p>
-                {!! Form::checkbox('notification', 'send_notification', true, ['class' => 'js-switch']) !!} 
+                {!! Form::checkbox('notification', true, true, ['class' => 'js-switch']) !!} 
                 Send notification to customer   
             </p>
         </div>
