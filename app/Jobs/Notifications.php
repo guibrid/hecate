@@ -24,7 +24,7 @@ class Notifications
 
             return 'Notification not send.';
         
-        }else{
+        } else {
 
             return 'Notification send.';
 
