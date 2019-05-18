@@ -87,7 +87,12 @@ class OrderController extends Controller
 
         // Send Notification
         if($request->input('notification')){
-            Notifications::orderSaved($order);
+            // Get all new order details for notification
+            $newOrder = Order::with(['customer','shipment','status'])
+                            ->where('id',$order->id)
+                            ->first();
+            // Send notification
+            Notifications::orderSaved($newOrder->toArray());
         }
         
         return redirect('/admin/orders')->with('success', 'New order saved!');
