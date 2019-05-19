@@ -18,15 +18,17 @@ class OrderSaved extends Mailable
      * @var Order
      */
     protected $order;
+    protected $transshipments;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($order)
+    public function __construct($order, $transshipments)
     {
         $this->order = $order;
+        $this->transshipments = $transshipments;
     }
 
     /**
@@ -38,6 +40,6 @@ class OrderSaved extends Mailable
     {
         return $this->from( env('MAIL_NOREPLY'), env('APP_NAME') )
                     ->view('emails.orders.saved')
-                    ->with(['order' => $this->order]);
+                    ->with(['order' => $this->order, 'transshipments' => $this->transshipments]);
     }
 }

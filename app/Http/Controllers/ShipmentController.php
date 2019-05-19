@@ -85,6 +85,17 @@ class ShipmentController extends Controller
             $transshipment->save();
         }
 
+        // Send Notification
+        if($request->input('notification')){
+            // Get all new order details for notification
+            $order = Order::with(['customer','shipment','status','documents'])->where('shipment_id', $shipment->id)
+            ->first();
+            $transshipments = Transshipment::where('shipment_id', $shipment->id)
+            ->with(['origin', 'destination'])->get();
+            // Send notification
+            Notifications::shipmentSaved($order->toArray(), $transshipments->toArray());
+        }
+
         return redirect('/admin/shipments')->with('success', 'New shipment saved!');
         
     }

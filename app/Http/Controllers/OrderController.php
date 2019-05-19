@@ -89,7 +89,7 @@ class OrderController extends Controller
         // Send Notification
         if($request->input('notification')){
             // Get all new order details for notification
-            $newOrder = Order::with(['customer','shipment','status'])
+            $newOrder = Order::with(['customer','shipment','status','documents'])
                             ->where('id',$order->id)
                             ->first();
             // Send notification
@@ -162,9 +162,8 @@ class OrderController extends Controller
             ->first();
             $transshipments = Transshipment::where('shipment_id', $updatedorder['shipment_id'])
             ->with(['origin', 'destination'])->get();
-            $documents = Document::where('order_id', $order['id'])->get();
             // Send notification
-            Notifications::orderUpdated($updatedorder->toArray(), $documents->toArray(), $transshipments->toArray());
+            Notifications::orderSaved($updatedorder->toArray(), $transshipments->toArray());
         }
 
         return redirect('/admin/orders')->with('success', 'Order updated');

@@ -74,15 +74,13 @@ Route::get('/admin/places/edit/{id}', 'PlaceController@edit')->middleware('role:
 Route::patch('/admin/places/update/{id}', 'PlaceController@update')->middleware('role:editor,manager,director,admin');
 Route::delete('/admin/places/destroy/{id}', 'PlaceController@destroy')->middleware('role:editor,manager,director,admin')->name('place.delete');
 
-/*Route::get('mailable', function () {
+Route::get('mailable', function () {
 
-    $order = App\Order::with(['customer','shipment','status','documents'])->where('id', 1)
+    $order = App\Order::with(['customer','shipment','status','documents'])->where('id', 31)
     ->first();
 
     $transshipments = App\Transshipment::where('shipment_id', $order['shipment_id'])
     ->with(['origin', 'destination'])->get();
 
-    $documents = App\Document::where('order_id', $order['id'])->get();
-
-    return new App\Mail\OrderUpdated($order->toArray(), $documents->toArray(), $transshipments->toArray());
-});*/
+    return new App\Mail\OrderSaved($order->toArray(), $transshipments->toArray());
+});

@@ -10,7 +10,7 @@ use App\Helpers;
 class Notifications
 {
 
-    public static function orderSaved($order)
+    public static function orderSaved($order, $transshipments=null)
     {
         // Get customer user email list
         $usersList = Helpers::getCustomerUserList($order['customer_id']);
@@ -19,7 +19,7 @@ class Notifications
         }
         
         // Send notification
-        Mail::to($to)->send(new OrderSaved($order));
+        Mail::to($to)->send(new OrderSaved($order, $transshipments));
     
         if (Mail::failures()) {
 
@@ -33,27 +33,9 @@ class Notifications
 
     }
 
-    public static function orderUpdated($order, $documents, $transshipments)
+    public static function shipmentSaved($order, $transshipments=null)
     {
-        // Get customer user email list
-        $usersList = Helpers::getCustomerUserList($order['customer_id']);
-        foreach ($usersList as $user){
-            $to[] = [ 'email'=> $user->email, 'name' => $user->name];
-        }
         
-        // Send notification
-        Mail::to($to)->send(new OrderUpdated($order, $documents, $transshipments));
-    
-        if (Mail::failures()) {
-
-            return 'Notification not send.';
-        
-        } else {
-
-            return 'Notification send.';
-
-        }
-
     }
 
 }
