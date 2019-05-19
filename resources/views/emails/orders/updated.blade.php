@@ -4,7 +4,7 @@
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 20px; padding-bottom: 10px; font-family: Georgia, 'Times New Roman', serif"><![endif]-->
     <div style="color:#FFFFFF;font-family:'Bitter', Georgia, Times, 'Times New Roman', serif;line-height:120%;padding-top:20px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; font-family: 'Bitter', Georgia, Times, 'Times New Roman', serif; color: #FFFFFF;">
-        <p style="font-size: 14px; line-height: 33px; text-align: center; margin: 0;"><span style="font-size: 28px;">Your order has been saved<br/></span></p>
+        <p style="font-size: 14px; line-height: 33px; text-align: center; margin: 0;"><span style="font-size: 28px;">Your order has been updated<br/></span></p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -16,7 +16,7 @@
         <div align="center" class="button-container" style="padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:31.5pt; width:109.5pt; v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#3AAEE0"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]-->
         <div style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#3AAEE0;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;width:auto; width:auto;;border-top:1px solid #3AAEE0;border-right:1px solid #3AAEE0;border-bottom:1px solid #3AAEE0;border-left:1px solid #3AAEE0;padding-top:5px;padding-bottom:5px;font-family:'Open Sans', Helvetica, Arial, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;">
-        <span style="font-size: 16px; line-height: 32px;">PROCEEDING</span>
+        <span style="font-size: 16px; line-height: 32px;">{{ $order['status']['title']}}</span>
         </span></div>
         <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
         </div>
@@ -80,6 +80,7 @@
         </div>
         </div>
         </div>
+        @if ($order['title']) 
         <div style="background-color:#f3f3f3;">
         <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
@@ -92,7 +93,7 @@
         <!--<![endif]-->
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
-        <p style="font-size: 12px; line-height: 14px; text-align: center; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif; margin: 0;"><strong><span style="font-size: 18px; line-height: 21px;"><p>{{ $title_order }}</p></span></strong></p>
+        <p style="font-size: 12px; line-height: 14px; text-align: center; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif; margin: 0;"><strong><span style="font-size: 18px; line-height: 21px;"><p>{{ $order['title'] }}</p></span></strong></p>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
         <!--[if (!mso)&(!IE)]><!-->
@@ -105,6 +106,7 @@
         </div>
         </div>
         </div>
+        @endif
         <div style="background-color:#f3f3f3;">
         <div class="block-grid two-up" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
@@ -125,7 +127,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">{{ $recipient }}</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+        @if ($order['recipient']) 
+        {{ $order['recipient']}}
+        @else
+            -
+        @endif
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -166,7 +174,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">{{ $supplier }}</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+            @if ($order['supplier']) 
+                {{ $order['supplier']}}
+            @else
+                -
+            @endif
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -215,7 +229,12 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">{{ $booking }}
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+            @if ($order['number']) 
+            {{ $order['number']}}
+            @else
+                -
+            @endif
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -256,7 +275,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">{{ $batch }}</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+            @if ($order['batch']) 
+            {{ $order['batch']}}
+            @else
+                -
+            @endif
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -297,7 +322,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">{{ $load }}</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+            @if ($order['load']) 
+            {{ $order['load']}}
+            @else
+                -
+            @endif 
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -346,7 +377,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">{{ $package_number }}</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+            @if ($order['package_number']) 
+            {{ $order['package_number']}}
+            @else
+                -
+            @endif
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -387,7 +424,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">{{ $weight }}</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+            @if ($order['weight']) 
+            {{ $order['weight']}} Kg
+            @else
+                -
+            @endif    
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -428,7 +471,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">{{ $volume }}</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+            @if ($order['volume']) 
+                {{ $order['volume']}} m3
+            @else
+                -
+            @endif
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -457,6 +506,7 @@
         </div>
         </div>
         </div>
+        @if ($documents)
         <div style="background-color:#f3f3f3;">
         <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
@@ -477,9 +527,11 @@
         <div style="font-size:16px;text-align:center;font-family:'Open Sans', Helvetica, Arial, sans-serif">
         <div class="our-class" style="text-align:left;">
         <ul>
+            @foreach($documents as $document) 
         <li>
-        <a href="#" style="color:#2a3f54; text-decoration:none;font-family: 'Open Sans', Helvetica, Arial, sans-serif;">Bill of lading</a>
+        <a href="{{ env('APP_URL') }}/{{$document['path']}}" style="color:#2a3f54; text-decoration:none;font-family: 'Open Sans', Helvetica, Arial, sans-serif;">{{$document['title']}}</a>
         </li>
+        @endforeach
         </ul>
         </div>
         </div>
@@ -493,6 +545,8 @@
         </div>
         </div>
         </div>
+        @endif <!-- End Documents -->
+        @if ($order['shipment'])
         <div style="background-color:#f3f3f3;">
         <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
@@ -520,6 +574,7 @@
         </div>
         </div>
         </div>
+        @if ($order['shipment']['title']) 
         <div style="background-color:#f3f3f3;">
         <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
@@ -533,7 +588,7 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 12px; line-height: 14px; text-align: center; margin: 0;"><strong><span style="font-size: 18px; line-height: 21px;">Auckland - Noumea<br/></span></strong></p>
+        <p style="font-size: 12px; line-height: 14px; text-align: center; margin: 0;"><strong><span style="font-size: 18px; line-height: 21px;">{{ $order['shipment']['title']}}</span></strong></p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -547,6 +602,7 @@
         </div>
         </div>
         </div>
+        @endif
         <div style="background-color:#f3f3f3;">
         <div class="block-grid two-up" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
@@ -567,7 +623,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">1234</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+            @if ($order['shipment']['number']) 
+                {{ $order['shipment']['number'] }}
+            @else
+                -
+            @endif
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -608,7 +670,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">2343465</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+            @if ($order['shipment']['container_number']) 
+                {{ $order['shipment']['container_number'] }}
+            @else
+                -
+            @endif
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -657,7 +725,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">12/01/2019</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+        @if ($order['shipment']['document_reception']) 
+            {{ \Carbon\Carbon::parse($order['shipment']['document_reception'])->format('d/m/Y') }}
+        @else
+            -
+        @endif
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -698,7 +772,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">15/01/2019</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+        @if ($order['shipment']['custom_control']) 
+            {{ \Carbon\Carbon::parse($order['shipment']['custom_control'])->format('d/m/Y') }}
+        @else
+            -
+        @endif
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -739,7 +819,13 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">30/01/2019</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+        @if ($order['shipment']['cutoff']) 
+            {{ \Carbon\Carbon::parse($order['shipment']['cutoff'])->format('d/m/Y') }}
+        @else
+            -
+        @endif
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -768,6 +854,7 @@
         </div>
         </div>
         </div>
+        @if ($transshipments)
         <div style="background-color:#f3f3f3;">
         <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
@@ -781,7 +868,11 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 20px; text-align: center; margin: 0;"><span style="font-size: 17px; mso-ansi-font-size: 18px;">SEA <br/>Le Havre - 15/05/2019 6 =&gt; Le Havre - 22/05/2019<br/> Air <br/>Auckland - 15/05/2019 =&gt; Auckland - 14/05/2019<br/></span></p>
+            <p style="font-size: 14px; line-height: 20px; text-align: center; margin: 0;"><span style="font-size: 17px; mso-ansi-font-size: 18px;">
+            @foreach($transshipments as $transshipment)
+            {{$transshipment['type']}} <br /> {{$transshipment['origin']['title']}} - {{\Carbon\Carbon::parse($transshipment['departure'])->format('d/m/Y')}} >> {{$transshipment['destination']['title']}} - {{\Carbon\Carbon::parse($transshipment['arrival'])->format('d/m/Y')}}<br />
+            @endforeach
+        </span></p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -795,6 +886,8 @@
         </div>
         </div>
         </div>
+        @endif <!-- End Transshipment -->
+        @endif <!-- End Shipments -->
         <div style="background-color:#f3f3f3;">
         <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
         <div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
@@ -815,7 +908,15 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">{{ $comment_order }}</p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
+            @if ($order['comment'])
+                {{ $order['comment'] }}<br />
+            @endif
+            @if ($order['shipment']['comment']) 
+                {{ $order['shipment']['comment'] }}<br />
+            @endif
+
+        </p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->

@@ -21,4 +21,9 @@ class Order extends Model
         return $this->belongsTo('App\Shipment');
     }
 
+    public function documents()
+    {
+        return $this->hasMany('App\Document');
+    }
+
 }

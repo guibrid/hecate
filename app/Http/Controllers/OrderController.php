@@ -154,6 +154,18 @@ class OrderController extends Controller
         $order->status_id = $request->input('status_id');
         $order->save();
 
+        // Send Notification
+        if($request->input('notification')){
+            // Get all updated order details for notification
+            $updatedorder = Order::with(['customer','shipment','status','documents'])->where('id', $order->id)
+            ->first();
+            $transshipments = App\Transshipment::where('shipment_id', $updatedorder['shipment_id'])
+            ->with(['origin', 'destination'])->get();
+            $documents = App\Document::where('order_id', $order['id'])->get();
+            // Send notification
+            Notifications::orderUpdated($updatedorder->toArray(), $documents->toArray(), $transshipments->toArray());
+        }
+
         return redirect('/admin/orders')->with('success', 'Order updated');
 
     }

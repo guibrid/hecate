@@ -32,4 +32,27 @@ class Notifications
 
     }
 
+    public static function orderUpdated($order, $documents, $transshipments)
+    {
+        // Get customer user email list
+        $usersList = Helpers::getCustomerUserList($order['customer_id']);
+        foreach ($usersList as $user){
+            $to[] = [ 'email'=> $user->email, 'name' => $user->name];
+        }
+        
+        // Send notification
+        Mail::to($to)->send(new OrderUpdated($order, $documents, $transshipments));
+    
+        if (Mail::failures()) {
+
+            return 'Notification not send.';
+        
+        } else {
+
+            return 'Notification send.';
+
+        }
+
+    }
+
 }
