@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Mail;
 use App\Mail\OrderSaved;
+use App\Mail\OrderUpdated;
 use App\Helpers;
 
 class Notifications

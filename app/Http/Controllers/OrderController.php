@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Transshipment;
+use App\Document;
 use App\Customer;
 use App\Status;
 use App\Http\Requests\StoreOrder;
@@ -159,9 +160,9 @@ class OrderController extends Controller
             // Get all updated order details for notification
             $updatedorder = Order::with(['customer','shipment','status','documents'])->where('id', $order->id)
             ->first();
-            $transshipments = App\Transshipment::where('shipment_id', $updatedorder['shipment_id'])
+            $transshipments = Transshipment::where('shipment_id', $updatedorder['shipment_id'])
             ->with(['origin', 'destination'])->get();
-            $documents = App\Document::where('order_id', $order['id'])->get();
+            $documents = Document::where('order_id', $order['id'])->get();
             // Send notification
             Notifications::orderUpdated($updatedorder->toArray(), $documents->toArray(), $transshipments->toArray());
         }
