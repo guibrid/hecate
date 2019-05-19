@@ -4,7 +4,7 @@
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 20px; padding-bottom: 10px; font-family: Georgia, 'Times New Roman', serif"><![endif]-->
     <div style="color:#FFFFFF;font-family:'Bitter', Georgia, Times, 'Times New Roman', serif;line-height:120%;padding-top:20px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; font-family: 'Bitter', Georgia, Times, 'Times New Roman', serif; color: #FFFFFF;">
-        <p style="font-size: 14px; line-height: 33px; text-align: center; margin: 0;"><span style="font-size: 28px;">Your order has been updated<br/></span></p>
+                <p style="font-size: 14px; font-family: 'Open Sans', Helvetica, Arial, sans-serif; line-height: 33px; text-align: center; margin: 0;"><span style="font-size: 28px;">Your order has been updated<br/></span></p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
@@ -529,7 +529,7 @@
         <ul>
             @foreach($documents as $document) 
         <li>
-        <a href="{{ env('APP_URL') }}/{{$document['path']}}" style="color:#2a3f54; text-decoration:none;font-family: 'Open Sans', Helvetica, Arial, sans-serif;">{{$document['title']}}</a>
+        <a href="{{ env('APP_URL') }}/documents/download/{{$document['id']}}" style="color:#2a3f54; text-decoration:none;font-family: 'Open Sans', Helvetica, Arial, sans-serif;">{{$document['title']}}</a>
         </li>
         @endforeach
         </ul>
