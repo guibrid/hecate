@@ -134,14 +134,6 @@
 
 <!-- <div class="ln_solid"></div> -->
 <div class="form-group">
-        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"> 
-            <p>
-                {!! Form::checkbox('notification', true, true, ['class' => 'js-switch']) !!} 
-                Send notification to customers   
-            </p>
-        </div>
-    </div>
-<div class="form-group">
     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
         {!! Form::submit('Save your shipment', ['class' => 'btn btn-success']) !!}             
     </div>

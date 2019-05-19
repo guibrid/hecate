@@ -10,6 +10,7 @@ use App\Helpers;
 class Notifications
 {
 
+
     public static function orderSaved($order, $transshipments=null)
     {
         // Get customer user email list
@@ -19,7 +20,7 @@ class Notifications
         }
         
         // Send notification
-        Mail::to($to)->send(new OrderSaved($order, $transshipments));
+        Mail::to($to)->queue(new OrderSaved($order, $transshipments));
     
         if (Mail::failures()) {
 
@@ -35,7 +36,9 @@ class Notifications
 
     public static function shipmentSaved($order, $transshipments=null)
     {
-        
+        var_dump($order);
+        var_dump($transshipments);
+
     }
 
 }

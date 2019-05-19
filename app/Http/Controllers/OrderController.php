@@ -7,6 +7,7 @@ use App\Order;
 use App\Transshipment;
 use App\Document;
 use App\Customer;
+use App\Helpers;
 use App\Status;
 use App\Http\Requests\StoreOrder;
 use Auth;
@@ -160,10 +161,9 @@ class OrderController extends Controller
             // Get all updated order details for notification
             $updatedorder = Order::with(['customer','shipment','status','documents'])->where('id', $order->id)
             ->first();
-            $transshipments = Transshipment::where('shipment_id', $updatedorder['shipment_id'])
-            ->with(['origin', 'destination'])->get();
+            $transshipments = Helpers::getTransshipments($updatedorder['shipment_id']);
             // Send notification
-            Notifications::orderSaved($updatedorder->toArray(), $transshipments->toArray());
+            Notifications::orderSaved($updatedorder->toArray(), $transshipments);
         }
 
         return redirect('/admin/orders')->with('success', 'Order updated');

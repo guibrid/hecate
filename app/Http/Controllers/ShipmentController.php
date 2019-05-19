@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Shipment;
 use App\Order;
 use App\Transshipment;
+use App\Helpers;
+use App\Jobs\Notifications;
 use App\Http\Requests\StoreShipment;
 use Carbon\Carbon;
 
@@ -69,31 +71,22 @@ class ShipmentController extends Controller
 
         $transshipments = json_decode ($request->transshipments, true); // Decode the JSOn Stringify
 
-        // Loop Transshipments
-        foreach($transshipments as $key => $transshipmentInputs){
-            //TODO add validation on transshipment fields
-            // Save Shipment
-            $transshipment = new Transshipment;
-            $transshipment->type = $transshipmentInputs['type'];
-            $transshipment->departure = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['departure'])->format('Y-m-d');
-            $transshipment->arrival = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['arrival'])->format('Y-m-d');
-            $transshipment->vessel = $transshipmentInputs['vessel'];
-            $transshipment->comment = $transshipmentInputs['comment'];
-            $transshipment->origin_place = $transshipmentInputs['origin_place'];
-            $transshipment->destination_place = $transshipmentInputs['destination_place'];
-            $transshipment->shipment_id = $shipment->id;
-            $transshipment->save();
-        }
-
-        // Send Notification
-        if($request->input('notification')){
-            // Get all new order details for notification
-            $order = Order::with(['customer','shipment','status','documents'])->where('shipment_id', $shipment->id)
-            ->first();
-            $transshipments = Transshipment::where('shipment_id', $shipment->id)
-            ->with(['origin', 'destination'])->get();
-            // Send notification
-            Notifications::shipmentSaved($order->toArray(), $transshipments->toArray());
+        // Loop Transshipments if exist
+        if($transshipments){
+            foreach($transshipments as $key => $transshipmentInputs){
+                //TODO add validation on transshipment fields
+                // Save Shipment
+                $transshipment = new Transshipment;
+                $transshipment->type = $transshipmentInputs['type'];
+                $transshipment->departure = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['departure'])->format('Y-m-d');
+                $transshipment->arrival = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['arrival'])->format('Y-m-d');
+                $transshipment->vessel = $transshipmentInputs['vessel'];
+                $transshipment->comment = $transshipmentInputs['comment'];
+                $transshipment->origin_place = $transshipmentInputs['origin_place'];
+                $transshipment->destination_place = $transshipmentInputs['destination_place'];
+                $transshipment->shipment_id = $shipment->id;
+                $transshipment->save();
+            }
         }
 
         return redirect('/admin/shipments')->with('success', 'New shipment saved!');
@@ -136,23 +129,39 @@ class ShipmentController extends Controller
         
         $transshipments = json_decode ($request->transshipments, true); // Decode the JSOn Stringify
 
-        foreach($transshipments as $transshipmentInputs){
-      
-            if(isset($transshipmentInputs['id'])){  //if is update TransShipment
-                $transshipment = Transshipment::find($transshipmentInputs['id']);
-            } else {    // if is Insert TransShipment
-                $transshipment = new Transshipment;
+        if($transshipments){
+            foreach($transshipments as $transshipmentInputs){
+        
+                if(isset($transshipmentInputs['id'])){  //if is update TransShipment
+                    $transshipment = Transshipment::find($transshipmentInputs['id']);
+                } else {    // if is Insert TransShipment
+                    $transshipment = new Transshipment;
+                }
+                $transshipment->type = $transshipmentInputs['type'];
+                $transshipment->departure = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['departure'])->format('Y-m-d');
+                $transshipment->arrival = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['arrival'])->format('Y-m-d');
+                $transshipment->vessel = $transshipmentInputs['vessel'];
+                $transshipment->comment = $transshipmentInputs['comment'];
+                $transshipment->origin_place = $transshipmentInputs['origin_place'];
+                $transshipment->destination_place = $transshipmentInputs['destination_place'];
+                $transshipment->shipment_id = $shipment->id;
+                $transshipment->save();
+                
             }
-            $transshipment->type = $transshipmentInputs['type'];
-            $transshipment->departure = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['departure'])->format('Y-m-d');
-            $transshipment->arrival = Carbon::createFromFormat('d/m/Y', $transshipmentInputs['arrival'])->format('Y-m-d');
-            $transshipment->vessel = $transshipmentInputs['vessel'];
-            $transshipment->comment = $transshipmentInputs['comment'];
-            $transshipment->origin_place = $transshipmentInputs['origin_place'];
-            $transshipment->destination_place = $transshipmentInputs['destination_place'];
-            $transshipment->shipment_id = $shipment->id;
-            $transshipment->save();
-            
+        }
+
+        // Send Notification
+        if($request->input('notification')){
+            // Get all updated order details for notification
+            $orders = Order::with(['customer','shipment','status','documents'])
+                            ->where('shipment_id', $shipment->id)->get();
+            // Si des orders sont enregistrées sur ce shipment on notifie les customers de chaque order
+            if ( $orders->count() > 0 ) {
+                $transshipments = Helpers::getTransshipments($shipment->id);
+                foreach($orders as $order){
+                    Notifications::orderSaved($order->toArray(), $transshipments);
+                } 
+            } 
         }
 
         return redirect('/admin/shipments')->with('success', 'Shipment updated');
