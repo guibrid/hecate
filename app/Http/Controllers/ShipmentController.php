@@ -7,9 +7,9 @@ use App\Shipment;
 use App\Order;
 use App\Transshipment;
 use App\Helpers;
-use App\Jobs\Notifications;
 use App\Http\Requests\StoreShipment;
 use Carbon\Carbon;
+use App\Jobs\SendNotification;
 
 class ShipmentController extends Controller
 {
@@ -155,13 +155,14 @@ class ShipmentController extends Controller
             // Get all updated order details for notification
             $orders = Order::with(['customer','shipment','status','documents'])
                             ->where('shipment_id', $shipment->id)->get();
+                            
             // Si des orders sont enregistrées sur ce shipment on notifie les customers de chaque order
             if ( $orders->count() > 0 ) {
                 $transshipments = Helpers::getTransshipments($shipment->id);
-                foreach($orders as $order){
-                    Notifications::orderSaved($order->toArray(), $transshipments);
+                foreach($orders as $order){  
+                    dispatch(new SendNotification($order->toArray(), $transshipments));
                 } 
-            } 
+            }
         }
 
         return redirect('/admin/shipments')->with('success', 'Shipment updated');

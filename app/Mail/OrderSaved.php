@@ -39,6 +39,7 @@ class OrderSaved extends Mailable
     public function build()
     {
         return $this->from( env('MAIL_NOREPLY'), env('APP_NAME') )
+                    ->subject("Your order has been updated - Booking N° ".$this->order['number'])
                     ->view('emails.orders.saved')
                     ->with(['order' => $this->order, 'transshipments' => $this->transshipments]);
     }

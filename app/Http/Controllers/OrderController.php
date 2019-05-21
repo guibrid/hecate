@@ -11,7 +11,7 @@ use App\Helpers;
 use App\Status;
 use App\Http\Requests\StoreOrder;
 use Auth;
-use App\Jobs\Notifications;
+use App\Jobs\SendNotification;
 
 class OrderController extends Controller
 {
@@ -94,7 +94,7 @@ class OrderController extends Controller
                             ->where('id',$order->id)
                             ->first();
             // Send notification
-            Notifications::orderSaved($newOrder->toArray());
+            dispatch(new SendNotification($newOrder->toArray()));
         }
         
         return redirect('/admin/orders')->with('success', 'New order saved!');
@@ -163,7 +163,7 @@ class OrderController extends Controller
             ->first();
             $transshipments = Helpers::getTransshipments($updatedorder['shipment_id']);
             // Send notification
-            Notifications::orderSaved($updatedorder->toArray(), $transshipments);
+            dispatch(new SendNotification($updatedorder->toArray(), $transshipments));
         }
 
         return redirect('/admin/orders')->with('success', 'Order updated');
