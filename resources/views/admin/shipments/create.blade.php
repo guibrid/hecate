@@ -178,6 +178,11 @@
                     registerTransshipment()
             });
 
+            // Rest the transshipment modal on Close
+            $("#transshipmentModal").on("hidden.bs.modal", function () {
+                $("#transshipmentModal :input").val('');
+            });
+
             $("select#type").on("change", function(){ 
                 $('#origin_place, #destination_place').empty()
                 getPlacesList($(this).val()) 
@@ -186,6 +191,19 @@
             $('#showTransshipments').append('<p>No transshipment registered.</p>');// Append le array des transshipment à la view
 
         });
+
+        // Fill the transshipment modal form with the data for update
+        function getTransshipment(index){
+            $('#transshipmentModal').modal('show');
+            $('#transshipmentModal #transshipment_index').val(index)
+            $('#transshipmentModal select#type').val(transshipments[index].type);
+            $('#transshipmentModal select#origin_place').empty().val(transshipments[index].origin.title);
+            $('#transshipmentModal input#departure').val(transshipments[index].departure);
+            $('#transshipmentModal select#destination_place').empty().val(transshipments[index].destination.title);
+            $('#transshipmentModal input#arrival').val(transshipments[index].arrival);
+            $('#transshipmentModal input#vessel').val(transshipments[index].vessel);
+            $('#transshipmentModal #comment_transshipment').val(transshipments[index].comment);
+        }
 
         function getPlacesList(type){
 

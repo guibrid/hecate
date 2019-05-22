@@ -177,7 +177,10 @@ class ShipmentController extends Controller
      */
     public function destroy($id)
     {
+        $shipment = Shipment::find($id);
+        $shipment->delete();
 
+        return redirect('/admin/shipments')->with('success', 'Shipment has been deleted');
     }
     /**
      * Ajaxcall to list shipments.
