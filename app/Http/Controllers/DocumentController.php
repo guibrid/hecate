@@ -53,16 +53,9 @@ class DocumentController extends Controller
     public function destroy($id)
     {
 
-        $document = Document::where('id', $id)->first();
- 
-
-        if (Storage::delete($document->path)){
-            $document->delete();
-            return back()->with('success', 'Document deleted');
-        } else {
-            return back()->withErrors('File not found on server.');
-        }
-        
+        $document = Document::find($id);
+        $document->delete();
+        return back()->with('success', 'Document deleted');
         
     }
 

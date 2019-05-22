@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Order extends Model
 {
@@ -24,6 +25,20 @@ class Order extends Model
     public function documents()
     {
         return $this->hasMany('App\Document');
+    }
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($order) {
+            //remove related documents file
+            foreach($order->documents as $document){
+                $document->delete();
+            }
+            // Remove the document order folder
+            Storage::deleteDirectory('documents/'.$order->customer_id.'/'.$order->id);
+            return true;
+        });
     }
 
 }
