@@ -200,7 +200,7 @@
 </div>
 <div class="form-group">
     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-        {!! Form::submit('Update your order', ['class' => 'btn btn-success']) !!}
+        {!! Form::submit('Update your order', ['class' => 'btn btn-success triggerOverlay']) !!}
         <br /><br />  <br />           
     </div>
 </div>

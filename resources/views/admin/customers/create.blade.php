@@ -86,7 +86,7 @@
 
 <div class="form-group">
     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-        {!! Form::submit('Create customer', ['class' => 'btn btn-success']) !!}
+        {!! Form::submit('Create customer', ['class' => 'btn btn-success triggerOverlay']) !!}
         <br /><br />  <br />           
     </div>
 </div>
@@ -102,7 +102,6 @@
 
 <!-- Script require for this view -->
 @section('viewScripts')
-
 
 @stop
 

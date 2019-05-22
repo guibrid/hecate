@@ -130,7 +130,7 @@
 
 <div class="form-group">
     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-        {!! Form::submit('Update customer', ['class' => 'btn btn-success']) !!}
+        {!! Form::submit('Update customer', ['class' => 'btn btn-success triggerOverlay']) !!}
         <br /><br />  <br />           
     </div>
 </div>

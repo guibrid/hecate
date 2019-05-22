@@ -5069,7 +5069,13 @@ $(document).ready(function() {
 /*********************************************
  * Hecate Custom
  ********************************************/
-
+/** Trigger overlay onclick */
+$(".triggerOverlay").click(function(){ 
+    $("#overlay").css("display", "flex");
+});
+$(".triggerModalOverlay").click(function(){ 
+    $("#modalOverlay").css("display", "flex");
+});
 
 /*********************************************
  * convertDate()

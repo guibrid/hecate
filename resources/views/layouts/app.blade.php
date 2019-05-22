@@ -24,10 +24,19 @@
 
     <!-- Custom Theme Style -->
     <link href="{{ asset('bower_components/gentelella/build/css/custom.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
   </head>
 
   <body class="nav-md">
+    <!-- Overlay -->
+    <div id="overlay">
+      <div class="spin">
+          <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+      </div>
+    </div> 
+    <!-- End overlay -->
+
     <div class="container body">
       <div class="main_container">
 
