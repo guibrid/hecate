@@ -18,7 +18,7 @@ class Document extends Model
         parent::boot();
     
         self::deleted(function ($document) {
-            Storage::delete($document->path);
+            Storage::disk('local')->delete($document->path);
         });
 
     }

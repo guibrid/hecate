@@ -36,7 +36,7 @@ class Order extends Model
                 $document->delete();
             }
             // Remove the document order folder
-            Storage::deleteDirectory('documents/'.$order->customer_id.'/'.$order->id);
+            Storage::disk('local')->deleteDirectory('documents/'.$order->customer_id.'/'.$order->id);
             return true;
         });
     }
