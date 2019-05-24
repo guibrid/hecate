@@ -16,6 +16,7 @@ Route::get('/', 'OrderController@index');
 Auth::routes(['verify' => true]);
 Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 Route::post('/password/SetFirstPassPassword', 'Auth\ResetPasswordController@SetFirstPassPassword')->name('first.password');
+Route::post('/password/sendPasswordReset', 'Auth\ResetPasswordController@sendPasswordReset')->name('send.password');
 Route::get('/home', 'HomeController@index')->name('home');
 
 
