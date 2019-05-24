@@ -365,35 +365,7 @@
 @yield('content')
 
 
-<div style="background-color:#f3f3f3;">
-	<div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
-	<div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
-	<!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f3f3f3;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:605px"><tr class="layout-full-width" style="background-color:transparent"><![endif]-->
-	<!--[if (mso)|(IE)]><td align="center" width="605" style="background-color:transparent;width:605px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:55px; padding-bottom:25px;"><![endif]-->
-	<div class="col num12" style="min-width: 320px; max-width: 605px; display: table-cell; vertical-align: top;;">
-	<div style="width:100% !important;">
-	<!--[if (!mso)&(!IE)]><!-->
-	<div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:55px; padding-bottom:25px; padding-right: 0px; padding-left: 0px;">
-	<!--<![endif]-->
-	<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
-	<div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
-	<div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-	<p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"> 
-		<span style="font-size:11px;">More details about all you orders</span><br /><a href="{{ env('APP_URL') }}" target="_blank" style="text-decoration:none;font-family: 'Open Sans', Helvetica, Arial, sans-serif;font-weight:bold;">Connect to {{ env('APP_NAME') }}</a>
-	</p>
-	</div>
-	</div>
-	<!--[if mso]></td></tr></table><![endif]-->
-	<!--[if (!mso)&(!IE)]><!-->
-	</div>
-	<!--<![endif]-->
-	</div>
-	</div>
-	<!--[if (mso)|(IE)]></td></tr></table><![endif]-->
-	<!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
-	</div>
-	</div>
-	</div>
+
 
 <div style="background-color:transparent;">
 <div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">

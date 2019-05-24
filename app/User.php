@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -47,6 +47,11 @@ class User extends Authenticatable
     public function customer()
     {
         return $this->belongsTo('App\Customer');
+    }
+
+    public function verifyUser()
+    {
+      return $this->hasOne('App\VerifyUser');
     }
 
     /**

@@ -34,7 +34,7 @@
                     <td>{{$user->customer['name']}}</td>
                     <td>
                       {{ Form::open(['method'=>'DELETE', 'route'=>['user.delete', $user->id]]) }}
-                        <a href="{{ URL::route('user.edit', $user->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
+                        <a href="{{ URL::route('user.edit', $user->id) }}" type="button" class="btn btn-primary btn-xs">edit</a>
                         <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this user?');" type="submit" value="Del">
                       {{ Form::close() }}
                     </td>

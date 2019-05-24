@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Role;
-use App\Customer;
-use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Registered;
+use App\VerifyUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    //protected $redirectTo = '/register';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -41,19 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application registration form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showRegistrationForm()
-    {
-        $customers = Customer::orderby('name', 'asc')->pluck('name','id');
-        $roles = Role::orderby('id', 'asc')->pluck('name','id');
-        return view('auth.register')->with(['customers' => $customers, 'roles' => $roles]);
+        $this->middleware('guest');
     }
 
     /**
@@ -67,14 +52,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'customer_id' => ['required', 'integer'],
-            'password' => ['required', 
-                           'string', 
-                           'min:8', 
-                           'regex:/[a-z]/',      // must contain at least one lowercase letter
-                           'regex:/[A-Z]/',      // must contain at least one uppercase letter
-                           'regex:/[0-9]/',      // must contain at least one digit
-                           'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
@@ -86,32 +64,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
-        $user = User::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'customer_id' => $data['customer_id'],
             'password' => Hash::make($data['password']),
         ]);
-
-        if(isset($data['roles'])) {
-            $user->roles()->attach($data['roles']); // Assign  'User' role array
-        } else {
-            $user->roles()->attach(Role::where('id', 1)->first()); // Assign default 'User' role to new user
-        }
-        return $user;
     }
 
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
+    public function verifyUser($token)
     {
-        $this->validator($request->all())->validate();
-        $this->create($request->all());
-        return redirect('/admin/customers/edit/'.$request->customer_id)->with('success', 'New user added!');
+
+        $verifyUser = VerifyUser::where('token', $token)->first();
+
+        //Check if token is valide
+        if(isset($verifyUser) ){
+
+            $user = $verifyUser->user;
+            return view('auth.passwords.set')->with(
+                ['email' => $user->email, 'token' => $token]
+            );
+
+        } else {
+
+        return redirect('/login');
+
+        }
     }
 }

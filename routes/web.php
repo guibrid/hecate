@@ -13,8 +13,9 @@
 
 Route::get('/', 'OrderController@index');
 
-Auth::routes();
-
+Auth::routes(['verify' => true]);
+Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
+Route::post('/password/SetFirstPassPassword', 'Auth\ResetPasswordController@SetFirstPassPassword')->name('first.password');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', 'HomeController@test')->middleware('auth');
@@ -27,6 +28,10 @@ Route::get('/orders/show/{id}', 'OrderController@show')->middleware('role:user')
 Route::get('/orders', 'OrderController@index');
 Route::post('/getDocuments', 'DocumentController@getDocuments')->middleware('auth'); // Ajax call to get documents by order id
 Route::get('/admin/users/destroy/{id}', 'UserController@destroy')->middleware('role:editor,manager,director,admin')->name('user.delete');
+Route::get('/admin/users', 'UserController@index')->middleware('role:editor,manager,director,admin');
+Route::get('/admin/users/edit/{id}', 'UserController@edit')->middleware('role:editor,manager,director,admin')->name('user.edit');
+Route::get('/admin/users/create', 'UserController@create')->middleware('role:editor,manager,director,admin');
+Route::post('/admin/users/store', 'UserController@store')->middleware('role:editor,manager,director,admin');
 
 
 /* Orders */
@@ -73,14 +78,3 @@ Route::post('/admin/places/store', 'PlaceController@store')->middleware('role:ed
 Route::get('/admin/places/edit/{id}', 'PlaceController@edit')->middleware('role:editor,manager,director,admin')->name('place.edit');
 Route::patch('/admin/places/update/{id}', 'PlaceController@update')->middleware('role:editor,manager,director,admin');
 Route::delete('/admin/places/destroy/{id}', 'PlaceController@destroy')->middleware('role:editor,manager,director,admin')->name('place.delete');
-
-Route::get('mailable', function () {
-
-    $order = App\Order::with(['customer','shipment','status','documents'])->where('id', 31)
-    ->first();
-
-    $transshipments = App\Transshipment::where('shipment_id', $order['shipment_id'])
-    ->with(['origin', 'destination'])->get();
-
-    return new App\Mail\OrderSaved($order->toArray(), $transshipments->toArray());
-});

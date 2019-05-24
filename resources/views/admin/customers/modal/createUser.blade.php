@@ -8,10 +8,9 @@
                     <h4 class="modal-title" id="myModalLabel">Create new user</h4>
                 </div>
                 <div class="modal-body">
-                            {!! Form::open(['route' => ['register'], 
+                            {!! Form::open(['action' => ['UserController@store'], 
                             'method' => 'post', 
-                            'class' => 'form-horizontal form-label-left', 
-                            'id' => 'demo-form2']) !!}
+                            'class' => 'form-horizontal form-label-left']) !!}
                             @csrf
                             {!! Form::hidden('customer_id', $customer->id) !!}
                             
@@ -33,29 +32,6 @@
                                     {!! Form::text('email', null, ['id'=>'email', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder'=>'Ex: john.doe@hecate.com...', 'require' =>'required']) !!}
                                     @error('email')
                                         <div class="alert alert-danger">{{ $errors->first('email') }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                    {!! Form::label('password', 'Password', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        {!! Form::text('password',null, ['id'=>'password', 'class'=>'form-control col-md-7 col-xs-12', 'require' =>'required']) !!}
-                                        <small>8 caracters minimum with at least one capital letter and one number</small>
-                                        @error('password')
-                                            <div class="alert alert-danger">{{ $errors->first('password') }}</div>
-                                        @enderror
-
-                                    </div>
-                                    
-                            </div>
-                            
-                            <div class="form-group">
-                                {!! Form::label('password-confirm', 'Confirm Password', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="password-confirm" type="text" class="form-control col-md-7 col-xs-12" name="password_confirmation" required="required" placeholder="Type your password again...">
-                                    @error('password_confirmation')
-                                        <div class="alert alert-danger">{{ $errors->first('password_confirmation') }}</div>
                                     @enderror
                                 </div>
                             </div>
