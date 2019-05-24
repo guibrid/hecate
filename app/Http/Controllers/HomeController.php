@@ -27,10 +27,4 @@ class HomeController extends Controller
     }
 
     
-    public function test(Request $request)
-    {
-        //$request->user()->authorizeRoles(['user','Manager']);
-        return view('test');
-    }
-    
 }

@@ -94,8 +94,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
- 
-        $user = User::find($id);
         return view('admin/users/edit')->with('user', $user);
     }
 
@@ -108,16 +106,7 @@ class UserController extends Controller
      */
     public function update(StoreUser $request, $id)
     {
-        $user = User::find($id);
-
-        /*$customer->name = $request->name;
-        $customer->address = $request->address;
-        $customer->city = $request->city;
-        $customer->cp = $request->cp;
-        $customer->country = $request->country;
-        $customer->save();*/
-
-        return redirect('/admin/users')->with('success', 'User updated');
+        
     }
 
     /**

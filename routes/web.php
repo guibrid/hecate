@@ -18,7 +18,6 @@ Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 Route::post('/password/SetFirstPassPassword', 'Auth\ResetPasswordController@SetFirstPassPassword')->name('first.password');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test', 'HomeController@test')->middleware('auth');
 
 /**********
 ORDERS 
@@ -29,7 +28,6 @@ Route::get('/orders', 'OrderController@index');
 Route::post('/getDocuments', 'DocumentController@getDocuments')->middleware('auth'); // Ajax call to get documents by order id
 Route::get('/admin/users/destroy/{id}', 'UserController@destroy')->middleware('role:editor,manager,director,admin')->name('user.delete');
 Route::get('/admin/users', 'UserController@index')->middleware('role:editor,manager,director,admin');
-Route::get('/admin/users/edit/{id}', 'UserController@edit')->middleware('role:editor,manager,director,admin')->name('user.edit');
 Route::get('/admin/users/create', 'UserController@create')->middleware('role:editor,manager,director,admin');
 Route::post('/admin/users/store', 'UserController@store')->middleware('role:editor,manager,director,admin');
 

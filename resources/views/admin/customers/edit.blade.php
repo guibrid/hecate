@@ -112,7 +112,7 @@
                                             <td>{{$user->email}}</td>
                                             <td>
                                                 @if (auth()->user()->authorizeDisplay(['admin']))    
-                                                    <a href="{{ URL::route('user.delete', $user->id) }}" type="submit" class="btn btn-danger btn-xs  triggerOverlay">Del</button>
+                                                    <a href="{{ URL::route('user.delete', $user->id) }}" type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this user?');">Del</button>
                                                 @endif
                                             </td>
                                           </tr>
