@@ -15,19 +15,19 @@
                             {!! Form::hidden('customer_id', $customer->id) !!}
                             
                             <div class="form-group">
-
-                                {!! Form::label('name', 'Name', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                                <p><small>* indicates required field</small></p>
+                                {!! Form::label('name', 'Name *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    {!! Form::text('name', null, ['id'=>'name', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder'=>'Ex: John Doe...', 'require' =>'required']) !!}
-                                    @error('name')
-                                        <div class="alert alert-danger">{{ $errors->first('name') }}</div>
+                                    {!! Form::text('name_user', null, ['id'=>'name_user', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder'=>'Ex: John Doe...', 'require' =>'required']) !!}
+                                    @error('name_user')
+                                        <div class="alert alert-danger">{{ $errors->first('name_user') }}</div>
                                     @enderror
                                 </div>
     
                             </div>
                             
                             <div class="form-group">
-                                {!! Form::label('email', 'Email', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                                {!! Form::label('email', 'Email *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     {!! Form::text('email', null, ['id'=>'email', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder'=>'Ex: john.doe@hecate.com...', 'require' =>'required']) !!}
                                     @error('email')

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreUser;
 
 class ResetPasswordController extends Controller
 {
@@ -51,8 +52,17 @@ class ResetPasswordController extends Controller
      * @param  string|null  $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function SetFirstPassPassword(Request $request)
+    public function SetFirstPassPassword(StoreUser $request)
     {
+        $validatedData = $request->validate([
+            'password' => ['required', 
+                            'string', 
+                            'min:8', 
+                            'regex:/[a-z]/',      // must contain at least one lowercase letter
+                            'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                            'regex:/[0-9]/',      // must contain at least one digit
+                            'confirmed'],
+        ]);
         
         $verifyUser = VerifyUser::where('token', $request->token)->first();
         // Check si le token est valide
