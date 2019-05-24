@@ -58,6 +58,9 @@ class User extends Authenticatable implements MustVerifyEmail
         parent::boot();
 
         static::deleting(function($user) {
+            // Delete verify token if exist
+            $user->verifyUser->delete();
+            // Delete user roles
             foreach($user->roles as $role){
                 $user->roles()->detach($role->id);
             }
