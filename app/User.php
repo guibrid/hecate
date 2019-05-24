@@ -54,6 +54,18 @@ class User extends Authenticatable implements MustVerifyEmail
       return $this->hasOne('App\VerifyUser');
     }
 
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($user) {
+            foreach($user->roles as $role){
+                $user->roles()->detach($role->id);
+            }
+
+            return true;
+        });
+    }
+
     /**
 
     * @param string|array $roles

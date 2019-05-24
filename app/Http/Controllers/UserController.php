@@ -55,10 +55,10 @@ class UserController extends Controller
      */
     public function store(StoreUser $request)
     {
+
         $validatedData = $request->validate([
             'name_user' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'customer_id' => ['required', 'integer']
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users']
         ]);
 
         $user = new User;
