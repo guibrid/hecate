@@ -980,7 +980,7 @@
                 <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
                 <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
                 <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"> 
-                    <span style="font-size:11px;">More details about all you orders</span><br /><a href="{{ env('APP_URL') }}" target="_blank" style="text-decoration:none;font-family: 'Open Sans', Helvetica, Arial, sans-serif;font-weight:bold;">Connect to {{ env('APP_NAME') }}</a>
+                    <span style="font-size:11px;">More details about all your orders</span><br /><a href="{{ env('APP_URL') }}" target="_blank" style="text-decoration:none;font-family: 'Open Sans', Helvetica, Arial, sans-serif;font-weight:bold;">Connect to {{ env('APP_NAME') }}</a>
                 </p>
                 </div>
                 </div>
