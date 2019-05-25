@@ -58,7 +58,7 @@
                                     <td class="fs15 fw700 text-right">{{$order->batch}}</td>
                                   </tr>
                                   <tr>
-                                    <td>Loading</td>
+                                    <td>Shipment Mode</td>
                                     <td class="fs15 fw700 text-right">{{$order->load}}</td>
                                   </tr>
                                   <tr>

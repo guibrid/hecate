@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="form-group">
-                {!! Form::label('load', 'Loading', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                {!! Form::label('load', 'Shipment Mode', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     {!! Form::select('load', ['lcl' => 'LCL', 'fcl' => 'FCL'], null, ['placeholder' => 'Select loading','id' => 'load', 'class' => 'form-control']) !!}

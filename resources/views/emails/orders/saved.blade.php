@@ -315,7 +315,7 @@
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#555555;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
-        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"><strong>LOADING</strong></p>
+        <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"><strong>SHIPMENT MODE</strong></p>
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->

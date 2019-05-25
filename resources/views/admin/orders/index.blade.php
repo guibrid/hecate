@@ -23,7 +23,7 @@
               <th>Booking n°</th>
               <th>Status</th>
               <th>Shipment</th>
-              <th>Load</th>
+              <th>Shipment Mode</th>
               <th># packages</th>
               <th>Weight</th>
               <th>Volume</th>

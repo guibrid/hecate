@@ -88,7 +88,7 @@
                                         </td>
                                       </tr>
                                       <tr>
-                                        <td>Loading</td>
+                                        <td>Shipment mode</td>
                                         <td class="fs15 fw700 text-right">
                                             {!! Form::text('load', $order->load, ['id'=>'load', 'class'=>'form-control col-md-7 col-xs-12']) !!}
                                             @error('load')
