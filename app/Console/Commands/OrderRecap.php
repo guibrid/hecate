@@ -9,6 +9,7 @@ use App\Order;
 use App\Shipment;
 use Carbon\Carbon;
 use PDF;
+use Illuminate\Support\Facades\Storage;
 
 
 class OrderRecap extends Command
@@ -44,6 +45,10 @@ class OrderRecap extends Command
      */
     public function handle()
     {
+        // Check if recaps/ folder exist
+        if(!Storage::exists('recaps')){
+            Storage::makeDirectory('recaps', 0775, true); //creates directory
+        }
 
         //List all customer
         $customers = Customer::with('users')->get();
@@ -55,7 +60,7 @@ class OrderRecap extends Command
         if(count($shipments) == 0 ){$shipments = '';}// change format for IN query
         
         foreach($customers as $customer){
-
+            $to = array(); // Reset user list
             $orders = Order::with(['shipment', 'status' , 'shipment.transshipments' , 'shipment.transshipments.origin', 'shipment.transshipments.destination'])
                             ->whereRaw('customer_id = ? AND (shipment_id IN (?) OR shipment_id IS NULL)', [$customer->id, $shipments])
                             ->get();
