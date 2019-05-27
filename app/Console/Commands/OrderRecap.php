@@ -78,8 +78,7 @@ class OrderRecap extends Command
             \Mail::to($to)->queue(new OrderSendRecap(storage_path('app/recaps/'.$pdfName)));
 
         }
-        // Execute all Mail queue job generate 
-        \Artisan::call('queue:work', ['--stop-when-empty' => true, '--tries' => 20, '--delay' => 10, '--sleep' => 10]);
+        
 
 
     }

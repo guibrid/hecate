@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\OrderRecap::class,
+        Commands\QueueWork::class,
     ];
 
     /**
@@ -24,8 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('OrderRecap:send')
-                 ->everyMinute();
+        $schedule->command('OrderRecap:send')->weeklyOn(1, '8:00');
+        $schedule->command('QueueWork:execute')->everyFiveMinutes();
     }
 
     /**
