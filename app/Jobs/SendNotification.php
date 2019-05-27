@@ -19,6 +19,9 @@ class SendNotification implements ShouldQueue
     protected $order;
     protected $transshipments;
 
+    public $retryAfter = 3;
+    public $tries = 20;
+
     /**
      * Create a new job instance.
      *

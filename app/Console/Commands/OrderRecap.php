@@ -79,7 +79,7 @@ class OrderRecap extends Command
 
         }
         // Execute all Mail queue job generate 
-        \Artisan::call('queue:work', ['--stop-when-empty' => true]);
+        \Artisan::call('queue:work', ['--stop-when-empty' => true, '--tries' => 20, '--delay' => 10, '--sleep' => 10]);
 
 
     }
