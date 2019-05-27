@@ -154,7 +154,7 @@ class Helpers
      */ 
     public static function getCustomerUserList($customer_id)
     {
-        //return 'teest';
+
         $users = User::where('customer_id', $customer_id)->get();
         return $users;
 
