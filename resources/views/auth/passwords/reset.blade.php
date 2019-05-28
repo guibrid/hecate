@@ -37,7 +37,7 @@
                     </div>
 
                     <div>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Type your again..." required autocomplete="new-password">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Type your password again..." required autocomplete="new-password">
                     </div>
 
                     <div>

@@ -54,7 +54,7 @@ class OrderRecap extends Command
         $customers = Customer::with('users')->get();
         //List all current shipment id not arrived or arrived less than 10 days
         $shipments = Shipment::whereHas('transshipments', function ($query) {
-                $query->where('arrival', '>=', Carbon::now()->subDays(10));
+                $query->where('arrival', '>=', Carbon::now()->subDays(15));
                 })->pluck('id');
 
         if(count($shipments) == 0 ){$shipments = '';}// change format for IN query

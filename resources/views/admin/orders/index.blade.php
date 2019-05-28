@@ -46,9 +46,7 @@
                     <td>
                       {{ Form::open(['method'=>'DELETE', 'route'=>['order.delete', $order->id]]) }}
                       <a href="{{ URL::route('order.edit', $order->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
-                      @if (auth()->user()->authorizeDisplay(['admin']))
-                        <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this order?');" type="submit" value="Del"> 
-                      @endif
+                      <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this order?');" type="submit" value="Del"> 
                       {{ Form::close() }}
                     </td>
 

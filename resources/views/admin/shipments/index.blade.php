@@ -50,9 +50,7 @@
                   <td>
                       {{ Form::open(['method'=>'DELETE', 'route'=>['shipment.delete', $shipment->id]]) }}
                         <a href="{{ URL::route('shipment.edit', $shipment->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
-                        @if (auth()->user()->authorizeDisplay(['admin']))
                         <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this shipment?');" type="submit" value="Del"> 
-                        @endif
                       {{ Form::close() }}
                   </td>
                 </tr>

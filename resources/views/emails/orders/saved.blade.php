@@ -870,7 +870,7 @@
         <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: 'Open Sans', Helvetica, Arial, sans-serif;">
             <p style="font-size: 14px; line-height: 20px; text-align: center; margin: 0;"><span style="font-size: 17px; mso-ansi-font-size: 18px;">
             @foreach($transshipments as $transshipment)
-            {{$transshipment['type']}} <br /> {{$transshipment['origin']['title']}} - {{\Carbon\Carbon::parse($transshipment['departure'])->format('d/m/Y')}} >> {{$transshipment['destination']['title']}} - {{\Carbon\Carbon::parse($transshipment['arrival'])->format('d/m/Y')}}<br />
+            {{$transshipment['type']}} <br />{{$transshipment['vessel']}} - {{$transshipment['origin']['title']}} - {{\Carbon\Carbon::parse($transshipment['departure'])->format('d/m/Y')}} >> {{$transshipment['destination']['title']}} - {{\Carbon\Carbon::parse($transshipment['arrival'])->format('d/m/Y')}}<br />
             @endforeach
         </span></p>
         </div>
