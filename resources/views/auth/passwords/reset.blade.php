@@ -15,7 +15,7 @@
                     <input type="hidden" name="token" value="{{ $token }}">
                     <h1>{{ __('Reset Password') }}</h1>
                     <div>
-                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" placeholder="Your email address..." required autocomplete="email" autofocus>
 
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -26,7 +26,8 @@
                     </div>
 
                     <div>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                            <p>Password must contain at least 8 caracters, one uppercase letter and one number</p>
+                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Type your password..." required autocomplete="new-password">
 
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -36,7 +37,7 @@
                     </div>
 
                     <div>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Type your again..." required autocomplete="new-password">
                     </div>
 
                     <div>
