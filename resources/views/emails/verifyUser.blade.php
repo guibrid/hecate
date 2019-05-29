@@ -25,6 +25,7 @@
                     </span>
                 </span>
             </a>
+            <p style="color:#FFF; font-size:10px;font-family:'Open Sans', Helvetica, Arial, sans-serif;">If you’re having trouble clicking the "Connect" button, copy and paste the URL below into your web browser: <a style="color:#FFF" href="{{url('/user/verify', $user->verifyUser->token)}}">{{url('/user/verify', $user->verifyUser->token)}}</a></p>
             <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
             </div>
             <table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
