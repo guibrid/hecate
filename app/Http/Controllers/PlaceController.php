@@ -89,7 +89,7 @@ class PlaceController extends Controller
         $place->country = $request->country;
         $place->type = $request->type;
         $place->abbreviation = $request->abbreviation;
-        $customer->save();
+        $place->save();
 
         return redirect('/admin/places')->with('success', 'Place updated');
     }
