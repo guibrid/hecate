@@ -64,18 +64,22 @@ class OrderRecap extends Command
             $orders = Order::with(['shipment', 'status' , 'shipment.transshipments' , 'shipment.transshipments.origin', 'shipment.transshipments.destination'])
                             ->whereRaw('customer_id = ? AND (shipment_id IN (?) OR shipment_id IS NULL)', [$customer->id, $shipments])
                             ->get();
+            // If ongoing orders, procceed notification
+            if ($orders->count() > 0){
 
-            //generate pdf with orders data
-            $pdfName =$customer->id.'-'.time().'.pdf';
-            $pdf = PDF::loadView('emails.orders.recapPdf', ['orders'=>$orders])->setPaper('a4', 'landscape')->save(storage_path('app/recaps/'.$pdfName));
+                //generate pdf with orders data
+                $pdfName =$customer->id.'-'.time().'.pdf';
+                $pdf = PDF::loadView('emails.orders.recapPdf', ['orders'=>$orders])->setPaper('a4', 'landscape')->save(storage_path('app/recaps/'.$pdfName));
 
-            // List user email list
-            foreach ($customer->users as $user){
-                $to[] = [ 'email'=> $user->email, 'name' => $user->name];
+                // List user email list
+                foreach ($customer->users as $user){
+                    $to[] = [ 'email'=> $user->email, 'name' => $user->name];
+                }
+                
+                // Email on queue with attachement       
+                \Mail::to($to)->queue(new OrderSendRecap(storage_path('app/recaps/'.$pdfName)));
+
             }
-            
-            // Email on queue with attachement       
-            \Mail::to($to)->queue(new OrderSendRecap(storage_path('app/recaps/'.$pdfName)));
 
         }
         
