@@ -27,6 +27,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('OrderRecap:send')->weeklyOn(1, '8:00');
         $schedule->command('QueueWork:execute')->everyFiveMinutes();
+        $schedule->command('backup:clean')->dailyAt('01:30');
+        $schedule->command('backup:run --only-db')->dailyAt('01:35');
     }
 
     /**
