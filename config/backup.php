@@ -18,7 +18,8 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include' => [
-                    base_path(),
+                    base_path('storage/app/documents'),
+                    base_path('.env'),
                 ],
 
                 /*
@@ -120,7 +121,7 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => 'your@example.com',
+            'to' => 'guillaume.briard@gmail.com',
         ],
 
         'slack' => [
