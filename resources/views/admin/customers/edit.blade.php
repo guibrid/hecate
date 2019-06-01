@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {!! Form::label('country', 'Country', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                        {!! Form::label('country', 'Country *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
         
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             {!! Form::select('country', config('variables.form.countries'), $customer->country, ['placeholder' => 'Select country...','id' => 'country', 'class' => 'form-control col-md-7 col-xs-12']) !!}

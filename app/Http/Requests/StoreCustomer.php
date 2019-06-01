@@ -27,7 +27,7 @@ class StoreCustomer extends FormRequest
             'name' => 'required|string|max:149',
             'address' => 'max:249|string|nullable',
             'cp'=> 'max:49|string|nullable',
-            'country' => 'max:199|string|nullable',
+            'country' => 'required|max:199|string',
             'city' => 'max:149|string|nullable'
         ];
     }
