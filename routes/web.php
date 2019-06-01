@@ -45,7 +45,7 @@ Route::post('/updateShipment', 'OrderController@updateShipment')->middleware('ro
 /* Documents */
 Route::get('/admin/documents/create', 'DocumentController@create')->middleware('role:editor,manager,director,admin');
 Route::post('/admin/documents/store', 'DocumentController@store')->middleware('role:editor,manager,director,admin');
-Route::get('/documents/download/{id}', 'DocumentController@download')->middleware('auth');
+Route::get('/documents/download/{id}', 'DocumentController@download')->middleware(['auth','downloadAuth']);
 Route::get('/admin/documents/destroy/{id}', 'DocumentController@destroy')->middleware('role:editor,manager,director,admin')->name('document.delete');
 
 /* Shipments */
