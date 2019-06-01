@@ -39,7 +39,7 @@
                     <td>{{$order->number}}</td>
                     <td>{{$order->status['title']}}</td>
                     <td>@php echo Helpers::renderShipmentStatus($order->shipment); @endphp</td>
-                    <td>{{$order->load}}</td>
+                    <td>{{strtoupper($order->load)}}</td>
                     <td>{{$order->package_number}}</td>
                     <td>@if ($order->weight) {{$order->weight}} kg @endif</td>
                     <td>@if ($order->volume) {{$order->volume}} m3 @endif</td>

@@ -91,7 +91,7 @@
                 {!! Form::label('load', 'Shipment Mode', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    {!! Form::select('load', ['lcl' => 'LCL', 'fcl' => 'FCL'], null, ['placeholder' => 'Select loading','id' => 'load', 'class' => 'form-control']) !!}
+                    {!! Form::select('load', config('variables.form.shipmentModes'), null, ['placeholder' => 'Select shipment mode...','id' => 'load', 'class' => 'form-control']) !!}
                     @error('load')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror

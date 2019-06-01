@@ -59,7 +59,7 @@
                                   </tr>
                                   <tr>
                                     <td>Shipment Mode</td>
-                                    <td class="fs15 fw700 text-right">{{$order->load}}</td>
+                                    <td class="fs15 fw700 text-right">{{strtoupper($order->load)}}</td>
                                   </tr>
                                   <tr>
                                     <td># of packages</td>
