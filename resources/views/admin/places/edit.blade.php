@@ -59,7 +59,7 @@
                         {!! Form::label('country', 'Country *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
         
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {!! Form::text('country', $place->country, ['id'=>'country', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder' => 'Ex: New Zeland...']) !!}
+                            {!! Form::select('country', config('variables.form.countries'), $place->country, ['placeholder' => 'Select country...','id' => 'country', 'class' => 'form-control col-md-7 col-xs-12']) !!}
                             @error('country')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror

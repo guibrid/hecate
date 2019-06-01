@@ -30,7 +30,7 @@
                     <td>{{$place->title}}</td>
                     <td>{{$place->abbreviation}}</td>
                     <td align="center">{!!Helpers::transshipmentIcon($place->type, 2)!!}</td>
-                    <td>{{$place->country}}</td>
+                    <td>{{config('variables.form.countries')[$place->country]}}</td>
                     <td>
                       {{ Form::open(['method'=>'DELETE', 'route'=>['place.delete', $place->id]]) }}
                         <a href="{{ URL::route('place.edit', $place->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
