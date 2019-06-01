@@ -140,7 +140,7 @@
                                 </div>
                                 <div class="x_content">
                                     <div id="showDocuments"></div>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#documentModal"><i class="fa fa-paperclip"></i> Add document</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#documentModal" id="addNewDoc"><i class="fa fa-paperclip"></i> Add document</button>
                                 </div>
                             </div>
                         </div>
@@ -230,6 +230,11 @@
             getDocuments("{{ $order->id}}") // Ajax call to get documents displayed
             getShipments("{{ $order->id}}")
 
+            // Active document modal
+            $('#addNewDoc').click(function(){ 
+                $('.myprogress').css('width', '0');
+            });
+
             // Add document fields form
             $("#addDocument").click(function(){ 
                 var html = $(".clone").html();
@@ -243,7 +248,9 @@
             $("#submitDocuments").click(function(e){ 
                 e.preventDefault()
                 if (checkEmptyInputs() == false)
+                    $(".progress").removeClass('hide');
                     storeDocuments()
+                    
             });
 
             $('#listShipmentButton').click(function(e){ 
@@ -323,9 +330,19 @@
                 processData: false,
                 contentType: false,
                 data: data,
+                xhr: function () { // this part is progress bar
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            percentComplete = parseInt(percentComplete * 100);
+                            $('.myprogress').text(percentComplete + '%');
+                            $('.myprogress').css('width', percentComplete + '%');
+                        }
+                    }, false);
+                    return xhr;
+                },
                 success:function(response){
-
-                    //$("#loading").html(response);
 
                     if($.isEmptyObject(response.error)){
 

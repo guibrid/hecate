@@ -53,11 +53,11 @@
                     </div>
                 </div>
                 <div class="ln_solid"></div>
-                <div class="row hide" id="loading">
-                        <div class="col-md-12 ">
-                            load
-                        </div>
+                <div class="form-group">
+                    <div class="progress hide">
+                        <div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
                     </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
