@@ -32,7 +32,7 @@
                     <td>{{$customer->address}}</td>
                     <td>{{$customer->city}}</td>
                     <td>{{$customer->cp}}</td>
-                    <td>{{$customer->country}}</td>
+                    <td>{{config('variables.form.countries')[$customer->country]}}</td>
                     <td>
                       {{ Form::open(['method'=>'DELETE', 'route'=>['customer.delete', $customer->id]]) }}
                         <a href="{{ URL::route('customer.edit', [$customer->id, 'user'=>'add']) }}" type="button" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Add user</a>
