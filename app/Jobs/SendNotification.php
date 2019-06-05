@@ -44,9 +44,12 @@ class SendNotification implements ShouldQueue
         
         // Get customer user email list
         $usersList = Helpers::getCustomerUserList($this->order['customer_id']);
-        foreach ($usersList as $user){
-            $to[] = [ 'email'=> $user->email, 'name' => $user->name];
+        if ($usersList->count() > 0) {
+            foreach ($usersList as $user){
+                $to[] = [ 'email'=> $user->email, 'name' => $user->name];
+            }
+            Mail::to($to)->send(new OrderSaved($this->order, $this->transshipments));
         }
-        Mail::to($to)->send(new OrderSaved($this->order, $this->transshipments));
+        
     }
 }

@@ -30,6 +30,11 @@ class OrderSendRecap extends Mailable
      */
     public function build()
     {
+        
+        if (!empty(env('MAIL_BCC_ADDRESS'))){
+            $this->bcc(env('MAIL_BCC_ADDRESS'));
+        }
+
         return $this->from( env('MAIL_NOREPLY'), env('APP_NAME') )
                     ->subject("Order recap")
                     ->view('emails.orders.recap')

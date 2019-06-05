@@ -38,6 +38,11 @@ class OrderSaved extends Mailable
      */
     public function build()
     {
+
+        if (!empty(env('MAIL_BCC_ADDRESS'))){
+            $this->bcc(env('MAIL_BCC_ADDRESS'));
+        } 
+        
         return $this->from( env('MAIL_NOREPLY'), env('APP_NAME') )
                     ->subject("Your order has been updated - Booking N° ".$this->order['number'])
                     ->view('emails.orders.saved')
