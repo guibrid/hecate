@@ -33,9 +33,16 @@ class Customer extends Model
             }
             Storage::disk('local')->deleteDirectory('documents/'.$customer->id);
 
-            //remove all related users
+            //remove all related users, role and verify_user record
             foreach($customer->users as $user){
+
+                if ($user->verifyUser){
+                    $user->verifyUser->delete();
+                }
+
+                $user->roles()->detach($user->id);
                 $user->delete();
+
             }
 
             return true;
