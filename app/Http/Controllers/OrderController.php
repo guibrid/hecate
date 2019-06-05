@@ -84,8 +84,13 @@ class OrderController extends Controller
         $order->supplier = $request->input('supplier');
         $order->comment = $request->input('comment');
         $order->status_id = $request->input('status_id');
+        // if status is Delivered,Set delivery date
+        if ($order->status_id == 4) { $order->delivery = now(); }
         $order->customer_id = $request->input('customer_id');
+
         $order->save();
+
+
 
         // Send Notification
         if($request->input('notification')){
@@ -154,6 +159,12 @@ class OrderController extends Controller
         $order->supplier = $request->input('supplier');
         $order->comment = $request->input('comment');
         $order->status_id = $request->input('status_id');
+        // if status is Delivered,Set delivery date
+        if ($order->status_id == 4) { 
+            $order->delivery = now(); 
+        }else {
+            $order->delivery = null;
+        }
         $order->save();
 
         // Send Notification

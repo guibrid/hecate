@@ -52,12 +52,6 @@ class OrderRecap extends Command
 
         //List all customer
         $customers = Customer::with('users')->get();
-        //List all current shipment id not arrived or arrived less than 10 days
-        $shipments = Shipment::whereHas('transshipments', function ($query) {
-                $query->where('arrival', '>=', Carbon::now()->subDays(15));
-                })->pluck('id');
-
-        if(count($shipments) == 0 ){$shipments = '';}// change format for IN query
         
         foreach($customers as $customer){
 
@@ -65,7 +59,11 @@ class OrderRecap extends Command
 
                 $to = array(); // Reset user list
                 $orders = Order::with(['shipment', 'status' , 'shipment.transshipments' , 'shipment.transshipments.origin', 'shipment.transshipments.destination'])
-                                ->whereRaw('customer_id = ? AND (shipment_id IN (?) OR shipment_id IS NULL)', [$customer->id, $shipments])
+                                ->where('customer_id',$customer->id)
+                                ->where(function ($query) {
+                                    $query->where('delivery', '<=', Carbon::now()->subDays(15))
+                                          ->orWhereNull('delivery');
+                                })    
                                 ->get();
                 // If ongoing orders, procceed notification
                 if ($orders->count() > 0){
@@ -85,7 +83,7 @@ class OrderRecap extends Command
                 }
 
             }
-    
+           
         }
 
     }
