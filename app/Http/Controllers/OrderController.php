@@ -43,6 +43,10 @@ class OrderController extends Controller
         $orders = Order::with(['customer','shipment','status'])
         ->where($args)
         ->orderBy('id', 'DESC')
+        ->where(function ($query) {
+            $query->where('delivery', '>=', \Carbon\Carbon::now()->subDays(30))
+                  ->orWhereNull('delivery');
+        }) 
         ->get();
         
         return view($views)->with(['orders'=> $orders]);

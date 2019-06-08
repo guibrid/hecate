@@ -62,7 +62,10 @@
     
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class='input-group date' id='datetimepickerdocument_reception'>
-                            {!! Form::text('document_reception', \Carbon\Carbon::parse($shipment->document_reception)->format('d/m/Y'), ['id'=>'document_reception', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                            @if( !empty($shipment->document_reception) )
+                                @php $shipment->document_reception = \Carbon\Carbon::parse($shipment->document_reception)->format('d/m/Y') @endphp
+                            @endif
+                            {!! Form::text('document_reception', $shipment->document_reception, ['id'=>'document_reception', 'class'=>'form-control col-md-7 col-xs-12']) !!}
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -77,7 +80,10 @@
 
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class='input-group date' id='datetimepickercustom_control'>
-                            {!! Form::text('custom_control', \Carbon\Carbon::parse($shipment->custom_control)->format('d/m/Y'), ['id'=>'custom_control', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                            @if( !empty($shipment->custom_control) )
+                                @php $shipment->custom_control = \Carbon\Carbon::parse($shipment->custom_control)->format('d/m/Y') @endphp
+                            @endif
+                            {!! Form::text('custom_control', $shipment->custom_control, ['id'=>'custom_control', 'class'=>'form-control col-md-7 col-xs-12']) !!}
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -92,7 +98,10 @@
     
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class='input-group date' id='datetimepickercutoff'>
-                            {!! Form::text('cutoff', \Carbon\Carbon::parse($shipment->cutoff)->format('d/m/Y'), ['id'=>'cutoff', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                            @if( !empty($shipment->cutoff) )
+                                @php $shipment->cutoff = \Carbon\Carbon::parse($shipment->cutoff)->format('d/m/Y') @endphp
+                            @endif
+                            {!! Form::text('cutoff', $shipment->cutoff, ['id'=>'cutoff', 'class'=>'form-control col-md-7 col-xs-12']) !!}
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>

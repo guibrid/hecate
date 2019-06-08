@@ -30,10 +30,14 @@ class ShipmentController extends Controller
      */
     public function index()
     {
-        
+
         $shipments = Shipment::with(['transshipments'])
-            ->orderBy('id', 'DESC')
-            ->get();
+        ->doesntHave("transshipments")
+        ->orWhereHas('transshipments', function ($query) {
+            $query->where('arrival', '>=', Carbon::now()->subDays(15));
+            })
+        ->orderBy('id', 'DESC')
+        ->get();
         
         return view('admin/shipments/index')->with(['shipments'=> $shipments]);
 

@@ -61,7 +61,7 @@ class OrderRecap extends Command
                 $orders = Order::with(['shipment', 'status' , 'shipment.transshipments' , 'shipment.transshipments.origin', 'shipment.transshipments.destination'])
                                 ->where('customer_id',$customer->id)
                                 ->where(function ($query) {
-                                    $query->where('delivery', '<=', Carbon::now()->subDays(15))
+                                    $query->where('delivery', '>=', Carbon::now()->subDays(30))
                                           ->orWhereNull('delivery');
                                 })    
                                 ->get();
