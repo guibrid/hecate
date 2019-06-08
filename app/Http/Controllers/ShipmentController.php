@@ -198,9 +198,11 @@ class ShipmentController extends Controller
 
         if (is_null($order_id)){
             $shipments = Shipment::with(['orders'])
-                        ->whereHas('transshipments', function ($query) {
-                            $query->where('arrival', '>=', Carbon::now());
-                        })->orderby('id', 'desc')->get();
+            ->doesntHave("transshipments")
+            ->orWhereHas('transshipments', function ($query) {
+                $query->where('arrival', '>=', Carbon::now()->subDays(15));
+                })
+            ->orderby('id', 'desc')->get();
         } else {
             $shipments = Shipment::with(['orders'])
             ->whereHas('orders', function($query) use ($order_id) {
