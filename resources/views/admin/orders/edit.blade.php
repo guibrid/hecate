@@ -79,6 +79,15 @@
                                         </td>
                                       </tr>
                                       <tr>
+                                        <td>B/L & HAWB n°</td>
+                                        <td class="fs15 fw700 text-right">
+                                            {!! Form::text('bl_number', $order->bl_number, ['id'=>'bl_number', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                                            @error('bl_number')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                      </tr>
+                                      <tr>
                                         <td>Batch n°</td>
                                         <td class="fs15 fw700 text-right">
                                             {!! Form::text('batch', $order->batch, ['id'=>'batch', 'class'=>'form-control col-md-7 col-xs-12']) !!}

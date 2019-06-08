@@ -54,6 +54,10 @@
                                     <td class="fs15 fw700 text-right">{{$order->recipient}}</td>
                                   </tr>
                                   <tr>
+                                    <td>B/L & HAWB n°</td>
+                                    <td class="fs15 fw700 text-right">{{$order->bl_number}}</td>
+                                  </tr>
+                                  <tr>
                                     <td>Batch n°</td>
                                     <td class="fs15 fw700 text-right">{{$order->batch}}</td>
                                   </tr>

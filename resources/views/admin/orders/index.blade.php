@@ -21,6 +21,7 @@
               <th>Recipient</th>
               <th>Supplier</th>
               <th>Booking n°</th>
+              <th>B/L & HAWB n°</th>
               <th>Status</th>
               <th>Shipment</th>
               <th>Shipment Mode</th>
@@ -37,6 +38,7 @@
                     <td>{{$order->recipient}}</td>
                     <td>{{$order->supplier}}</td>
                     <td>{{$order->number}}</td>
+                    <td>{{$order->bl_number }}</td>
                     <td>{{$order->status['title']}}</td>
                     <td>@php echo Helpers::renderShipmentStatus($order->shipment); @endphp</td>
                     <td>{{strtoupper($order->load)}}</td>

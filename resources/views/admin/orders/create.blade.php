@@ -58,15 +58,15 @@
                 </div>
             </div>
             <div class="form-group">
-                {!! Form::label('number', 'Booking n° *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
-
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    {!! Form::text('number', null, ['id'=>'number', 'class'=>'form-control col-md-7 col-xs-12']) !!}
-                    @error('number')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                    {!! Form::label('number', 'Booking n° *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+    
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {!! Form::text('number', null, ['id'=>'number', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                        @error('number')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
                 </div>
-            </div>
             <div class="form-group">
                 {!! Form::label('title', 'Title', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
@@ -78,7 +78,17 @@
                 </div>
             </div>
             <div class="form-group">
-                {!! Form::label('batch', 'Batch N°', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                {!! Form::label('bl_number', 'B/L & HAWB n°', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {!! Form::text('bl_number', null, ['id'=>'bl_number', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                    @error('bl_number')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('batch', 'Batch n°', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     {!! Form::text('batch', null, ['id'=>'batch', 'class'=>'form-control col-md-7 col-xs-12']) !!}
