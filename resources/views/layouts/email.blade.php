@@ -1,404 +1,255 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-<!--[if gte mso 9]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-<meta content="width=device-width" name="viewport"/>
-<!--[if !mso]><!-->
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<!--<![endif]-->
-<title></title>
-<!--[if !mso]><!-->
-<link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet" type="text/css"/>
-<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css"/>
-<!--<![endif]-->
-<style type="text/css">
-		body {
-			margin: 0;
-			padding: 0;
-		}
+    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
+    <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
+    <meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no"> <!-- Tell iOS not to automatically link certain text strings. -->
+    <title>{{ config('app.name') }}</title> <!-- The title tag shows in email notifications, like Android 4.4. -->
 
-		table,
-		td,
-		tr {
-			vertical-align: top;
-			border-collapse: collapse;
-		}
+    <!-- Web Font / @font-face : BEGIN -->
+    <!-- NOTE: If web fonts are not required, lines 10 - 27 can be safely removed. -->
 
-		* {
-			line-height: inherit;
-		}
+    <!-- Desktop Outlook chokes on web font references and defaults to Times New Roman, so we force a safe fallback font. -->
+    <!--[if mso]>
+        <style>
+            * {
+                font-family: sans-serif !important;
+            }
+        </style>
+    <![endif]-->
 
-		a[x-apple-data-detectors=true] {
-			color: inherit !important;
-			text-decoration: none !important;
-		}
+    <!-- All other clients get the webfont reference; some will render the font and others will silently fail to the fallbacks. More on that here: http://stylecampaign.com/blog/2015/02/webfont-support-in-email/ -->
+    <!--[if !mso]><!-->
+    <!-- insert web font reference, eg: <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
+    <!--<![endif]-->
 
-		.ie-browser table {
-			table-layout: fixed;
-		}
+    <!-- Web Font / @font-face : END -->
 
-		[owa] .img-container div,
-		[owa] .img-container button {
-			display: block !important;
-		}
+    <!-- CSS Reset : BEGIN -->
+    <style>
 
-		[owa] .fullwidth button {
-			width: 100% !important;
-		}
+        /* What it does: Remove spaces around the email design added by some email clients. */
+        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+        html,
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
 
-		[owa] .block-grid .col {
-			display: table-cell;
-			float: none !important;
-			vertical-align: top;
-		}
+        /* What it does: Stops email clients resizing small text. */
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
 
-		.ie-browser .block-grid,
-		.ie-browser .num12,
-		[owa] .num12,
-		[owa] .block-grid {
-			width: 605px !important;
-		}
+        /* What it does: Centers email on Android 4.4 */
+        div[style*="margin: 16px 0"] {
+            margin: 0 !important;
+        }
 
-		.ie-browser .mixed-two-up .num4,
-		[owa] .mixed-two-up .num4 {
-			width: 200px !important;
-		}
+        /* What it does: Stops Outlook from adding extra spacing to tables. */
+        table,
+        td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }
 
-		.ie-browser .mixed-two-up .num8,
-		[owa] .mixed-two-up .num8 {
-			width: 400px !important;
-		}
+        /* What it does: Fixes webkit padding issue. */
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }
 
-		.ie-browser .block-grid.two-up .col,
-		[owa] .block-grid.two-up .col {
-			width: 300px !important;
-		}
+        /* What it does: Uses a better rendering method when resizing images in IE. */
+        img {
+            -ms-interpolation-mode:bicubic;
+        }
 
-		.ie-browser .block-grid.three-up .col,
-		[owa] .block-grid.three-up .col {
-			width: 300px !important;
-		}
+        /* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
+        a {
+            text-decoration: none;
+        }
 
-		.ie-browser .block-grid.four-up .col [owa] .block-grid.four-up .col {
-			width: 150px !important;
-		}
+        /* What it does: A work-around for email clients meddling in triggered links. */
+        a[x-apple-data-detectors],  /* iOS */
+        .unstyle-auto-detected-links a,
+        .aBn {
+            border-bottom: 0 !important;
+            cursor: default !important;
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
 
-		.ie-browser .block-grid.five-up .col [owa] .block-grid.five-up .col {
-			width: 121px !important;
-		}
+        /* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
+        .a6S {
+            display: none !important;
+            opacity: 0.01 !important;
+        }
 
-		.ie-browser .block-grid.six-up .col,
-		[owa] .block-grid.six-up .col {
-			width: 100px !important;
-		}
+        /* What it does: Prevents Gmail from changing the text color in conversation threads. */
+        .im {
+            color: inherit !important;
+        }
 
-		.ie-browser .block-grid.seven-up .col,
-		[owa] .block-grid.seven-up .col {
-			width: 86px !important;
-		}
+        /* If the above doesn't work, add a .g-img class to any image in question. */
+        img.g-img + div {
+            display: none !important;
+        }
 
-		.ie-browser .block-grid.eight-up .col,
-		[owa] .block-grid.eight-up .col {
-			width: 75px !important;
-		}
+        /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+        /* Create one of these media queries for each additional viewport size you'd like to fix */
 
-		.ie-browser .block-grid.nine-up .col,
-		[owa] .block-grid.nine-up .col {
-			width: 67px !important;
-		}
+        /* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
+        @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+            u ~ div .email-container {
+                min-width: 320px !important;
+            }
+        }
+        /* iPhone 6, 6S, 7, 8, and X */
+        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+            u ~ div .email-container {
+                min-width: 375px !important;
+            }
+        }
+        /* iPhone 6+, 7+, and 8+ */
+        @media only screen and (min-device-width: 414px) {
+            u ~ div .email-container {
+                min-width: 414px !important;
+            }
+        }
 
-		.ie-browser .block-grid.ten-up .col,
-		[owa] .block-grid.ten-up .col {
-			width: 60px !important;
-		}
+    </style>
 
-		.ie-browser .block-grid.eleven-up .col,
-		[owa] .block-grid.eleven-up .col {
-			width: 54px !important;
-		}
+    <!-- What it does: Makes background images in 72ppi Outlook render at correct size. -->
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG/>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
 
-		.ie-browser .block-grid.twelve-up .col,
-		[owa] .block-grid.twelve-up .col {
-			width: 50px !important;
-		}
-	</style>
-<style id="media-query" type="text/css">
-		@media only screen and (min-width: 625px) {
-			.block-grid {
-				width: 605px !important;
-			}
+    <!-- CSS Reset : END -->
 
-			.block-grid .col {
-				vertical-align: top;
-			}
+    <!-- Progressive Enhancements : BEGIN -->
+    <style>
 
-			.block-grid .col.num12 {
-				width: 605px !important;
-			}
+	    /* What it does: Hover styles for buttons */
+	    .button-td,
+	    .button-a {
+	        transition: all 100ms ease-in;
+	    }
+	    .button-td-primary:hover,
+	    .button-a-primary:hover {
+	        background: #555555 !important;
+	        border-color: #555555 !important;
+	    }
 
-			.block-grid.mixed-two-up .col.num3 {
-				width: 150px !important;
-			}
+	    /* Media Queries */
+	    @media screen and (max-width: 600px) {
 
-			.block-grid.mixed-two-up .col.num4 {
-				width: 200px !important;
-			}
+	        /* What it does: Adjust typography on small screens to improve readability */
+	        .email-container p {
+	            font-size: 15px !important;
+	        }
 
-			.block-grid.mixed-two-up .col.num8 {
-				width: 400px !important;
-			}
+	    }
 
-			.block-grid.mixed-two-up .col.num9 {
-				width: 450px !important;
-			}
+    </style>
+    <!-- Progressive Enhancements : END -->
 
-			.block-grid.two-up .col {
-				width: 302px !important;
-			}
-
-			.block-grid.three-up .col {
-				width: 201px !important;
-			}
-
-			.block-grid.four-up .col {
-				width: 151px !important;
-			}
-
-			.block-grid.five-up .col {
-				width: 121px !important;
-			}
-
-			.block-grid.six-up .col {
-				width: 100px !important;
-			}
-
-			.block-grid.seven-up .col {
-				width: 86px !important;
-			}
-
-			.block-grid.eight-up .col {
-				width: 75px !important;
-			}
-
-			.block-grid.nine-up .col {
-				width: 67px !important;
-			}
-
-			.block-grid.ten-up .col {
-				width: 60px !important;
-			}
-
-			.block-grid.eleven-up .col {
-				width: 55px !important;
-			}
-
-			.block-grid.twelve-up .col {
-				width: 50px !important;
-			}
-		}
-
-		@media (max-width: 625px) {
-
-			.block-grid,
-			.col {
-				min-width: 320px !important;
-				max-width: 100% !important;
-				display: block !important;
-			}
-
-			.block-grid {
-				width: 100% !important;
-			}
-
-			.col {
-				width: 100% !important;
-			}
-
-			.col>div {
-				margin: 0 auto;
-			}
-
-			img.fullwidth,
-			img.fullwidthOnMobile {
-				max-width: 100% !important;
-			}
-
-			.no-stack .col {
-				min-width: 0 !important;
-				display: table-cell !important;
-			}
-
-			.no-stack.two-up .col {
-				width: 50% !important;
-			}
-
-			.no-stack .col.num4 {
-				width: 33% !important;
-			}
-
-			.no-stack .col.num8 {
-				width: 66% !important;
-			}
-
-			.no-stack .col.num4 {
-				width: 33% !important;
-			}
-
-			.no-stack .col.num3 {
-				width: 25% !important;
-			}
-
-			.no-stack .col.num6 {
-				width: 50% !important;
-			}
-
-			.no-stack .col.num9 {
-				width: 75% !important;
-			}
-
-			.video-block {
-				max-width: none !important;
-			}
-
-			.mobile_hide {
-				min-height: 0px;
-				max-height: 0px;
-				max-width: 0px;
-				display: none;
-				overflow: hidden;
-				font-size: 0px;
-			}
-
-			.desktop_hide {
-				display: block !important;
-				max-height: none !important;
-			}
-		}
-	</style>
 </head>
-<body class="clean-body" style="margin: 0; padding: 0; -webkit-text-size-adjust: 100%; background-color: #FFFFFF;">
-<style id="media-query-bodytag" type="text/css">
-@media (max-width: 625px) {
-  .block-grid {
-    min-width: 320px!important;
-    max-width: 100%!important;
-    width: 100%!important;
-    display: block!important;
-  }
-  .col {
-    min-width: 320px!important;
-    max-width: 100%!important;
-    width: 100%!important;
-    display: block!important;
-  }
-  .col > div {
-    margin: 0 auto;
-  }
-  img.fullwidth {
-    max-width: 100%!important;
-    height: auto!important;
-  }
-  img.fullwidthOnMobile {
-    max-width: 100%!important;
-    height: auto!important;
-  }
-  .no-stack .col {
-    min-width: 0!important;
-    display: table-cell!important;
-  }
-  .no-stack.two-up .col {
-    width: 50%!important;
-  }
-  .no-stack.mixed-two-up .col.num4 {
-    width: 33%!important;
-  }
-  .no-stack.mixed-two-up .col.num8 {
-    width: 66%!important;
-  }
-  .no-stack.three-up .col.num4 {
-    width: 33%!important
-  }
-  .no-stack.four-up .col.num3 {
-    width: 25%!important
-  }
-}
-</style>
-<!--[if IE]><div class="ie-browser"><![endif]-->
-<table bgcolor="#FFFFFF" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="table-layout: fixed; vertical-align: top; min-width: 320px; Margin: 0 auto; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #FFFFFF; width: 100%;" valign="top" width="100%">
-<tbody>
-<tr style="vertical-align: top;" valign="top">
-<td style="word-break: break-word; vertical-align: top; border-collapse: collapse;" valign="top">
-<!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" style="background-color:#FFFFFF"><![endif]-->
-<div style="background-color:#2a3f54;">
-<div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
-<div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
-<!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#2a3f54;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:605px"><tr class="layout-full-width" style="background-color:transparent"><![endif]-->
-<!--[if (mso)|(IE)]><td align="center" width="605" style="background-color:transparent;width:605px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
-<div class="col num12" style="min-width: 320px; max-width: 605px; display: table-cell; vertical-align: top;;">
-<div style="width:100% !important;">
-<!--[if (!mso)&(!IE)]><!-->
-<div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;">
-<!--<![endif]-->
-<table border="0" cellpadding="0" cellspacing="0" class="divider" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;" valign="top" width="100%">
-<tbody>
-<tr style="vertical-align: top;" valign="top">
-<td class="divider_inner" style="word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px; border-collapse: collapse;" valign="top">
-<table align="center" border="0" cellpadding="0" cellspacing="0" class="divider_content" role="presentation" style="table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; border-top: 0px solid transparent;" valign="top" width="100%">
-<tbody>
-<tr style="vertical-align: top;" valign="top">
-<td style="word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-collapse: collapse;" valign="top"><span></span></td>
-</tr>
-</tbody>
-</table>
-</td>
-</tr>
-</tbody>
-</table>
-<div align="center" class="img-container center autowidth" style="padding-right: 0px;padding-left: 0px;">
-<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 0px;padding-left: 0px;" align="center"><![endif]--><a href="{{ env('APP_URL') }}" target="_blank" style="color:#FFF; text-decoration:none;font-family: 'Open Sans', Helvetica, Arial, sans-serif;font-weight:bold;"> <img align="center" alt="Image" border="0" class="center autowidth" src="{{ asset('img/email_logo.png')}}" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; clear: both; height: auto; float: none; border: none; width: 100%; max-width: 71px; display: block;" title="Image" width="71"/><br />{{ env('APP_NAME') }}</a>
-<!--[if mso]></td></tr></table><![endif]-->
-</div>
-<br />
+<!--
+	The email background color (#2a3f54) is defined in three places:
+	1. body tag: for most email clients
+	2. center tag: for Gmail and Inbox mobile apps and web versions of Gmail, GSuite, Inbox, Yahoo, AOL, Libero, Comcast, freenet, Mail.ru, Orange.fr
+	3. mso conditional: For Windows 10 Mail
+-->
+<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #2a3f54;">
+	<center style="width: 100%; background-color: #2a3f54;">
+    <!--[if mso | IE]>
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #2a3f54;">
+    <tr>
+    <td>
+    <![endif]-->
 
-@yield('content')
+        <!-- Visually Hidden Preheader Text : BEGIN -->
+        <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+            (Optional) This text will appear in the inbox preview, but not the email body. It can be used to supplement the email subject line or even summarize the email's contents. Extended text preheaders (~490 characters) seems like a better UX for anyone using a screenreader or voice-command apps like Siri to dictate the contents of an email. If this text is not included, email clients will automatically populate it using the text (including image alt text) at the start of the email's body.
+        </div>
+        <!-- Visually Hidden Preheader Text : END -->
 
+        <!-- Create white space after the desired preview text so email clients don’t pull other distracting text into the inbox preview. Extend as necessary. -->
+        <!-- Preview Text Spacing Hack : BEGIN -->
+        <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+	        &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+        </div>
+        <!-- Preview Text Spacing Hack : END -->
 
+        <!--
+            Set the email width. Defined in two places:
+            1. max-width for all clients except Desktop Windows Outlook, allowing the email to squish on narrow but never go wider than 600px.
+            2. MSO tags for Desktop Windows Outlook enforce a 600px width.
+        -->
+        <div style="max-width: 600px; margin: 0 auto;" class="email-container">
+            <!--[if mso]>
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600">
+            <tr>
+            <td>
+            <![endif]-->
 
+	        <!-- Email Body : BEGIN -->
+	        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+		        <!-- Email Header : BEGIN -->
+	            <tr>
+	                <td style="padding: 20px 0; text-align: center">
+	                    <img src="{{ asset('img/logo-email.png')}}" width="200" height="73" alt="{{ config('app.name') }}" border="0" style="height: auto; font-family: sans-serif; font-size: 15px; line-height: 15px; color: #FFFFFF;">
+	                </td>
+	            </tr>
+		        <!-- Email Header : END -->
 
-<div style="background-color:transparent;">
-<div class="block-grid" style="Margin: 0 auto; min-width: 320px; max-width: 605px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: transparent;;">
-<div style="border-collapse: collapse;display: table;width: 100%;background-color:transparent;">
-<!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:605px"><tr class="layout-full-width" style="background-color:transparent"><![endif]-->
-<!--[if (mso)|(IE)]><td align="center" width="605" style="background-color:transparent;width:605px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:5px;"><![endif]-->
-<div class="col num12" style="min-width: 320px; max-width: 605px; display: table-cell; vertical-align: top;;">
-<div style="width:100% !important;">
-<!--[if (!mso)&(!IE)]><!-->
-<div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
-<!--<![endif]-->
-<!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
-<div style="color:#8F8F8F;font-family:'Open Sans', Helvetica, Arial, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
-<div style="font-size: 12px; line-height: 14px; font-family: 'Open Sans', Helvetica, Arial, sans-serif; color: #8F8F8F;">
-<p style="font-size: 14px; line-height: 13px; text-align: center; margin: 0;"><span style="font-size: 11px;">Copyright © 2019 Hecate Tracking, All rights reserved. </span><br/><span style="font-size: 11px; line-height: 13px;"></span></p>
-</div>
-</div>
-<!--[if mso]></td></tr></table><![endif]-->
-<!--[if (!mso)&(!IE)]><!-->
-</div>
-<!--<![endif]-->
-</div>
-</div>
-<!--[if (mso)|(IE)]></td></tr></table><![endif]-->
-<!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
-</div>
-</div>
-</div>
-<!--[if (mso)|(IE)]></td></tr></table><![endif]-->
-</td>
-</tr>
-</tbody>
-</table>
-<!--[if (IE)]></div><![endif]-->
+                @yield('content')
+
+            </table>
+            <!-- Email Body : END -->
+
+            <!-- Email Footer : BEGIN -->
+	        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+                <tr>
+                    <td style="padding: 20px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #888888;">
+                        <p style="color: #cccccc;">
+                            More details about all your orders<br /><a href="{{ env('APP_URL') }}"  style="color: #cccccc; font-weight: bold;">Connect to your account</a></p>
+                        <p style="color: #cccccc;">Copyright © 2019 Hecate Tracking, All rights reserved.</p>
+                        <br>
+                        <unsubscribe style="color: #888888; text-decoration: underline;">unsubscribe</unsubscribe>
+                    </td>
+                </tr>
+            </table>
+            <!-- Email Footer : END -->
+
+            <!--[if mso]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+        </div>
+
+    <!--[if mso | IE]>
+    </td>
+    </tr>
+    </table>
+    <![endif]-->
+    </center>
 </body>
 </html>

@@ -99,7 +99,8 @@
                                       <tr>
                                         <td>Shipment mode</td>
                                         <td class="fs15 fw700 text-right">
-                                            {!! Form::select('load', config('variables.form.shipmentModes'), strtolower($order->load), ['id'=>'load', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                                            @php  if(empty($order->load)) { $order->load = null; } else { $order->load = strtolower($order->load); } @endphp
+                                            {!! Form::select('load', config('variables.form.shipmentModes'), $order->load, ['id'=>'load', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder' => 'Pick a shipment type...']) !!}
                                             @error('load')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
