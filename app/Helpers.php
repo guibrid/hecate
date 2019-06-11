@@ -159,4 +159,27 @@ class Helpers
         return $users;
 
     }
+
+    /**
+     * Store account details in session
+     *
+     *  
+     * @return true
+     */ 
+    public static function setAccountInSession()
+    {
+
+        $account = \App\Account::find(1);
+        session(['account.name' => $account->name,
+                 'account.address' => $account->address,
+                 'account.cp' => $account->cp,
+                 'account.city' => $account->city,
+                 'account.country' => $account->country,
+                 'account.logo_white' => $account->logo_white,
+                 'account.logo_black' => $account->logo_black,]);
+
+        return true;
+    }
+
+    
 }

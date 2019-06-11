@@ -20,6 +20,12 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    protected function authenticated()
+    {
+        // Set account details in session
+        \App\Helpers::setAccountInSession();
+    }
+
     /**
      * Where to redirect users after login.
      *
