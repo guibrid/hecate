@@ -181,5 +181,37 @@ class Helpers
         return true;
     }
 
+    /**
+     * Get account logo
+     *
+     * @param string $type = white or black
+     * 
+     * @return string
+     */ 
+    public static function getAccountLogo($type = 'black')
+    {
+
+        $account = \App\Account::find(1);
+
+        if ($type == "black")
+        {
+            if (!empty($account->logo_black))
+            {
+                return asset('storage/img/'.$account->logo_black);
+            }
+            return asset('img/hecate-logo-black.png');
+        }
+
+        if ($type == "white")
+        {
+            if (!empty($account->logo_white))
+            {
+                return asset('storage/img/'.$account->logo_white);
+            }
+            return asset('img/hecate-logo-white.png');
+        }
+        
+    }
+
     
 }

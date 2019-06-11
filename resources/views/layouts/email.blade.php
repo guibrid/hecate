@@ -213,8 +213,9 @@
 	        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
 		        <!-- Email Header : BEGIN -->
 	            <tr>
-	                <td style="padding: 20px 0; text-align: center">
-	                    <img src="{{ asset('img/logo-email.png')}}" width="200" height="73" alt="{{ config('app.name') }}" border="0" style="height: auto; font-family: sans-serif; font-size: 15px; line-height: 15px; color: #FFFFFF;">
+                    <td style="padding: 20px 0; text-align: center">
+                            
+	                    <img src="{{ Helpers::getAccountLogo('white') }}" width="200" height="73" alt="{{ config('app.name') }}" border="0" style="height: auto; font-family: sans-serif; font-size: 15px; line-height: 15px; color: #FFFFFF;">
 	                </td>
 	            </tr>
 		        <!-- Email Header : END -->
