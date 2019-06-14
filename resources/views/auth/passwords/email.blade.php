@@ -39,7 +39,9 @@
                     <div class="separator">
                         <div class="clearfix"></div>
                         <div>
-                            <h1><img src="{{ asset('img/hecate_tracking_icon.png')}}" width="60" /> {{ config('app.name') }}</h1>
+                            <h1>
+                                <img src="{{ Helpers::getAccountLogo() }}" width="180" />
+                            </h1>
                         </div>
                     </div>
                 </form>
