@@ -52,7 +52,7 @@ class OrderRecap extends Command
 
         //List all customer
         $customers = Customer::with('users')->get();
-        
+        $i = 1; // timer email send
         foreach($customers as $customer){
 
             if ($customer->users->count() > 0){
@@ -76,14 +76,15 @@ class OrderRecap extends Command
                     foreach ($customer->users as $user){
                         $to[] = [ 'email'=> $user->email, 'name' => $user->name];
                     }
-                    
+
+                    $when = now()->addMinutes($i); // Send email every minutes
                     // Email on queue with attachement       
-                    \Mail::to($to)->queue(new OrderSendRecap(storage_path('app/recaps/'.$pdfName)));
+                    \Mail::to($to)->later($when, new OrderSendRecap(storage_path('app/recaps/'.$pdfName)));
 
                 }
-
+                $i++; // Incremante by 1 the minute between each email send
             }
-           
+          
         }
 
     }
