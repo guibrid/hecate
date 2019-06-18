@@ -12,10 +12,39 @@
     </tr>
     <!-- Hero Image, Flush : END -->
 
+    <tr>
+        <td style="background-color: #ffffff; text-align: center;">
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style=" padding-top:25px;">
+                <tr>
+                    <td valign="top" style="text-align: center; padding: 0 10px;">
+                        <p style="font-family: sans-serif; text-align: center; ">
+                            <strong>Consignee</strong><br />        
+                            @if ($order['recipient']) 
+                                {{ $order['recipient']}}
+                            @else
+                                -
+                            @endif</p>   
+                    </td>
+                    <td valign="top" style="text-align: center; padding: 0 10px;">
+                        <p style="font-family: sans-serif; text-align: center; ">
+                            <strong>Shipper/Supplier</strong><br />
+                            @if ($order['supplier']) 
+                                {{ $order['supplier']}}
+                            @else
+                                -
+                            @endif
+                        </p> 
+                    </td>
+                </tr>
+            </table>
+        </td>
+
+    </tr>
+
     @if ($order['shipment'])
     <!-- Shipment : BEGIN -->
     <tr>
-        <td style="padding: 30px 10px 40px 10px; background-color: #ffffff;">
+        <td style="padding: 20px 10px 20px 10px; background-color: #ffffff;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                 <tr>
                     <td style="padding: 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: center">
@@ -171,31 +200,6 @@
                     <td style="padding: 10px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: center">
                         <h1 style="margin: 0; font-family: sans-serif; font-size: 25px; line-height: 30px; color: #333333; font-weight: normal;">Order details</h1>
                         <h3 style="margin: 0; font-family: sans-serif; font-size: 19px; line-height: 25px; color: #333333; font-weight: normal;">{{ $order['title'] }}</h3>
-                    </td>
-                </tr>
-            </table>
-            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                    <td valign="top" style="text-align: center; padding: 0 10px;">
-                        <p style="font-family: sans-serif; text-align: center; ">
-                            <strong>Consignee</strong><br />        
-                            @if ($order['recipient']) 
-                                {{ $order['recipient']}}
-                            @else
-                                -
-                            @endif</p>   
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top" style="text-align: center; padding: 0 10px;">
-                        <p style="font-family: sans-serif; text-align: center; ">
-                            <strong>Shipper/Supplier</strong><br />
-                            @if ($order['supplier']) 
-                                {{ $order['supplier']}}
-                            @else
-                                -
-                            @endif
-                        </p> 
                     </td>
                 </tr>
             </table>
