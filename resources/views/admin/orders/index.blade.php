@@ -18,8 +18,8 @@
           <thead>
             <tr>
               <th>Customer</th>
-              <th>Recipient</th>
-              <th>Supplier</th>
+              <th>Consignee</th>
+              <th>Shipper/Supplier</th>
               <th>Booking n°</th>
               <th>B/L & HAWB n°</th>
               <th>Status</th>

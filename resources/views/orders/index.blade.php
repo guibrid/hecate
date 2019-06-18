@@ -46,11 +46,11 @@
                             <table class="table">
                                 <tbody>
                                   <tr>
-                                    <td>Supplier</td>
+                                    <td>Shipper/Supplier</td>
                                     <td class="fs15 fw700 text-right">{{$order->supplier}}</td>
                                   </tr>
                                   <tr>
-                                    <td>Recipient</td>
+                                    <td>Consignee</td>
                                     <td class="fs15 fw700 text-right">{{$order->recipient}}</td>
                                   </tr>
                                   <tr>

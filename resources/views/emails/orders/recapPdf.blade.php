@@ -7,8 +7,8 @@
         @endif
         <tr><td colspan="4"><b>Booking n°:</b> {{$order->number}}</td><td></td></tr>
         <tr><td colspan="4"><b>Status :</b> {{$order->status->title}}</td></tr>
-        <tr><td colspan="4"><b>Supplier :</b> {{$order->supplier}}</td></tr>
-        <tr><td colspan="4"><b>Recipient :</b> {{$order->recipient}}</td></tr>
+        <tr><td colspan="4"><b>Shipper/Supplier :</b> {{$order->supplier}}</td></tr>
+        <tr><td colspan="4"><b>Consignee :</b> {{$order->recipient}}</td></tr>
         <tr><td colspan="4"><b>B/L & HAWB n° :</b> {{$order->bl_number}}</td></tr>
         <tr style="text-align:center">
             <td><b>Batch n°</b></td>

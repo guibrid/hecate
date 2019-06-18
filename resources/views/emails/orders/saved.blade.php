@@ -178,7 +178,7 @@
                 <tr>
                     <td valign="top" style="text-align: center; padding: 0 10px;">
                         <p style="font-family: sans-serif; text-align: center; ">
-                            <strong>Recipient</strong><br />        
+                            <strong>Consignee</strong><br />        
                             @if ($order['recipient']) 
                                 {{ $order['recipient']}}
                             @else
@@ -189,7 +189,7 @@
                 <tr>
                     <td valign="top" style="text-align: center; padding: 0 10px;">
                         <p style="font-family: sans-serif; text-align: center; ">
-                            <strong>Suppliers</strong><br />
+                            <strong>Shipper/Supplier</strong><br />
                             @if ($order['supplier']) 
                                 {{ $order['supplier']}}
                             @else

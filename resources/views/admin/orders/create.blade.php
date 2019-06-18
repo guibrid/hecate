@@ -38,7 +38,7 @@
             </div>
 
             <div class="form-group">
-                {!! Form::label('recipient', 'Recipient *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                {!! Form::label('recipient', 'Consignee *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     {!! Form::text('recipient', null, ['id'=>'recipient', 'class'=>'form-control col-md-7 col-xs-12']) !!}
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="form-group">
-                {!! Form::label('supplier', 'Supplier *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                {!! Form::label('supplier', 'Shipper/Supplier *', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     {!! Form::text('supplier', null, ['id'=>'supplier', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder' => 'Ex: Supplier 1, Supplier 2,...']) !!}

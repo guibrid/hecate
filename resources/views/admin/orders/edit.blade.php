@@ -61,7 +61,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Supplier *</td>
+                                        <td>Shipper/Supplier *</td>
                                         <td class="fs15 fw700 text-right">
                                             {!! Form::text('supplier', $order->supplier, ['id'=>'supplier', 'class'=>'form-control col-md-7 col-xs-12']) !!}
                                             @error('supplier')
@@ -70,7 +70,7 @@
                                         </td>
                                       </tr>
                                       <tr>
-                                        <td>Recipient *</td>
+                                        <td>Consignee *</td>
                                         <td class="fs15 fw700 text-right">
                                             {!! Form::text('recipient', $order->recipient, ['id'=>'recipient', 'class'=>'form-control col-md-7 col-xs-12']) !!}
                                             @error('recipient')
