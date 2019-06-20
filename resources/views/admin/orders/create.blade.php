@@ -220,7 +220,32 @@
                 }
             });
 
- 
+            $( "form" ).submit(function( event ) {
+
+                $('#customer-autocomplete + div.alert').remove();
+
+                var customer_name = $('#customer-autocomplete').val();
+                var customer_id = $('#customer_id').val();
+                var find = 0;
+
+                customersArray.forEach(function(element) {
+                    if (element.value == customer_name && element.data == customer_id){
+                        find = 1;
+                    }
+                });
+
+                if (find == 1) {
+                    return;  
+                }
+
+                $(document).scrollTop( $("#customer-autocomplete").offset().top );
+                $( "#overlay" ).hide();
+                $( "#customer-autocomplete" ).after( '<div class="alert alert-danger">This customer doesn\'t exist</div>' );
+                $( "#customer-autocomplete, #customer_id, #recipient" ).val('');
+                
+                event.preventDefault();
+            });
+
         });
     </script>
 

@@ -98,7 +98,9 @@
 
     <script>
       $(document).ready(function() {
-        $('#shipments-responsive').DataTable();
+        $('#shipments-responsive').DataTable({
+            "order": []
+        });
       });
     </script>
 

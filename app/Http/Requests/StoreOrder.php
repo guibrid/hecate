@@ -39,11 +39,29 @@ class StoreOrder extends FormRequest
             'comment' => 'max:239|string|nullable',
             'shipment_id' => 'interger|nullable',
             'status_id' => 'required|integer',
-            'customer_id' => 'integer|nullable',
-            'customer' => 'required|string'
+            'customer_id' => 'required|integer|exists:customers,id',
+            'customer' => 'required|string|exists:customers,name'
         ];
         return $rules;
     }
+
+    /**
+     * Get the validation error message.
+     *
+     * @return string
+     */
+    public function messages()
+    {
+        $messages = [
+            'customer_id.required' => 'Customer is a required field.',
+            'customer_id.integer' => 'Customer name not valide.',
+            'customer_id.exist' => 'Customer name unknown.',
+
+        ];
+
+        return $messages;
+    }
+    
 
     /**
      * Prepare the data for validation.
