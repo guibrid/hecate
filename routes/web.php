@@ -64,6 +64,7 @@ Route::get('/getPlacesList/{type?}', function ($type = null) {
 
 /* Customers */
 Route::get('/admin/customers', 'CustomerController@index')->middleware('role:editor,manager,director,admin');
+Route::get('/admin/customers/show/{id}', 'CustomerController@show')->middleware('role:editor,manager,director,admin');
 Route::get('/admin/customers/create', 'CustomerController@create')->middleware('role:editor,manager,director,admin');
 Route::post('/admin/customers/store', 'CustomerController@store')->middleware('role:editor,manager,director,admin');
 Route::get('/admin/customers/edit/{id}', 'CustomerController@edit')->middleware('role:editor,manager,director,admin')->name('customer.edit');

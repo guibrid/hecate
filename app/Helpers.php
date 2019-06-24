@@ -33,9 +33,9 @@ class Helpers
     public static function renderShipmentStatus($shipment = null)
     {
         if ($shipment === null){
-            $statusRender = '<span class="label label-default" style="width:120px; display:inline-block">Shipment not registered</span>';
+            $statusRender = '<span class="label label-default" style="width:80px; display:inline-block">Not registered</span>';
         } else {
-            $statusRender = '<span class="label label-success" style="width:120px; display:inline-block">Shipment registered</span>';
+            $statusRender = '<span class="label label-success" style="width:80px; display:inline-block">Registered</span>';
         }
         return $statusRender;
 

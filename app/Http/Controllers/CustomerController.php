@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customer;
+use App\User;
+use App\Order;
 use App\Http\Requests\StoreCustomer;
 
 class CustomerController extends Controller
@@ -95,6 +97,26 @@ class CustomerController extends Controller
         $customer->save();
 
         return redirect('/admin/customers')->with('success', 'Customer updated');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $customer = Customer::with('users')->find($id);
+        $orders = Order::with('shipment', 'status', 'customer')
+        ->where('customer_id', $id)        
+        ->where(function ($query) {
+            $query->where('delivery', '>=', \Carbon\Carbon::now()->subDays(30))
+                  ->orWhereNull('delivery');
+        })
+        ->orderBy('id', 'DESC')
+        ->get();
+        return view('admin/customers/show')->with(['customer' => $customer, 'orders' => $orders]);
     }
 
     /**
