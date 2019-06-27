@@ -80,8 +80,8 @@ class Helpers
      * @return string
      */
     public static function transshipmentDiv($transshipment, $nbr_transshipment)
-    {
-
+    {    
+            
         switch ($nbr_transshipment) {
             case '1':
                 $size = 6;
@@ -98,10 +98,10 @@ class Helpers
         }
 
         $div = '<div class="col-md-'.$size.' col-xs-12" style="text-align:center">
-                    <div style="text-align:center"><p>'.Helpers::transshipmentIcon($transshipment['type'], 2).'<br />'.strtoupper($transshipment['type']).' FREIGHT</p></div>
-                    <div style="text-align:center"><p><b>ETD '.$transshipment['origin']['title'].'</b><br />'.date('d-m-Y', strtotime($transshipment['departure'])).'</p></div>
-                    <div style="text-align:center"><p><b>ETA '.$transshipment['destination']['title'].'</b><br />'.date('d-m-Y', strtotime($transshipment['arrival'])).'</p></div>
-                    <div style="text-align:center"><p><b>Vessel</b><br />'.$transshipment['vessel'].'</p></div>
+                    <div style="text-align:center"><p>'.Helpers::transshipmentIcon($transshipment->type, 2).'<br />'.strtoupper($transshipment->type).' FREIGHT</p></div>
+                    <div style="text-align:center"><p><b>ETD '.$transshipment->origin->title.'</b><br />'.date('d-m-Y', strtotime($transshipment->departure)).'</p></div>
+                    <div style="text-align:center"><p><b>ETA '.$transshipment->destination->title.'</b><br />'.date('d-m-Y', strtotime($transshipment->arrival)).'</p></div>
+                    <div style="text-align:center"><p><b>Vessel</b><br />'.$transshipment->vessel.'</p></div>
                 </div>';
 
         return $div;

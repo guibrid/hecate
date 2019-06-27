@@ -31,7 +31,7 @@ class ShipmentController extends Controller
     public function index()
     {
 
-        $shipments = Shipment::with(['transshipments'])
+        $shipments = Shipment::with(['transshipments', 'transshipments.origin', 'transshipments.destination'])
         ->doesntHave("transshipments")
         ->orWhereHas('transshipments', function ($query) {
             $query->where('arrival', '>=', Carbon::now()->subDays(15));
@@ -157,14 +157,13 @@ class ShipmentController extends Controller
         // Send Notification
         if($request->input('notification')){
             // Get all updated order details for notification
-            $orders = Order::with(['customer','shipment','status','documents'])
+            $orders = Order::with(['customer','shipment','status','documents', 'shipment.transshipments' , 'shipment.transshipments.origin', 'shipment.transshipments.destination'])
                             ->where('shipment_id', $shipment->id)->get();
                             
             // Si des orders sont enregistrées sur ce shipment on notifie les customers de chaque order
             if ( $orders->count() > 0 ) {
-                $transshipments = Helpers::getTransshipments($shipment->id);
                 foreach($orders as $order){  
-                    dispatch(new SendNotification($order->toArray(), $transshipments));
+                    dispatch(new SendNotification($order->toArray()));
                 } 
             }
         }

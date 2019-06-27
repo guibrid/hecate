@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php $is_admin = auth()->user()->authorizeDisplay(['admin']); @endphp
+
 <div class="col-md-12 col-sm-12 col-xs-12">
     <p>
       <a href="{{ url('admin/places/create') }}" class="btn btn-primary btn-md"><i class="fa fa-plus"></i> Create new port/airport</a>
@@ -34,7 +37,7 @@
                     <td>
                       {{ Form::open(['method'=>'DELETE', 'route'=>['place.delete', $place->id]]) }}
                         <a href="{{ URL::route('place.edit', $place->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 
-                        @if (auth()->user()->authorizeDisplay(['admin']))
+                        @if ($is_admin)
                           <input class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this place?');" type="submit" value="Del">
                         @endif
                       {{ Form::close() }}

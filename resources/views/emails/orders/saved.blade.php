@@ -56,9 +56,9 @@
                 </tr>
             </table>
 
-            @if ($transshipments)
+            @if ($order['shipment']['transshipments'])
             <!-- Transshipment : BEGIN -->
-            @foreach($transshipments as $transshipment)
+            @foreach($order['shipment']['transshipments'] as $transshipment)
             
             <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                 <tr>

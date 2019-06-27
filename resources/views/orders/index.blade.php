@@ -131,14 +131,11 @@
                                         </tbody>
                                         </table>
                                     </div>
-                                        @php 
-                                            $transshipments = Helpers::getTransshipments($order->shipment->id);
-                                        @endphp
-                                        @foreach ($transshipments as $transshipment)
+                                        @foreach ($order->shipment->transshipments as $transshipment)
                                             @php  
-                                                echo Helpers::transshipmentDiv($transshipment, count($transshipments));
-                                                if ($transshipment['comment']){
-                                                $transshipment_comment .= $transshipment['comment'].'. ';
+                                                echo Helpers::transshipmentDiv($transshipment, count($order->shipment->transshipments));
+                                                if ($transshipment->comment){
+                                                  $transshipment_comment .= $transshipment->comment.'. ';
                                                 }
                                             @endphp 
                                         @endforeach

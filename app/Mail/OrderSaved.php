@@ -18,17 +18,15 @@ class OrderSaved extends Mailable
      * @var Order
      */
     protected $order;
-    protected $transshipments;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($order, $transshipments)
+    public function __construct($order)
     {
         $this->order = $order;
-        $this->transshipments = $transshipments;
     }
 
     /**
@@ -46,6 +44,6 @@ class OrderSaved extends Mailable
         return $this->from( env('MAIL_NOREPLY'), env('APP_NAME') )
                     ->subject("Your order has been updated - Booking N° ".$this->order['number'])
                     ->view('emails.orders.saved')
-                    ->with(['order' => $this->order, 'transshipments' => $this->transshipments]);
+                    ->with(['order' => $this->order]);
     }
 }

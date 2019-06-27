@@ -40,7 +40,7 @@ class OrderController extends Controller
             $views = 'admin/orders/index';
         }  
         
-        $orders = Order::with(['customer','shipment','status'])
+        $orders = Order::with(['customer', 'shipment', 'status' , 'shipment.transshipments' , 'shipment.transshipments.origin', 'shipment.transshipments.destination'])
         ->where($args)
         ->orderBy('id', 'DESC')
         ->where(function ($query) {
@@ -48,6 +48,7 @@ class OrderController extends Controller
                   ->orWhereNull('delivery');
         }) 
         ->get();
+        
         
         return view($views)->with(['orders'=> $orders]);
 
@@ -176,11 +177,10 @@ class OrderController extends Controller
         // Send Notification
         if($request->input('notification')){
             // Get all updated order details for notification
-            $updatedorder = Order::with(['customer','shipment','status','documents'])->where('id', $order->id)
+            $updatedorder = Order::with(['customer','shipment','status','documents', 'shipment.transshipments' , 'shipment.transshipments.origin', 'shipment.transshipments.destination'])->where('id', $order->id)
             ->first();
-            $transshipments = Helpers::getTransshipments($updatedorder['shipment_id']);
             // Send notification
-            dispatch(new SendNotification($updatedorder->toArray(), $transshipments));
+            dispatch(new SendNotification($updatedorder->toArray()));
         }
 
         return redirect('/admin/orders')->with('success', 'Order updated');

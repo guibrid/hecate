@@ -38,13 +38,13 @@
                   <td>@if ($shipment->cutoff) {{\Carbon\Carbon::parse($shipment->cutoff)->format('d/m/Y')}} @endif</td>
                   <td>{{$shipment->container_number}}</td>
                   <td>
-                    @foreach(Helpers::getTransshipments($shipment->id) as $transshipment)
-                      {!! Helpers::transshipmentIcon($transshipment['type'])!!} 
-                      {{ $transshipment['origin']['title']}} -
-                      {{ \Carbon\Carbon::parse($transshipment['departure'])->format('d/m/Y')}}
+                    @foreach($shipment->transshipments as $transshipment)
+                      {!! Helpers::transshipmentIcon($transshipment->type)!!} 
+                      {{ $transshipment->origin->title}} -
+                      {{ \Carbon\Carbon::parse($transshipment->departure)->format('d/m/Y')}}
                       <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                      {{ $transshipment['destination']['title']}} -
-                      {{ \Carbon\Carbon::parse($transshipment['arrival'])->format('d/m/Y')}}<br />
+                      {{ $transshipment->destination->title}} -
+                      {{ \Carbon\Carbon::parse($transshipment->arrival)->format('d/m/Y')}}<br />
                     @endforeach 
                   </td>
                   <td>
