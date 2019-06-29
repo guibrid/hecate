@@ -7,6 +7,7 @@ return [
         'shipmentModes' => [
             'lcl' => 'LCL',
             'fcl' => 'FCL',
+            'air' => 'AIR',
         ],
 
         'countries' => [
