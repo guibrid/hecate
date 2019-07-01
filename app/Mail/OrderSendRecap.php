@@ -21,6 +21,7 @@ class OrderSendRecap extends Mailable
     public function __construct( $attachment )
     {
         $this->attachment = $attachment;
+        $this->emails = \App\Helpers::getAccountEmails();
     }
 
     /**
@@ -31,11 +32,15 @@ class OrderSendRecap extends Mailable
     public function build()
     {
         
-        if (!empty(env('MAIL_BCC_ADDRESS'))){
-            $this->bcc(env('MAIL_BCC_ADDRESS'));
+        if (!empty($this->emails['bcc'])){
+            $this->bcc($this->emails['bcc']);
+        }
+        
+        if(!empty($this->emails['reply'])){
+            $this->replyTo($this->emails['reply']);
         }
 
-        return $this->from( env('MAIL_NOREPLY'), env('APP_NAME') )
+        return $this->from( $this->emails['from'], env('APP_NAME') )
                     ->subject("Order recap")
                     ->view('emails.orders.recap')
                     ->attach($this->attachment);
