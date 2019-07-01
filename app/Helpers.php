@@ -213,5 +213,21 @@ class Helpers
         
     }
 
+    /**
+     * Get emails details
+     *
+     * @return array
+     */ 
+    public static function getAccountEmails()
+    {
+
+        $account = \App\Account::find(1);
+
+        return ['from'  => $account->email_from,
+                'reply' => $account->email_reply,
+                'bcc'   => $account->email_bcc];
+        
+    }
+
     
 }

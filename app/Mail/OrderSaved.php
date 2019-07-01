@@ -27,6 +27,7 @@ class OrderSaved extends Mailable
     public function __construct($order)
     {
         $this->order = $order;
+        $this->emails = \App\Helpers::getAccountEmails();
     }
 
     /**
@@ -37,11 +38,15 @@ class OrderSaved extends Mailable
     public function build()
     {
 
-        if (!empty(env('MAIL_BCC_ADDRESS'))){
-            $this->bcc(env('MAIL_BCC_ADDRESS'));
-        } 
+        if (!empty($this->emails['bcc'])){
+            $this->bcc($this->emails['bcc']);
+        }
         
-        return $this->from( env('MAIL_NOREPLY'), env('APP_NAME') )
+        if(!empty($this->emails['reply'])){
+            $this->replyTo($this->emails['reply']);
+        }
+
+        return $this->from( $this->emails['from'], env('APP_NAME') )
                     ->subject("Your order has been updated - Booking N° ".$this->order['number'])
                     ->view('emails.orders.saved')
                     ->with(['order' => $this->order]);
