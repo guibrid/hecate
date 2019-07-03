@@ -18,6 +18,7 @@ class OrderSaved extends Mailable
      * @var Order
      */
     protected $order;
+    protected $emails;
 
     /**
      * Create a new message instance.

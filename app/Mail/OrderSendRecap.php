@@ -12,6 +12,7 @@ class OrderSendRecap extends Mailable
     use Queueable, SerializesModels;
 
     protected $attachment;
+    protected $emails;
 
     /**
      * Create a new message instance.
