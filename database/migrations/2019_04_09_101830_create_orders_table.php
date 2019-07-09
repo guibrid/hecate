@@ -20,8 +20,8 @@ class CreateOrdersTable extends Migration
             $table->string('batch', 50)->nullable();
             $table->string('load', 50)->nullable();
             $table->integer('package_number')->nullable();
-            $table->double('weight', 8, 2)->nullable();
-            $table->double('volume', 7, 4)->nullable();
+            $table->double('weight', 10, 2)->nullable();
+            $table->double('volume', 10, 4)->nullable();
             $table->string('recipient', 150)->nullable();
             $table->string('supplier', 150)->nullable();
             $table->string('comment', 240)->nullable();
