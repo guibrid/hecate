@@ -6,10 +6,12 @@
             <tr><td colspan="4"><h2>{{$order->title}}</h2></td></tr>
         @endif
         <tr><td colspan="4"><b>Booking n°:</b> {{$order->number}}</td><td></td></tr>
+        <tr><td colspan="4"><b>Order n°:</b> {{$order->order_number}}</td><td></td></tr>
         <tr><td colspan="4"><b>Status :</b> {{$order->status->title}}</td></tr>
         <tr><td colspan="4"><b>Shipper/Supplier :</b> {{$order->supplier}}</td></tr>
         <tr><td colspan="4"><b>Consignee :</b> {{$order->recipient}}</td></tr>
         <tr><td colspan="4"><b>B/L & HAWB n° :</b> {{$order->bl_number}}</td></tr>
+        <tr><td colspan="4"><b>Value :</b> {{$order->value}}</td></tr>
         <tr style="text-align:center">
             <td><b>Batch n°</b></td>
             <td><b>Shipment mode</b></td>

@@ -52,15 +52,6 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Title</td>
-                                        <td>
-                                            {!! Form::text('title', $order->title, ['id'=>'title', 'class'=>'form-control', 'placeholder' => 'Ex: Title for you order...']) !!}
-                                            @error('title')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </td>
-                                    </tr>
-                                    <tr>
                                         <td>Shipper/Supplier *</td>
                                         <td class="fs15 fw700 text-right">
                                             {!! Form::text('supplier', $order->supplier, ['id'=>'supplier', 'class'=>'form-control col-md-7 col-xs-12']) !!}
@@ -78,6 +69,24 @@
                                             @enderror
                                         </td>
                                       </tr>
+                                      <tr>
+                                        <td>Order n°</td>
+                                        <td>
+                                            {!! Form::text('order_number', $order->order_number, ['id'=>'order_number', 'class'=>'form-control']) !!}
+                                            @error('order_number')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Title</td>
+                                        <td>
+                                            {!! Form::text('title', $order->title, ['id'=>'title', 'class'=>'form-control', 'placeholder' => 'Ex: Title for you order...']) !!}
+                                            @error('title')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                    </tr>
                                       <tr>
                                         <td>B/L & HAWB n°</td>
                                         <td class="fs15 fw700 text-right">
@@ -135,6 +144,15 @@
                                                 <span class="input-group-addon" id="volumeaddon">m3</span>
                                             </div>
                                                 @error('volume')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>Value</td>
+                                        <td class="fs15 fw700 text-right">
+                                            {!! Form::text('value', $order->value, ['id'=>'value', 'class'=>'form-control col-md-7 col-xs-12',  'placeholder' => 'Ex: 10564.76']) !!}
+                                            @error('value')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </td>

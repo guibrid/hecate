@@ -68,6 +68,16 @@
                     </div>
                 </div>
             <div class="form-group">
+                {!! Form::label('order_number ', 'Order number', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {!! Form::text('order_number', null, ['id'=>'order_number', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                    @error('order_number')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group">
                 {!! Form::label('title', 'Title', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -139,6 +149,16 @@
                         <span class="input-group-addon" id="volumeaddon">m3</span>
                     </div>
                         @error('volume')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group">
+                {!! Form::label('value', 'Value', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    {!! Form::text('value', null, ['id'=>'value', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder' => 'Ex: 10564.76']) !!}
+                    @error('value')
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>

@@ -32,8 +32,12 @@ class StoreOrder extends FormRequest
             'batch' => 'max:49|string|nullable',
             'load' => 'max:49|string|nullable',
             'package_number' => 'integer|nullable',
+            'order_number' => 'max:149|string|nullable',
             'weight' => 'numeric|nullable',
             'volume' => 'numeric|nullable',
+            'value' => 'numeric|nullable',
+            'bl_number' => 'max:149|string|nullable',
+            'delivery' => 'date|nullable',
             'recipient' => 'required|max:149|string',
             'supplier' => 'required|max:149|string',
             'comment' => 'max:239|string|nullable',
@@ -77,6 +81,10 @@ class StoreOrder extends FormRequest
 
         if ($this->has('volume') && !is_null($this->volume)) {
             $this->merge(['volume'=>Helpers::getFloat($this->volume)]);
+        }
+
+        if ($this->has('value') && !is_null($this->value)) {
+            $this->merge(['value'=>Helpers::getFloat($this->value)]);
         }
 
     }

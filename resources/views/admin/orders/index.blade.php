@@ -22,12 +22,14 @@
               <th>Shipper/Supplier</th>
               <th>Booking n°</th>
               <th>B/L & HAWB n°</th>
+              <th>Order number</th>
               <th>Status</th>
               <th>Shipment</th>
               <th>Shipment Mode</th>
               <th># packages</th>
               <th>Weight</th>
               <th>Volume</th>
+              <th>Value</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -39,12 +41,14 @@
                     <td>{{$order->supplier}}</td>
                     <td>{{$order->number}}</td>
                     <td>{{$order->bl_number }}</td>
+                    <td>{{$order->order_number }}</td>
                     <td>{{$order->status['title']}}</td>
                     <td>@php echo Helpers::renderShipmentStatus($order->shipment); @endphp</td>
                     <td>{{strtoupper($order->load)}}</td>
                     <td>{{$order->package_number}}</td>
                     <td>@if ($order->weight) {{$order->weight}} kg @endif</td>
                     <td>@if ($order->volume) {{$order->volume}} m3 @endif</td>
+                    <td>{{$order->value}}</td>
                     <td>
                       {{ Form::open(['method'=>'DELETE', 'route'=>['order.delete', $order->id]]) }}
                       <a href="{{ URL::route('order.edit', $order->id) }}" type="button" class="btn btn-primary btn-xs">edit</a> 

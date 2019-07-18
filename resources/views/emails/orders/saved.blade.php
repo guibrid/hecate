@@ -223,6 +223,14 @@
                             @endif
                         </p>
                         <p style="font-family: sans-serif;">
+                            <strong>Order #</strong><br />
+                            @if ($order['order_number']) 
+                                {{ $order['order_number']}}
+                            @else
+                                -
+                            @endif
+                        </p>
+                        <p style="font-family: sans-serif;">
                             <strong>Batch #</strong><br />
                             @if ($order['batch']) 
                                 {{ $order['batch']}}
@@ -260,6 +268,14 @@
                             <strong>Volume</strong><br />
                             @if ($order['volume']) 
                                 {{ $order['volume']}} m3
+                            @else
+                                -
+                            @endif
+                        </p>
+                        <p style="font-family: sans-serif;">
+                            <strong>Value</strong><br />
+                            @if ($order['value']) 
+                                {{ $order['value']}}
                             @else
                                 -
                             @endif
