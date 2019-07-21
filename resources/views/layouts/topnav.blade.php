@@ -25,56 +25,13 @@
                           </li>
                         </ul>
                       </li>
-                      
-                      <!--<li role="presentation" class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                          <i class="fa fa-envelope-o"></i>
-                          <span class="badge bg-green">3</span>
+                      @if (auth()->user()->authorizeDisplay(['editor','manager','director','admin']))
+                      <li>
+                        <a href="{{ url('admin/accounts/schedule') }}" title="Schedules">
+                          <i class="fa fa-calendar"></i>
                         </a>
-                        <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                          <li>
-                            <a>
-                              <span>
-                                <span>Order notification</span>
-                                <span class="time">3 mins ago</span>
-                              </span>
-                              <span class="message">
-                                Your order #T657Y has been updated
-                              </span>
-                            </a>
-                          </li>
-                          <li>
-                            <a>
-                              <span>
-                                <span>Order notification</span>
-                                <span class="time">20 mins ago</span>
-                              </span>
-                              <span class="message">
-                                Documents available for your order #T657Y
-                              </span>
-                            </a>
-                          </li>
-                          <li>
-                            <a>
-                              <span>
-                                <span>Shipment notification</span>
-                                <span class="time">2 days ago</span>
-                              </span>
-                              <span class="message">
-                                Shipment registered for your order #T657Y
-                              </span>
-                            </a>
-                          </li>
-                          <li>
-                            <div class="text-center">
-                              <a>
-                                <strong>See All Notifications</strong>
-                                <i class="fa fa-angle-right"></i>
-                              </a>
-                            </div>
-                          </li>
-                        </ul>
-                      </li>-->
+                      </li>
+                      @endif
                     </ul>
                   </nav>
                 </div>

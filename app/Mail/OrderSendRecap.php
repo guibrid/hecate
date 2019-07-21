@@ -12,6 +12,7 @@ class OrderSendRecap extends Mailable
     use Queueable, SerializesModels;
 
     protected $attachment;
+    protected $schedule;
     protected $emails;
 
     /**
@@ -19,10 +20,11 @@ class OrderSendRecap extends Mailable
      *
      * @return void
      */
-    public function __construct( $attachment )
+    public function __construct( $attachment, $schedule )
     {
         $this->attachment = $attachment;
         $this->emails = \App\Helpers::getAccountEmails();
+        $this->schedule = $schedule;
     }
 
     /**
@@ -39,6 +41,13 @@ class OrderSendRecap extends Mailable
         
         if(!empty($this->emails['reply'])){
             $this->replyTo($this->emails['reply']);
+        }
+
+        if(!empty($this->schedule)){
+            $this->attach($this->schedule, [
+                'as' => 'schedule.pdf',
+                'mime' => 'application/pdf',
+            ]);
         }
 
         return $this->from( $this->emails['from'], env('APP_NAME') )
