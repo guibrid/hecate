@@ -50,9 +50,6 @@ class OrderRecap extends Command
             Storage::makeDirectory('recaps', 0775, true); //creates directory
         }
 
-        // Get schedules attachement
-        $schedule = \App\Helpers::getScheduleForAttachment();
-
         //List all customer
         $customers = Customer::with('users')->get();
         $i = 1; // timer email send
@@ -82,7 +79,7 @@ class OrderRecap extends Command
 
                     $when = now()->addMinutes($i); // Send email every minutes
                     // Email on queue with attachement       
-                    \Mail::to($to)->later($when, new OrderSendRecap(storage_path('app/recaps/'.$pdfName), $schedule));
+                    \Mail::to($to)->later($when, new OrderSendRecap(storage_path('app/recaps/'.$pdfName)));
 
                 }
                 $i++; // Incremante by 1 the minute between each email send

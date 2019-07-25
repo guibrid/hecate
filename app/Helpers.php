@@ -2,13 +2,11 @@
 
 namespace App;
 
-use App\Account;
 use App\Transshipment;
 use App\Document;
 use App\User;
 use App\Place;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class Helpers
 {
@@ -213,61 +211,6 @@ class Helpers
             return asset('img/hecate-logo-white.png');
         }
         
-    }
-
-    /**
-     * Get account schedule date
-     *
-     * @param string $schedule_file
-     * 
-     * @return string
-     */ 
-    public static function getAccountScheduledate( $schedule_file = null )
-    {
-        $data['update'] = $data['sent'] = null;
-
-        if (!empty($schedule_file)){
-            $file =  basename($schedule_file, '.pdf');
-            $dates = explode("__", $file, 2);
-            //get update date
-            $data['update'] = date('d/m/Y', $dates[0]);
-            //get send date
-            if(!empty($dates[1])){ 
-                $data['sent'] = date('d/m/Y', $dates[1]); 
-            }
-
-        }
-
-        return $data;
-
-    }
-
-    /**
-     * Get account schedule file for attachement
-     *
-     * @param string $schedule_file
-     * 
-     * @return string
-     */ 
-    public static function getScheduleForAttachment()
-    {
-        $account = \App\Account::find(1);
-        if (!empty($account->schedule_file)){
-            //if not sent already rename and send
-            $file =  basename($account->schedule_file, '.pdf');
-            $dates = explode("__", $file, 2);
-
-            if(empty($dates[1])){ 
-                $sentFileName = 'schedules/'.$dates[0].'__'.time().'.pdf'; // set new file name with sending date
-                Storage::move($account->schedule_file, $sentFileName);   //Store the new file
-                $account->schedule_file = $sentFileName; // Update the schedule field in the database
-                $account->save();
-
-                return storage_path('app/'.$sentFileName);
-            }
-
-        }
-
     }
 
     /**
