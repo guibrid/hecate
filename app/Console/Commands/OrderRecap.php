@@ -10,6 +10,8 @@ use App\Shipment;
 use Carbon\Carbon;
 use PDF;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\OrdersExport;
 
 
 class OrderRecap extends Command
@@ -45,6 +47,7 @@ class OrderRecap extends Command
      */
     public function handle()
     {
+        
         // Check if recaps/ folder exist
         if(!Storage::exists('recaps')){
             Storage::makeDirectory('recaps', 0775, true); //creates directory
@@ -54,9 +57,9 @@ class OrderRecap extends Command
         $customers = Customer::with('users')->get();
         $i = 1; // timer email send
         foreach($customers as $customer){
-
+            
             if ($customer->users->count() > 0){
-
+                
                 $to = array(); // Reset user list
                 $orders = Order::with(['shipment', 'status' , 'shipment.transshipments' , 'shipment.transshipments.origin', 'shipment.transshipments.destination'])
                                 ->where('customer_id',$customer->id)
@@ -67,10 +70,13 @@ class OrderRecap extends Command
                                 ->get();
                 // If ongoing orders, procceed notification
                 if ($orders->count() > 0){
-
                     //generate pdf with orders data
-                    $pdfName =$customer->id.'-'.time().'.pdf';
-                    $pdf = PDF::loadView('emails.orders.recapPdf', ['orders'=>$orders])->setPaper('a4', 'landscape')->save(storage_path('app/recaps/'.$pdfName));
+                    $time = time();
+                    //$pdfName = $customer->id.'-'.$time.'.pdf';
+                    //$pdf = PDF::loadView('emails.orders.recapPdf', ['orders'=>$orders])->setPaper('a4', 'landscape')->save(storage_path('app/recaps/'.$pdfName));
+                    // generate Excel file
+                    $excelName = $customer->id.'-'.$time.'.xlsx';
+                    Excel::store(new OrdersExport($orders), 'recaps/'.$excelName);
 
                     // List user email list
                     foreach ($customer->users as $user){
@@ -79,12 +85,12 @@ class OrderRecap extends Command
 
                     $when = now()->addMinutes($i); // Send email every minutes
                     // Email on queue with attachement       
-                    \Mail::to($to)->later($when, new OrderSendRecap(storage_path('app/recaps/'.$pdfName)));
+                    \Mail::to($to)->later($when, new OrderSendRecap(storage_path('app/recaps/'.$excelName)));
 
                 }
                 $i++; // Incremante by 1 the minute between each email send
             }
-          
+
         }
 
     }
