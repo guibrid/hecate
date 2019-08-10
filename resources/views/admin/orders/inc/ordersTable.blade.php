@@ -30,10 +30,8 @@
               <td>@php echo Helpers::renderShipmentStatus($order->shipment); @endphp</td>
               <td>
                   @if ($order->shipment && $order->shipment->transshipments)
-                    @php $lastTransshipment = end($order->shipment->transshipments) @endphp
-                    @if(isset($lastTransshipment[0]))
-                      {{$lastTransshipment[0]->destination->title}}
-                    @endif
+                    @php $lastTransshipment = $order->shipment->transshipments->last(); @endphp
+                    {{$lastTransshipment['destination']['title']}}
                   @endif
               </td>
               <td>{{strtoupper($order->load)}}</td>

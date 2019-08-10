@@ -45,9 +45,9 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping, ShouldA
             'Cutoff',
             'Container number',
             'Departure date',
+            'Origin (Vessel)',
             'Arrival date',
-            'Vessel',
-            'Destination',
+            'Destination (Vessel)',
             'Comments'
             ]
         ];
@@ -89,10 +89,12 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping, ShouldA
         //Transshipment
         $transComment = '';
         if (!empty($orders->shipment->transshipments[0])){
-            array_push($line, \Carbon\Carbon::parse(end($orders->shipment->transshipments)[0]->departure)->format('d/m/Y'),
-                              \Carbon\Carbon::parse(end($orders->shipment->transshipments)[0]->arrival)->format('d/m/Y'),
-                              end($orders->shipment->transshipments)[0]->vessel,
-                              end($orders->shipment->transshipments)[0]->destination->title
+            $loading = $orders->shipment->transshipments->first();
+            $discharged = $orders->shipment->transshipments->last();
+            array_push($line, \Carbon\Carbon::parse($loading->departure)->format('d/m/Y'),
+                              $loading->origin->title. ' ('.$loading->vessel.')',
+                              \Carbon\Carbon::parse($discharged->arrival)->format('d/m/Y'),
+                              $discharged->destination->title. ' ('.$discharged->vessel.')'
             );
             // Transshipment Comments
             foreach($orders->shipment->transshipments as $transshipment)
