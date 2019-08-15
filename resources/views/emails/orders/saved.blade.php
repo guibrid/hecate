@@ -192,6 +192,29 @@
     @endif
     <!-- Shipment : END -->
 
+    @if ($order['documents'])
+    <!-- Documents : BEGIN -->
+    <tr>
+        <td style="background-color: #ffffff;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td style="padding: 20px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                        <h2 style="margin: 0 0 10px 0; font-family: sans-serif; font-size: 18px; line-height: 22px; color: #333333; font-weight: bold;">Your documents</h2>
+                        <ul style="padding: 0; margin: 0 0 10px 0; list-style-type: disc;">
+                            @foreach($order['documents'] as $document) 
+                                <li style="margin:0 0 10px 30px;">
+                                <a href="{{ env('APP_URL') }}/documents/download/{{$document['id']}}">{{$document['title']}}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- Documents : END -->
+    @endif
+
     <!-- Order details : BEGIN -->
     <tr>
         <td style="padding: 30px 10px 20px 10px; background-color: #ffffff;">
@@ -286,29 +309,6 @@
         </td>
     </tr>
     <!-- Order detail : END -->
-
-    @if ($order['documents'])
-    <!-- Documents : BEGIN -->
-    <tr>
-        <td style="background-color: #ffffff;">
-            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                <tr>
-                    <td style="padding: 20px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
-                        <h2 style="margin: 0 0 10px 0; font-family: sans-serif; font-size: 18px; line-height: 22px; color: #333333; font-weight: bold;">Your documents</h2>
-                        <ul style="padding: 0; margin: 0 0 10px 0; list-style-type: disc;">
-                            @foreach($order['documents'] as $document) 
-                                <li style="margin:0 0 10px 30px;">
-                                <a href="{{ env('APP_URL') }}/documents/download/{{$document['id']}}">{{$document['title']}}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <!-- Documents : END -->
-    @endif
 
     <!-- Comments : BEGIN -->
     <tr>
