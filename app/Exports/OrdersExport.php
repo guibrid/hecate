@@ -134,7 +134,7 @@ class OrdersExport implements FromCollection, WithHeadings, WithMapping, ShouldA
                             $statusBg = 'ccc0da';
                             break;
 
-                        case 'Delivered':
+                        case 'Arrived':
                             $statusBg = 'c4d79b';
                             break;
 

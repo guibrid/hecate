@@ -8,6 +8,8 @@ return [
             'lcl' => 'LCL',
             'fcl' => 'FCL',
             'air' => 'AIR',
+            'fcl-perso' => 'FCL Perso',
+            'buyer-consolodation' => 'Buyer Consolidation'
         ],
 
         'countries' => [
