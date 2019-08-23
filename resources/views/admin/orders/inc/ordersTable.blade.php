@@ -9,6 +9,7 @@
             <th>Status</th>
             <th>Shipment</th>
             <th>Destination</th>
+            <th>Arrival</th>
             <th>Shipment Mode</th>
             <th># packages</th>
             <th>Consignee</th>
@@ -28,12 +29,13 @@
               <td>{{$order->order_number }}</td>
               <td>{{$order->status['title']}}</td>
               <td>@php echo Helpers::renderShipmentStatus($order->shipment); @endphp</td>
-              <td>
-                  @if ($order->shipment && $order->shipment->transshipments)
-                    @php $lastTransshipment = $order->shipment->transshipments->last(); @endphp
-                    {{$lastTransshipment['destination']['title']}}
-                  @endif
-              </td>
+              @if ($order->shipment && $order->shipment->transshipments)
+                @php $lastTransshipment = $order->shipment->transshipments->last(); @endphp
+                <td>{{$lastTransshipment['destination']['title']}}</td>
+                <td>{{\Carbon\Carbon::parse($lastTransshipment['arrival'])->format('d/m/Y')}}</td>
+              @else
+              <td></td><td></td>
+              @endif
               <td>{{strtoupper($order->load)}}</td>
               <td>{{$order->package_number}}</td>
               <td>{{$order->recipient}}</td>
