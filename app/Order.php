@@ -27,6 +27,11 @@ class Order extends Model
         return $this->hasMany('App\Document');
     }
 
+    public function packs()
+    {
+        return $this->hasMany('App\Pack');
+    }
+
     public static function boot() {
         parent::boot();
 
