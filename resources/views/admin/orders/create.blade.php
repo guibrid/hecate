@@ -280,11 +280,11 @@
                     "type": $('#type').val(),
                     "number": $('#packNumber').val(),
                     "inner_packs": $('#inner_packs').val(),
-                    "length": $('#length').val(),
-                    "width": $('#width').val(),
-                    "height": $('#height').val(),
-                    "weight": $('#weight').val(),
-                    "volume": $('#volume').val(),
+                    "length": $('#length').val().replace(",", "."),
+                    "width": $('#width').val().replace(",", "."),
+                    "height": $('#height').val().replace(",", "."),
+                    "weight": $('#weight').val().replace(",", "."),
+                    "volume": $('#volume').val().replace(",", "."),
                     "description": $('#description').val(),
                 });
                 // Set packs fields with new data
@@ -295,10 +295,10 @@
 
                 var newPack = packs[packs.length - 1] // Get the last element of Packs array
                 var newPackKey = packs.length - 1
-                console.log(newPack)
                 $('#packsTable-responsive tbody').append('<tr id="pack_'+newPackKey+'"><td>'+ newPack.number+'</td><td>'+newPack.type+'</td><td>'+newPack.inner_packs+'</td><td>'+newPack.description+'</td><td>'+newPack.weight+'</td><td>'+ newPack.volume+'</td><td>'+newPack.length+'</td><td>'+newPack.width+'</td><td>'+newPack.height+'</td></tr>');
             
             }
+            
             // validationPacksFields
             function isInt(value){
                 return !isNaN(value) && 
