@@ -7,7 +7,7 @@
                 <h4 class="modal-title" id="myModalLabel">Pack</h4>
             </div>
             <div class="modal-body form-horizontal form-label-left">
-                
+
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
                         <p><small>* indicates required field</small></p>
@@ -24,10 +24,10 @@
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
                         <div class="form-group">
-                            {!! Form::label('number', 'Number of packs*', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                            {!! Form::label('packNumber', 'Number of packs*', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
             
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                {!! Form::text('number', null, ['id'=>'number', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder' => 'Ex: 4', 'required' => 'required']) !!}
+                                {!! Form::text('packNumber', null, ['id'=>'packNumber', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder' => 'Ex: 4', 'required' => 'required']) !!}
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             {!! Form::label('inner_packs', 'Inner packs', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
             
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                {!! Form::text('inner_packs', null, ['id'=>'inner_packs', 'class'=>'form-control col-md-7 col-xs-12']) !!}
+                                {!! Form::text('inner_packs', 1, ['id'=>'inner_packs', 'class'=>'form-control col-md-7 col-xs-12']) !!}
                             </div>
                         </div>
                     </div>
@@ -126,12 +126,17 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div id="packAlert" class="alert alert-danger hide" role="alert"></div>
+                    </div>
+                </div>
+
                 <div class="ln_solid"></div>
                 <div class="row">
                     <div class="col-md-12">
-
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="registerTransshipment">Add pack</button>
+                        <button type="button" class="btn btn-primary" id="registerPack">Add pack</button>
                     </div>
                 </div>
             </div>

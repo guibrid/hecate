@@ -9,6 +9,7 @@ use App\Document;
 use App\Customer;
 use App\Helpers;
 use App\Status;
+use App\Pack;
 use App\Http\Requests\StoreOrder;
 use Auth;
 use App\Jobs\SendNotification;
@@ -95,10 +96,27 @@ class OrderController extends Controller
         // if status is Delivered,Set delivery date
         if ($order->status_id == 4) { $order->delivery = now(); }
         $order->customer_id = $request->input('customer_id');
-
         $order->save();
-
-
+        
+        //Save Packs
+        $packs = json_decode ($request->packs, true); // Decode the JSOn Stringify
+        // Loop Packs if exist
+        if($packs){
+            foreach($packs as $key => $packsInputs){
+                $pack = new Pack;
+                $pack->type = $packsInputs['type'];
+                $pack->number  = $packsInputs['number'];
+                $pack->inner_packs = $packsInputs['inner_packs'];
+                $pack->length = $packsInputs['length'];
+                $pack->width = $packsInputs['width'];
+                $pack->height = $packsInputs['height'];
+                $pack->weight = $packsInputs['weight'];
+                $pack->volume = $packsInputs['volume'];
+                $pack->description = $packsInputs['description'];
+                $pack->order_id = $order->id;
+                $pack->save();
+            }
+        }
 
         // Send Notification
         if($request->input('notification')){

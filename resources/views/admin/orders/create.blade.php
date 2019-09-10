@@ -15,6 +15,8 @@
 'id' => 'demo-form2',
 'files' => true]) !!}
 
+{!! Form::hidden('packs') !!}
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
@@ -116,43 +118,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('package', 'Package number', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
-
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    {!! Form::text('package_number', null, ['id'=>'package', 'class'=>'form-control col-md-7 col-xs-12']) !!}
-                    @error('package_number')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('weight', 'weight', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
-
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="input-group">
-                        {!! Form::text('weight', null, ['id'=>'weight', 'class'=>'form-control col-md-7 col-xs-12', 'aria-describedby'=>'weightaddon', 'placeholder' => 'Ex: 235']) !!}
-                        <span class="input-group-addon" id="weightaddon">Kg</span>
-                    </div>
-                    @error('weight')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-            <div class="form-group">
-                {!! Form::label('volume', 'Volume', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
-
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="input-group">
-                        {!! Form::text('volume', null, ['id'=>'volume', 'class'=>'form-control col-md-7 col-xs-12', 'aria-describedby'=>'volumeaddon', 'placeholder' => 'Ex: 1.234']) !!}
-                        <span class="input-group-addon" id="volumeaddon">m3</span>
-                    </div>
-                        @error('volume')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
+            </div>     
             <div class="form-group">
                 {!! Form::label('value', 'Value', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
 
@@ -298,10 +264,98 @@
             });
 
             $('#packsTable-responsive').DataTable( {
-            paging: false,
-            searching: false,
-            ordering:  false,
-            info:false
+                paging: false,
+                searching: false,
+                ordering:  false,
+                info:false
+            });
+
+            //Gestion des Packs
+            var packs = new Array();
+            $("input[name='packs']").val();
+
+            function savePack(){
+                // Add pack details to array
+                packs.push({
+                    "type": $('#type').val(),
+                    "number": $('#packNumber').val(),
+                    "inner_packs": $('#inner_packs').val(),
+                    "length": $('#length').val(),
+                    "width": $('#width').val(),
+                    "height": $('#height').val(),
+                    "weight": $('#weight').val(),
+                    "volume": $('#volume').val(),
+                    "description": $('#description').val(),
+                });
+                // Set packs fields with new data
+                $("input[name='packs']").val(JSON.stringify(packs));
+            }
+
+            function displayPack(){
+
+                var newPack = packs[packs.length - 1] // Get the last element of Packs array
+                var newPackKey = packs.length - 1
+                console.log(newPack)
+                $('#packsTable-responsive tbody').append('<tr id="pack_'+newPackKey+'"><td>'+ newPack.number+'</td><td>'+newPack.type+'</td><td>'+newPack.inner_packs+'</td><td>'+newPack.description+'</td><td>'+newPack.weight+'</td><td>'+ newPack.volume+'</td><td>'+newPack.length+'</td><td>'+newPack.width+'</td><td>'+newPack.height+'</td></tr>');
+            
+            }
+            // validationPacksFields
+            function isInt(value){
+                return !isNaN(value) && 
+                        parseInt(Number(value)) == value && 
+                        !isNaN(parseInt(value, 10));
+            }
+
+            function isFloat(val) {
+                var floatRegex = /^-?\d+(?:[.,]\d*?)?$/;
+                if (!floatRegex.test(val))
+                    return false;
+
+                val = parseFloat(val);
+                if (isNaN(val))
+                    return false;
+                return true;
+            }
+
+            $("#registerPack").on("click", function(e){
+                e.preventDefault();
+
+                let intVal = [$('#packNumber').val(), $('#inner_packs').val()]
+                let doubleVal = [$('#length').val(), $('#width').val(),$('#height').val(),$('#weight').val(),$('#volume').val()]
+                let validator = true;
+                let unvalidValue = new Array();
+
+                intVal.forEach(Val => {
+                    if(!isInt(Val) && !!Val) { 
+                        validator = false;
+                        unvalidValue.push('  ['+Val+']  ');
+                    }
+                });
+
+                doubleVal.forEach(Val => {
+                    if(!isFloat(Val) && !!Val) { 
+                        validator = false;
+                        unvalidValue.push('  ['+Val+']  ');
+                    }
+                });
+
+                if(validator){
+
+                    $('#packsTable-responsive tr.odd').remove(); // Remove no item in the table
+                    $('#packModal').modal('toggle'); // Close Pack modal
+                    
+                    savePack(); // Save new packs in array
+                    displayPack(); // display Pack in table
+
+                    $('#type, #packNumber, #inner_packs, #length, #width, #height, #weight, #volume, #description').val(''); //Reset all the packs input in modal
+                
+                } else{
+
+                    $('#packAlert').removeClass('hide');
+                    $("#packAlert").html("The following values are not valid: " + unvalidValue);
+
+                }
+
             });
 
         });

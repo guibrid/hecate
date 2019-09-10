@@ -24,7 +24,10 @@ class CreatePacksTable extends Migration
             $table->double('weight', 10, 2)->nullable();
             $table->double('volume', 10, 4)->nullable();
             $table->string('description', 240)->nullable();
+            $table->unsignedBigInteger('order_id');
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 
