@@ -116,39 +116,6 @@
                                         </td>
                                       </tr>
                                       <tr>
-                                        <td># of packages</td>
-                                        <td class="fs15 fw700 text-right">
-                                                {!! Form::text('package_number', $order->package_number, ['id'=>'package_number', 'class'=>'form-control col-md-7 col-xs-12']) !!}
-                                                @error('package_number')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td>Weight</td>
-                                        <td class="fs15 fw700 text-right">
-                                            <div class="input-group">
-                                                {!! Form::text('weight', $order->weight, ['id'=>'weight', 'class'=>'form-control col-md-7 col-xs-12', 'aria-describedby'=>'weightaddon', 'placeholder' => 'Ex: 235']) !!}
-                                                <span class="input-group-addon" id="weightaddon">Kg</span>
-                                            </div>
-                                            @error('weight')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td>Volume</td>
-                                        <td class="fs15 fw700 text-right">
-                                            <div class="input-group">
-                                                {!! Form::text('volume', $order->volume, ['id'=>'volume', 'class'=>'form-control col-md-7 col-xs-12', 'aria-describedby'=>'volumeaddon', 'placeholder' => 'Ex: 1.234']) !!}
-                                                <span class="input-group-addon" id="volumeaddon">m3</span>
-                                            </div>
-                                                @error('volume')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </td>
-                                      </tr>
-                                      <tr>
                                         <td>Value</td>
                                         <td class="fs15 fw700 text-right">
                                             {!! Form::text('value', $order->value, ['id'=>'value', 'class'=>'form-control col-md-7 col-xs-12',  'placeholder' => 'Ex: 10564.76']) !!}
