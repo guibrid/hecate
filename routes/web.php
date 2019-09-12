@@ -78,3 +78,8 @@ Route::post('/admin/places/store', 'PlaceController@store')->middleware('role:ed
 Route::get('/admin/places/edit/{id}', 'PlaceController@edit')->middleware('role:editor,manager,director,admin')->name('place.edit');
 Route::patch('/admin/places/update/{id}', 'PlaceController@update')->middleware('role:editor,manager,director,admin');
 Route::delete('/admin/places/destroy/{id}', 'PlaceController@destroy')->middleware('role:editor,manager,director,admin')->name('place.delete');
+
+/* Packs */
+Route::post('/getPacks', 'PackController@getPacks')->middleware('auth'); // Ajax call to get packs by order id
+Route::delete('/admin/packs/destroy/{id}', 'PackController@destroy')->middleware('role:editor,manager,director,admin')->name('pack.delete');
+Route::post('/admin/packs/store', 'PackController@store')->middleware('role:editor,manager,director,admin');

@@ -174,6 +174,21 @@
                         </div>
                         <div class="hidden-small"><br /><br /></div>
                         <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <div class="x_title">
+                                    <h2>Pack details</h2>
+                                    
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    @include('admin.orders.inc.packsTable')
+                                    <div id="showPacks"></div>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#packModal"><i class="fa fa-cubes"></i> Add pack</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden-small"><br /><br /></div>
+                        <div class="row">
                           <div class="col-md-12 col-xs-12">
                               <div class="x_title">
                                 <h2>Shipping details</h2>
@@ -237,6 +252,7 @@
 
 @include('admin.orders.modal.document')
 @include('admin.orders.modal.shipment')
+@include('admin.orders.modal.pack')
 
 @endsection
 
@@ -244,12 +260,21 @@
 @section('viewCSS')
     <!-- Switchery -->
     <link href="{{ asset('bower_components/gentelella/vendors/switchery/dist/switchery.min.css')}}" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="{{ asset('bower_components/gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('bower_components/gentelella/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('bower_components/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
     @stop
 
 <!-- Script require for this view -->
 @section('viewScripts')
     <!-- Switchery -->
     <script src="{{ asset('bower_components/gentelella/vendors/switchery/dist/switchery.min.js')}}"></script>
+        <!-- Datatables -->
+        <script src="{{ asset('bower_components/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+        <script src="{{ asset('bower_components/gentelella/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+        <script src="{{ asset('bower_components/gentelella/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+        <script src="{{ asset('bower_components/gentelella/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
     <script type="text/javascript">
         
         
@@ -257,6 +282,7 @@
 
             getDocuments("{{ $order->id}}") // Ajax call to get documents displayed
             getShipments("{{ $order->id}}")
+            getPacks("{{ $order->id}}")
 
             // Active document modal
             $('#addNewDoc').click(function(){ 
@@ -277,8 +303,7 @@
                 e.preventDefault()
                 if (checkEmptyInputs() == false)
                     $(".progress").removeClass('hide');
-                    storeDocuments()
-                    
+                    storeDocuments()   
             });
 
             $('#listShipmentButton').click(function(e){ 
@@ -291,7 +316,118 @@
                 updateShipment("{{ $order->id}}")
             });
 
+            $('#packsTable-responsive').DataTable( {
+                paging: false,
+                searching: false,
+                ordering:  false,
+                info:false
+            });
+
+            $("#registerPack").click(function(e){ 
+                e.preventDefault()
+                storePack("{{ $order->id}}")
+            });
+
         });
+
+        function getPacks(order_id){
+
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+
+            $.ajax({
+                type: 'post',
+                url: "{{ url('/getPacks') }}",
+                data: {order_id:order_id},
+                success:function(data){
+                    $("#packsTable-responsive tbody").html(data);
+                }
+            });
+        }
+
+        function isInt(value){
+                return !isNaN(value) && 
+                        parseInt(Number(value)) == value && 
+                        !isNaN(parseInt(value, 10));
+            }
+
+        function isFloat(val) {
+            var floatRegex = /^-?\d+(?:[.,]\d*?)?$/;
+            if (!floatRegex.test(val))
+                return false;
+
+            val = parseFloat(val);
+            if (isNaN(val))
+                return false;
+            return true;
+        }
+
+        function storePack(order_id){
+
+            let intVal = [$('#packNumber').val(), $('#inner_packs').val()]
+            let doubleVal = [$('#length').val(), $('#width').val(),$('#height').val(),$('#weight').val(),$('#volume').val()]
+            let validator = true;
+            let unvalidValue = new Array();
+
+            intVal.forEach(Val => {
+                    if(!isInt(Val) && !!Val) { 
+                        validator = false;
+                        unvalidValue.push('  ['+Val+']  ');
+                    }
+                });
+
+            doubleVal.forEach(Val => {
+                if(!isFloat(Val) && !!Val) { 
+                    validator = false;
+                    unvalidValue.push('  ['+Val+']  ');
+                }
+            });
+
+            if(validator){
+
+                //***************
+                //ENREGISTREMENT D'UN NOUVEAU PACK
+                var data = new FormData();
+                $("form#addPackForm :input[type=text], form#addPackForm select").each(function( index, value ){
+                    data.append(value.name, value.value.replace(",", "."));
+                });
+                data.append('order_id', "{{ $order->id }}");
+
+                $.ajaxSetup({
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+                });
+
+                $.ajax({
+                    type: 'post',
+                    url: "{{ url('/admin/packs/store') }}",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success:function(response){
+
+                        if($.isEmptyObject(response.error)){
+
+                            $('#packModal').modal('toggle'); // Close document modal
+                            getPacks("{{ $order->id}}") // Reload Ajax call to get new packs displayed
+
+                        }else{
+
+                            alert(response.error);
+
+                        }
+
+                    }
+                });
+
+            } else {
+                $('#packAlert').removeClass('hide');
+                $("#packAlert").html("The following values are not valid: " + unvalidValue);
+            }
+
+            
+
+        }
 
         function getDocuments(order_id){
 

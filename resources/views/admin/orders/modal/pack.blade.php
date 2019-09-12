@@ -1,6 +1,7 @@
 <div class="modal fade bs-example-modal-lg" id="packModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            <form id="addPackForm">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                 </button>
@@ -11,7 +12,6 @@
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
                         <p><small>* indicates required field</small></p>
-                        {!! Form::hidden('index', null, ['id'=>'transshipment_index']) !!}
                         <div class="form-group">
                             {!! Form::label('type', 'Type of pack*', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                             
@@ -140,6 +140,7 @@
                     </div>
                 </div>
             </div>
+            </form>
         </div>
                 
     </div>

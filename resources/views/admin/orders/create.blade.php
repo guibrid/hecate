@@ -350,7 +350,7 @@
                     $('#type, #packNumber, #inner_packs, #length, #width, #height, #weight, #volume, #description').val(''); //Reset all the packs input in modal
                 
                 } else{
-
+                    console.log(unvalidValue);
                     $('#packAlert').removeClass('hide');
                     $("#packAlert").html("The following values are not valid: " + unvalidValue);
 

@@ -10,6 +10,9 @@
             <th>Lenght</th>
             <th>Width</th>
             <th>Height</th>
+            @if (auth()->user()->authorizeDisplay(['editor','manager','director','admin']))
+              <th>Action</th>
+            @endif
           </tr>
         </thead>
         <tbody>
