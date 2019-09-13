@@ -295,7 +295,7 @@
 
                 var newPack = packs[packs.length - 1] // Get the last element of Packs array
                 var newPackKey = packs.length - 1
-                $('#packsTable-responsive tbody').append('<tr id="pack_'+newPackKey+'"><td>'+ newPack.number+'</td><td>'+newPack.type+'</td><td>'+newPack.inner_packs+'</td><td>'+newPack.description+'</td><td>'+newPack.weight+'</td><td>'+ newPack.volume+'</td><td>'+newPack.length+'</td><td>'+newPack.width+'</td><td>'+newPack.height+'</td></tr>');
+                $('#packsTable-responsive tbody').append('<tr id="pack_'+newPackKey+'"><td>'+newPack.type+'</td><td>'+ newPack.number+'</td><td>'+newPack.inner_packs+'</td><td>'+newPack.description+'</td><td>'+newPack.weight+'</td><td>'+ newPack.volume+'</td><td>'+newPack.length+'</td><td>'+newPack.width+'</td><td>'+newPack.height+'</td></tr>');
             
             }
             
@@ -319,7 +319,7 @@
 
             $("#registerPack").on("click", function(e){
                 e.preventDefault();
-
+                let notEmpty = [$('#packNumber').val()]
                 let intVal = [$('#packNumber').val(), $('#inner_packs').val()]
                 let doubleVal = [$('#length').val(), $('#width').val(),$('#height').val(),$('#weight').val(),$('#volume').val()]
                 let validator = true;
@@ -337,6 +337,13 @@
                         validator = false;
                         unvalidValue.push('  ['+Val+']  ');
                     }
+                });
+
+                notEmpty.forEach(Val => {
+                    if (Val == ''){
+			            validator = false;
+                        unvalidValue.push('One of the requiered field is empty'); 
+		            }
                 });
 
                 if(validator){

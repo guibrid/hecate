@@ -31,7 +31,10 @@ class PackController extends Controller
     {
         //TODO Ajouter la verification du user, si il appartient bien au customer associé à cette order
         $packs = Pack::where('order_id', $request->order_id)->get();
-        return view('orders/inc/packs')->with(['packs'=> $packs]);
+        $sum   = Pack::selectRaw('SUM(volume) AS volume, SUM(weight) AS weight, SUM(number) AS packs')
+                            ->where('order_id', $request->order_id)->first();
+
+        return view('orders/inc/packs')->with(['packs'=> $packs, 'sum'=>$sum ]);
     }
 
     /**

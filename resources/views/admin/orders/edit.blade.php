@@ -331,7 +331,7 @@
         }
 
         function storePack(order_id){
-
+            let notEmpty = [$('#packNumber').val()]
             let intVal = [$('#packNumber').val(), $('#inner_packs').val()]
             let doubleVal = [$('#length').val(), $('#width').val(),$('#height').val(),$('#weight').val(),$('#volume').val()]
             let validator = true;
@@ -349,6 +349,13 @@
                     validator = false;
                     unvalidValue.push('  ['+Val+']  ');
                 }
+            });
+
+            notEmpty.forEach(Val => {
+                    if (Val == ''){
+			            validator = false;
+                        unvalidValue.push('One of the requiered field is empty'); 
+		            }
             });
 
             if(validator){

@@ -2,7 +2,15 @@
 
 return [
     'form' => [
-        
+
+        'packTypes' => [
+            'PKG' => 'Package',
+            'PLT' => 'Pallet',
+            'BOX' => 'Box',
+            'BAG' => 'Bag',
+            'CAS' => 'Case',
+            'CTN' => 'Carton',
+        ],
         
         'shipmentModes' => [
             'lcl' => 'LCL',

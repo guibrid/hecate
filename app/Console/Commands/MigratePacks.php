@@ -45,7 +45,7 @@ class MigratePacks extends Command
 
             if($order->weight || $order->volume || $order->package_number){
                 $pack = new \App\Pack;
-                $pack->type = "ptl";
+                $pack->type = "PKG";
                 if ($order->package_number) { $pack->number = $order->package_number;  } else { $pack->number = 1; }
                 $pack->weight = $order->weight;
                 $pack->volume = $order->volume;

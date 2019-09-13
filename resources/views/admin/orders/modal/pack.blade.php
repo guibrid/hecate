@@ -16,7 +16,7 @@
                             {!! Form::label('type', 'Type of pack*', ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                             
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                {!! Form::select('type', ['plt'=> 'Palette','box'=>'Box'], null, ['id'=>'type', 'class'=>'form-control col-md-7 col-xs-12', 'placeholder' => 'Ex: Palette, Box,...', 'required' => 'required']) !!}
+                                {!! Form::select('type', config('variables.form.packTypes'), ['PKG'], ['id'=>'type', 'class'=>'form-control col-md-7 col-xs-12', 'required' => 'required']) !!}
                             </div>
                         </div>
                     </div>
