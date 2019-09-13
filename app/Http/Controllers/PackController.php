@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pack;
+use App\Order;
 
 class PackController extends Controller
 {
@@ -17,6 +18,17 @@ class PackController extends Controller
 
         $pack = Pack::find($id);
         $pack->delete();
+
+        //update Orders Weight/Volume/package sum
+        $sum   = Pack::selectRaw('SUM(volume) AS volume, SUM(weight) AS weight, SUM(number) AS packs')
+        ->where('order_id', $pack->order_id)->first();
+
+        $order = Order::find($pack->order_id);
+        $order->package_number = $sum->packs;
+        $order->weight = $sum->weight;
+        $order->volume = $sum->volume;
+        $order->save();
+
         return back()->with('success', 'Pack deleted');
         
     }
@@ -58,6 +70,16 @@ class PackController extends Controller
         $pack->description = $request->description;
         $pack->order_id = $request->order_id;
         $pack->save();
+
+        //update Orders Weight/Volume/package sum
+        $sum   = Pack::selectRaw('SUM(volume) AS volume, SUM(weight) AS weight, SUM(number) AS packs')
+                        ->where('order_id', $request->order_id)->first();
+
+        $order = Order::find($request->order_id);
+        $order->package_number = $sum->packs;
+        $order->weight = $sum->weight;
+        $order->volume = $sum->volume;
+        $order->save();
 
         return response()->json(['success'=>'Your pack are saved']);
 
