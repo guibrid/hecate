@@ -36,6 +36,12 @@ class Order extends Model
         parent::boot();
 
         static::deleting(function($order) {
+
+            //remove related packs
+            foreach($order->packs as $pack){
+                $pack->delete();
+            }
+
             //remove related documents file
             foreach($order->documents as $document){
                 $document->delete();
@@ -43,6 +49,7 @@ class Order extends Model
             // Remove the document order folder
             Storage::disk('local')->deleteDirectory('documents/'.$order->customer_id.'/'.$order->id);
             return true;
+            
         });
     }
 
