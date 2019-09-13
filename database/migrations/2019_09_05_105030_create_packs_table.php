@@ -14,6 +14,7 @@ class CreatePacksTable extends Migration
     public function up()
     {
         Schema::create('packs', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->bigIncrements('id');
             $table->string('type', 50);
             $table->integer('number');
