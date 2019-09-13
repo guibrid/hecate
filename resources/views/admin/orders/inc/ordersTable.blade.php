@@ -12,6 +12,9 @@
             <th>Arrival</th>
             <th>Shipment Mode</th>
             <th>Consignee</th>
+            <th># Packages</th>
+            <th>Weight</th>
+            <th>Volume</th>
             <th>Value</th>
             <th>Action</th>
           </tr>
@@ -35,6 +38,9 @@
               @endif
               <td>{{strtoupper($order->load)}}</td>
               <td>{{$order->recipient}}</td>
+              <td>@if ($order->package_number) {{$order->package_number}} @endif</td>
+              <td>@if ($order->weight) {{$order->weight}} kg @endif</td>
+              <td>@if ($order->volume) {{$order->volume}} m3 @endif</td>
               <td>{{$order->value}}</td>
               <td>
                 {{ Form::open(['method'=>'DELETE', 'route'=>['order.delete', $order->id]]) }}
