@@ -14,7 +14,6 @@ class CreatePacksTable extends Migration
     public function up()
     {
         Schema::create('packs', function (Blueprint $table) {
-            $table->engine = "InnoDB";
             $table->bigIncrements('id');
             $table->string('type', 50);
             $table->integer('number');
@@ -25,7 +24,7 @@ class CreatePacksTable extends Migration
             $table->double('weight', 10, 2)->nullable();
             $table->double('volume', 10, 4)->nullable();
             $table->string('description', 240)->nullable();
-            $table->bigInteger('order_id')->unsigned()->nullable();
+            $table->unsignedBigInteger()('order_id');
             $table->timestamps();
         });
 
