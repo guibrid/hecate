@@ -206,6 +206,16 @@ class OrderController extends Controller
         }
         $order->save();
 
+        //update Orders Weight/Volume/package sum
+        $sum = Pack::selectRaw('SUM(volume) AS volume, SUM(weight) AS weight, SUM(number) AS packs')
+        ->where('order_id', $order->id)->first();
+
+        $order = Order::find($order->id);
+        $order->package_number = $sum->packs;
+        $order->weight = $sum->weight;
+        $order->volume = $sum->volume;
+        $order->save();
+
         // Send Notification
         if($request->input('notification')){
             // Get all updated order details for notification
