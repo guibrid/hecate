@@ -103,15 +103,28 @@ class OrderController extends Controller
         // Loop Packs if exist
         if($packs){
             foreach($packs as $key => $packsInputs){
+
                 $pack = new Pack;
                 $pack->type = $packsInputs['type'];
                 $pack->number  = $packsInputs['number'];
-                $pack->inner_packs = $packsInputs['inner_packs'];
-                $pack->length = $packsInputs['length'];
-                $pack->width = $packsInputs['width'];
-                $pack->height = $packsInputs['height'];
-                $pack->weight = $packsInputs['weight'];
-                $pack->volume = $packsInputs['volume'];
+                if (!empty($packsInputs['inner_packs'])) { 
+                    $pack->inner_packs = $packsInputs['inner_packs'];
+                }
+                if (!empty($packsInputs['length'])) { 
+                    $pack->length = $packsInputs['length'];
+                }
+                if (!empty($packsInputs['width'])) { 
+                    $pack->width = $packsInputs['width'];
+                }
+                if (!empty($packsInputs['height'])) { 
+                    $pack->height = $packsInputs['height'];
+                }
+                if (!empty($packsInputs['weight'])) { 
+                    $pack->weight = $packsInputs['weight'];
+                }
+                if (!empty($packsInputs['volume'])) { 
+                    $pack->volume = $packsInputs['volume'];
+                }
                 $pack->description = $packsInputs['description'];
                 $pack->order_id = $order->id;
                 $pack->save();
