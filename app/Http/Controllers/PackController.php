@@ -57,8 +57,13 @@ class PackController extends Controller
      */
     public function store(Request $request)
     {
+        // Check if save or update
+        if($request->id){
+            $pack = Pack::find($request->id);
+        } else {
+            $pack = new Pack;
+        }
 
-        $pack = new Pack;
         $pack->type = $request->type;
         $pack->number = $request->packNumber;
         $pack->inner_packs = $request->inner_packs;
@@ -84,4 +89,5 @@ class PackController extends Controller
         return response()->json(['success'=>'Your pack are saved']);
 
     }
+
 }

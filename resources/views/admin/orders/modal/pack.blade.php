@@ -8,7 +8,7 @@
                 <h4 class="modal-title" id="myModalLabel">Pack</h4>
             </div>
             <div class="modal-body form-horizontal form-label-left">
-
+                {!! Form::hidden('id', null, ['id'=>'pack_id']) !!}
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
                         <p><small>* indicates required field</small></p>
@@ -136,7 +136,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="registerPack">Add pack</button>
+                        <button type="button" class="btn btn-primary" id="registerPack">Save pack</button>
                     </div>
                 </div>
             </div>

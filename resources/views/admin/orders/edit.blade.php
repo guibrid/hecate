@@ -150,7 +150,7 @@
                                 <div class="x_content">
                                     @include('admin.orders.inc.packsTable')
                                     <div id="showPacks"></div>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#packModal"><i class="fa fa-cubes"></i> Add pack</button>
+                                    <button id="addPackButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#packModal"><i class="fa fa-cubes"></i> Add pack</button>
                                 </div>
                             </div>
                         </div>
@@ -289,10 +289,15 @@
                 ordering:  false,
                 info:false
             });
+            
+            $("#addPackButton").click(function(e){
+                $('form#addPackForm')[0].reset(); // reset all field before populate
+                $('#pack_id').val(''); // reset id pack
+            });
 
             $("#registerPack").click(function(e){ 
                 e.preventDefault()
-                storePack("{{ $order->id}}")
+                storePack("{{ $order->id}}") // Save pack
             });
 
         });
@@ -363,7 +368,7 @@
                 //***************
                 //ENREGISTREMENT D'UN NOUVEAU PACK
                 var data = new FormData();
-                $("form#addPackForm :input[type=text], form#addPackForm select").each(function( index, value ){
+                $("form#addPackForm :input[type=text], form#addPackForm select, form#addPackForm :input[type=hidden]").each(function( index, value ){
                     data.append(value.name, value.value.replace(",", "."));
                 });
                 data.append('order_id', "{{ $order->id }}");
@@ -379,13 +384,13 @@
                     processData: false,
                     contentType: false,
                     success:function(response){
-
                         if($.isEmptyObject(response.error)){
-
+                            
                             $('#packModal').modal('toggle'); // Close document modal
+                            $('form#addPackForm')[0].reset(); // reset all fields
                             getPacks("{{ $order->id}}") // Reload Ajax call to get new packs displayed
 
-                        }else{
+                        } else {
 
                             alert(response.error);
 
@@ -399,9 +404,22 @@
                 $("#packAlert").html("The following values are not valid: " + unvalidValue);
             }
 
-            
-
         }
+
+        function editPack(packdetails){
+            $('form#addPackForm')[0].reset(); // reset all field before populate
+            $('#packModal input#pack_id').val(packdetails.id);
+            $('#packModal select#type').val(packdetails.type);
+            $('#packModal input#packNumber').val(packdetails.number);
+            $('#packModal input#weight').val(packdetails.weight);
+            $('#packModal input#volume').val(packdetails.volume);
+            $('#packModal input#inner_packs').val(packdetails.inner_packs);
+            $('#packModal input#description').val(packdetails.description);
+            $('#packModal input#length').val(packdetails.length);
+            $('#packModal input#width').val(packdetails.width);
+            $('#packModal input#height').val(packdetails.height);
+        }
+
 
         function getDocuments(order_id){
 
