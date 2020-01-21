@@ -9,6 +9,7 @@ use App\VerifyUser;
 use App\Role;
 use App\Mail\VerifyMail;
 use App\Http\Requests\StoreUser;
+use Illuminate\Support\Str;
 
 
 class UserController extends Controller
@@ -64,7 +65,7 @@ class UserController extends Controller
         $user = new User;
         $user->name = $request->name_user;
         $user->email = $request->email;
-        $user->password = Hash::make(str_random(8));
+        $user->password = Hash::make(Str::random(8));
         $user->customer_id = $request->customer_id;
         $user->save();
 
