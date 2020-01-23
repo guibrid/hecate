@@ -35,13 +35,13 @@ class OrderArrivalNotice extends Mailable
     public function build()
     {
         
-        /*if (!empty($this->emails['bcc'])){
+        if (!empty($this->emails['bcc'])){
             $this->bcc($this->emails['bcc']);
         }
         
         if(!empty($this->emails['reply'])){
             $this->replyTo($this->emails['reply']);
-        }*/
+        }
 
         return $this->from( $this->emails['from'], env('APP_NAME') )
                     ->subject("Incoming orders")
