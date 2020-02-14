@@ -20,7 +20,7 @@ class CheckDelivery extends Command
      *
      * @var string
      */
-    protected $description = 'Base on the ETA date. Set order status as delivery if ETA date match with date of the day';
+    protected $description = 'Base on the ETA date of the last transshipment. Set order status as delivery if ETA date match with date of the day';
 
     /**
      * Create a new command instance.
@@ -40,11 +40,23 @@ class CheckDelivery extends Command
     public function handle()
     {
 
-        Order::where('status_id', '<', 4)
+        $orders = Order::where('status_id', '<', 4)->with(['shipment.transshipments'])
                 ->whereHas('shipment.transshipments', function ($query) {
                     $query->where('arrival', 'like', Carbon::today()->format('Y-m-d').'%');
-                })
-                ->update(['status_id' => 4, 'delivery' => Carbon::today()->format('Y-m-d')]);
+                })->get();
+
+        foreach ($orders as $order) {
+
+            $transshipments = end($order->shipment->transshipments);
+            $lastTransshipment = end($transshipments);
+            
+            if ( Carbon::parse($lastTransshipment->arrival)->format('Y-m-d') == Carbon::today()->format('Y-m-d') )
+            {
+                $update = Order::where('id', $order->id)
+                            ->update(['status_id' => 4, 'delivery' => Carbon::today()->format('Y-m-d')]);
+            }
+            
+        }
 
     }
 }
