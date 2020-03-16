@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Mail\OrderArrivalNotice;
+use Carbon\Carbon;
 
 class ArrivalNotif extends Command
 {
@@ -57,18 +58,26 @@ class ArrivalNotif extends Command
                         $q->where('arrival', '=', \Carbon\Carbon::now()->addDays(2)->toDateString());
                     })
                     ->get();
-    
-                if ( $orders->count() >=1 ) {
 
-                    $to = array(); // Reset user list
-                    // List user email list
-                    foreach ($customer->users as $user){
-                        $to[] = [ 'email'=> $user->email, 'name' => $user->name];
+                foreach ($orders as $order) {
+
+                    $transshipments = end($order->shipment->transshipments);
+                    $lastTransshipment = end($transshipments);
+                    
+                    if ( Carbon::parse($lastTransshipment->arrival)->format('Y-m-d') == Carbon::today()->addDays(2)->format('Y-m-d') )
+                    {
+
+                        $to = array(); // Reset user list
+                        // List user email list
+                        foreach ($customer->users as $user){
+                            $to[] = [ 'email'=> $user->email, 'name' => $user->name];
+                        }
+
+                        $when = now()->addMinutes($i); // Send email every minutes
+                        \Mail::to($to)->later($when, new OrderArrivalNotice($orders,'j-2'));
+                        $i++;
                     }
-                    $when = now()->addMinutes($i); // Send email every minutes
-                    \Mail::to($to)->later($when, new OrderArrivalNotice($orders,'j-2'));
-                    $i++;
-
+                    
                 }
                
             }
