@@ -95,6 +95,8 @@ class Helpers
             case '4':
                 $size = 2;
                 break;
+            default:
+                $size = 1;
         }
 
         $div = '<div class="col-md-'.$size.' col-xs-12" style="text-align:center">
